@@ -1,0 +1,12 @@
+name: AccountGuard
+version: '${version}'
+main: me.adrigamer2950.accountguard.bukkit.AGBukkit
+api-version: '1.13'
+author: Adrigamer2950
+website: https://github.com/Adrigamer2950/AccountGuard
+description: "Protect your users/staff accounts from being hacked and misused on your server as easily as ever"
+load: STARTUP
+folia-supported: true
+
+depend:
+  - AdriAPI

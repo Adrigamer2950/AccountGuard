@@ -1,0 +1,67 @@
+plugins {
+    id 'java'
+}
+
+repositories {
+    mavenCentral()
+    maven {
+        name = "spigotmc-repo"
+        url = "https://hub.spigotmc.org/nexus/content/repositories/snapshots/"
+    }
+    maven {
+        name = "sonatype"
+        url = "https://oss.sonatype.org/content/groups/public/"
+    }
+    maven {
+        url = uri("https://maven.pkg.github.com/Adrigamer2950/AdriAPI")
+        credentials {
+            username = project.findProperty("github.user")
+            password = project.findProperty("github.key")
+        }
+    }
+}
+
+dependencies {
+    // Annotations
+    implementation 'org.jetbrains:annotations:24.0.0'
+
+    // Spigot API
+    //noinspection VulnerableLibrariesLocal
+    compileOnly "org.spigotmc:spigot-api:1.13-R0.1-SNAPSHOT"
+
+    // AdriAPI
+    compileOnly "me.adrigamer2950:adriapi:1.1.1"
+}
+
+def targetJavaVersion = 17
+java {
+    def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+    sourceCompatibility = javaVersion
+    targetCompatibility = javaVersion
+    if (JavaVersion.current() < javaVersion) {
+        toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+        options.release = targetJavaVersion
+    }
+}
+
+processResources {
+    def props = [version: version]
+    inputs.properties props
+    filteringCharset 'UTF-8'
+    filesMatching('plugin.yml') {
+        expand props
+    }
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+task prepareKotlinBuildScriptModel {}
