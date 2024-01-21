@@ -1,3 +1,5 @@
+//file:noinspection GroovyAccessibility
+//file:noinspection GroovyAssignabilityCheck
 plugins {
     id 'java'
 }
@@ -64,4 +66,4 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
-task prepareKotlinBuildScriptModel {}
+tasks.register('prepareKotlinBuildScriptModel') {}
