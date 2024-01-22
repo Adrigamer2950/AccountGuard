@@ -10,3 +10,10 @@ folia-supported: true
 
 depend:
   - AdriAPI
+
+commands:
+  accountguard:
+    aliases:
+      - ag
+    usage: /ag help
+    description: Main command for AccountGuard plugin
