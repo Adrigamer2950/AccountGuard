@@ -80,7 +80,7 @@ public class AddIPSubCommand extends SubCommand {
     @Override
     public List<String> tabComplete(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] args) {
         if(args.length == 2)
-            return Bukkit.getOnlinePlayers().stream().map(HumanEntity::getName).filter(p -> p.startsWith(args[1])).toList();
+            return Bukkit.getOnlinePlayers().stream().map(HumanEntity::getName).filter(p -> p.toLowerCase().startsWith(args[1])).toList();
 
         return List.of();
     }
