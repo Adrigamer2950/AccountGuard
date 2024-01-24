@@ -47,8 +47,6 @@ public class YAMLDatabase extends Database {
 
     @Override
     public void saveData() {
-        this.yaml.getYaml().setDefaults(YamlConfiguration.loadConfiguration(new InputStreamReader(Objects.requireNonNull(this.plugin.getResource("data.yml")), StandardCharsets.UTF_8)));
-
         this.ips.forEach((uuid, ips) -> {
             if (ips.isEmpty()) this.ips.remove(uuid);
             else this.yaml.getYaml().set(uuid.toString(), ips.stream().toList());
