@@ -38,6 +38,7 @@ public class AddIPSubCommand extends SubCommand {
         try {
             op = Bukkit.getOfflinePlayer(UUID.fromString(args[1]));
         } catch (IllegalArgumentException e) {
+            //noinspection deprecation
             op = Bukkit.getOfflinePlayer(args[1]);
         }
 
