@@ -1,4 +1,4 @@
-package me.adrigamer2950.accountguard.bukkit.permissions;
+package me.adrigamer2950.accountguard.bukkit.util;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
