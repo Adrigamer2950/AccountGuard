@@ -1,7 +1,6 @@
 package me.adrigamer2950.accountguard.bukkit.commands.whitelist;
 
 import me.adrigamer2950.accountguard.bukkit.AGBukkit;
-import me.adrigamer2950.accountguard.bukkit.util.IPUtil;
 import me.adrigamer2950.accountguard.bukkit.util.Permissions;
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.Command;
@@ -11,7 +10,6 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
