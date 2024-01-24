@@ -1,5 +1,6 @@
 package me.adrigamer2950.accountguard.bukkit.commands;
 
+import me.adrigamer2950.accountguard.bukkit.commands.whitelist.AddIPSubCommand;
 import me.adrigamer2950.adriapi.api.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
@@ -12,6 +13,8 @@ public class MainCommand extends Command {
 
     public MainCommand(@NotNull Plugin pl, @NotNull String name, @Nullable List<String> aliases) {
         super(pl, name, aliases);
+
+        addSubCommand(new AddIPSubCommand(this, "add"));
     }
 
     @Override
