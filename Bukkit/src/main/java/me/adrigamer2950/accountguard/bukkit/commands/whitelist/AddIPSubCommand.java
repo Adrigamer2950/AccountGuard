@@ -9,6 +9,7 @@ import me.adrigamer2950.adriapi.api.command.SubCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.HumanEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
@@ -77,7 +78,10 @@ public class AddIPSubCommand extends SubCommand {
     }
 
     @Override
-    public List<String> tabComplete(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] strings) {
-        return null;
+    public List<String> tabComplete(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] args) {
+        if(args.length == 2)
+            return Bukkit.getOnlinePlayers().stream().map(HumanEntity::getName).filter(p -> p.startsWith(args[1])).toList();
+
+        return List.of();
     }
 }
