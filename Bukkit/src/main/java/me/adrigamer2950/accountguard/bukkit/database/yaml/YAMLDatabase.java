@@ -9,10 +9,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 
 public class YAMLDatabase extends Database {
 
@@ -66,11 +63,10 @@ public class YAMLDatabase extends Database {
 
     @Override
     public void addIP(UUID uuid, String ip) {
-        Set<String> ips = this.ips.get(uuid);
+        Set<String> ips = this.getIPs(uuid);
 
-        if (ips == null) return;
-
-        if (ips.contains(ip)) return;
+        if (ips.contains(ip))
+            return;
 
         ips.add(ip);
 
@@ -79,12 +75,34 @@ public class YAMLDatabase extends Database {
 
     @Override
     public void removeIP(UUID uuid, String ip) {
-        Set<String> ips = this.ips.get(uuid);
+        Set<String> ips = this.getIPs(uuid);
 
-        if (ips == null) return;
+        if (!ips.contains(ip))
+            return;
 
         ips.remove(ip);
 
         this.ips.put(uuid, ips);
+    }
+
+    @Override
+    public boolean hasIP(UUID uuid, String ip) {
+        if(this.ips == null) return false;
+
+        if(this.ips.get(uuid) == null) return false;
+
+        return this.ips.get(uuid).contains(ip);
+    }
+
+    @Override
+    public Set<String> getIPs(UUID uuid) {
+        if(this.ips == null)
+            return new HashSet<>();
+
+        if(this.ips.get(uuid) == null)
+            return new HashSet<>();
+
+
+        return this.ips.get(uuid);
     }
 }

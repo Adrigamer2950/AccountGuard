@@ -48,4 +48,8 @@ public abstract class Database {
     public abstract void addIP(UUID uuid, String ip);
 
     public abstract void removeIP(UUID uuid, String ip);
+
+    public abstract boolean hasIP(UUID uuid, String ip);
+
+    public abstract Set<String> getIPs(UUID uuid);
 }
