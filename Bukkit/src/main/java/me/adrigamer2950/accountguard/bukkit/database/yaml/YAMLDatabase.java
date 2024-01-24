@@ -4,11 +4,8 @@ import me.adrigamer2950.accountguard.bukkit.AGBukkit;
 import me.adrigamer2950.accountguard.bukkit.database.Database;
 import me.adrigamer2950.accountguard.bukkit.database.DatabaseType;
 import me.adrigamer2950.adriapi.api.config.yaml.YamlConfig;
-import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class YAMLDatabase extends Database {
