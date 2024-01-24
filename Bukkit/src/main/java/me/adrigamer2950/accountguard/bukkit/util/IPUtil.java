@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 public class IPUtil {
 
     public static boolean isValid(String ip) {
+        //noinspection RegExpSingleCharAlternation
         String zeroTo255 = "(\\d{1,2}|(0|1)\\" + "d{2}|2[0-4]\\d|25[0-5])";
 
         String regex = zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255 + "\\." + zeroTo255;
