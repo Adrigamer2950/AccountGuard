@@ -2,6 +2,7 @@ package me.adrigamer2950.accountguard.bukkit.commands;
 
 import me.adrigamer2950.accountguard.bukkit.commands.whitelist.AddIPSubCommand;
 import me.adrigamer2950.accountguard.bukkit.commands.whitelist.ListIPsSubCommand;
+import me.adrigamer2950.accountguard.bukkit.commands.whitelist.RemoveIPSubCommand;
 import me.adrigamer2950.adriapi.api.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
@@ -16,6 +17,7 @@ public class MainCommand extends Command {
         super(pl, name, aliases);
 
         addSubCommand(new AddIPSubCommand(this, "add"));
+        addSubCommand(new RemoveIPSubCommand(this, "remove"));
         addSubCommand(new ListIPsSubCommand(this, "list"));
     }
 
