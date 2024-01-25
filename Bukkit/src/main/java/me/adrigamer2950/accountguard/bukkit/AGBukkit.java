@@ -4,6 +4,7 @@ import me.adrigamer2950.accountguard.bukkit.commands.MainCommand;
 import me.adrigamer2950.accountguard.bukkit.config.Config;
 import me.adrigamer2950.accountguard.bukkit.database.Database;
 import me.adrigamer2950.accountguard.bukkit.database.DatabaseType;
+import me.adrigamer2950.accountguard.bukkit.listeners.PlayerListener;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.config.manager.ConfigManager;
 import me.adrigamer2950.adriapi.api.config.yaml.YamlConfig;
@@ -38,6 +39,8 @@ public final class AGBukkit extends JavaPlugin {
 
         this.commandManager = new CommandManager(this);
         this.commandManager.registerCommand(new MainCommand(this, "accountguard", List.of("ag")));
+
+        this.getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
 
         LOGGER.log("&aEnabled");
     }
