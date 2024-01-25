@@ -18,7 +18,7 @@ import org.slf4j.Logger;
 public class AGVelocity {
 
     @Inject
-    private Logger logger;
+    private final Logger logger;
     private static ProxyServer proxy;
     public static ProxyServer getProxy() {
         return proxy;
