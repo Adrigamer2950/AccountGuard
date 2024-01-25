@@ -13,7 +13,7 @@ public final class Config {
         this.Database = new Database(yaml);
     }
 
-    private static final class Database {
+    public static final class Database {
 
         public final String DRIVER;
 
