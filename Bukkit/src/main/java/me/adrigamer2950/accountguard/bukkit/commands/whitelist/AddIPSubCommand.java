@@ -66,13 +66,6 @@ public class AddIPSubCommand extends SubCommand {
 
         ((AGBukkit) getPlugin()).database.addIP(op.getUniqueId(), ip);
 
-        // DEBUG
-        ((AGBukkit) getPlugin()).LOGGER.log(String.format("DEBUG: %s (%s) IPs: ", op.getName(), op.getUniqueId().toString()) +
-                Arrays.toString(
-                        ((AGBukkit) getPlugin()).database.getIPs(op.getUniqueId()).toArray()
-                )
-        );
-
         commandSender.sendMessage(Colors.translateColors("&aIP added successfully"));
 
         return true;
