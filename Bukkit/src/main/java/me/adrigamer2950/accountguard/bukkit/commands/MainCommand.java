@@ -1,8 +1,11 @@
 package me.adrigamer2950.accountguard.bukkit.commands;
 
+import me.adrigamer2950.accountguard.bukkit.AGBukkit;
 import me.adrigamer2950.accountguard.bukkit.commands.whitelist.AddIPSubCommand;
 import me.adrigamer2950.accountguard.bukkit.commands.whitelist.ListIPsSubCommand;
 import me.adrigamer2950.accountguard.bukkit.commands.whitelist.RemoveIPSubCommand;
+import me.adrigamer2950.accountguard.bukkit.util.Permissions;
+import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
@@ -26,6 +29,11 @@ public class MainCommand extends Command {
 
     @Override
     public boolean execute(CommandSender commandSender, String s, String[] strings) {
+        if(!Permissions.hasPermission(commandSender, Permissions.COMMAND)) {
+            commandSender.sendMessage(Colors.translateColors(((AGBukkit) getPlugin()).messages.NO_PERMISSION));
+            return true;
+        }
+
         return parseSubCommands(commandSender, s, strings);
     }
 
