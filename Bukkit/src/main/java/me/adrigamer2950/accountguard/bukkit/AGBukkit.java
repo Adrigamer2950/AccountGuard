@@ -12,6 +12,7 @@ import me.adrigamer2950.adriapi.api.config.yaml.YamlConfig;
 import me.adrigamer2950.adriapi.api.logger.APILogger;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
 import java.util.List;
 
 public final class AGBukkit extends JavaPlugin {
@@ -30,7 +31,7 @@ public final class AGBukkit extends JavaPlugin {
     @Override
     public void onEnable() {
         this.configFile = new YamlConfig(this.getDataFolder().getAbsolutePath(), "config", this, false, true);
-        this.messagesFile = new YamlConfig(this.getDataFolder().getAbsolutePath(), "messages", this, true, true);
+        this.messagesFile = new YamlConfig(this.getDataFolder().getAbsolutePath(), "messages", this, false, true);
 
         this.configManager = new ConfigManager(this);
 
@@ -60,8 +61,6 @@ public final class AGBukkit extends JavaPlugin {
         this.config = null;
         this.messages = null;
 
-        this.configManager.saveConfigFiles();
-
         this.configManager = null;
         this.configFile = null;
         this.messagesFile = null;
@@ -70,5 +69,25 @@ public final class AGBukkit extends JavaPlugin {
         this.database = null;
 
         LOGGER.log("&cDisabled");
+    }
+
+    public void reloadConfig() {
+        try {
+            this.configFile.loadConfig();
+
+            this.config = new Config(this.configFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void reloadMessages() {
+        try {
+            this.messagesFile.loadConfig();
+
+            this.messages = new Messages(this.messagesFile);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

@@ -19,6 +19,7 @@ public class MainCommand extends Command {
         addSubCommand(new AddIPSubCommand(this, "add"));
         addSubCommand(new RemoveIPSubCommand(this, "remove"));
         addSubCommand(new ListIPsSubCommand(this, "list"));
+        addSubCommand(new ReloadSubCommand(this, "reload"));
 
         setHelpSubCommand(new HelpSubCommand(this, "help"));
     }

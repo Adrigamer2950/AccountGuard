@@ -22,6 +22,7 @@ public class HelpSubCommand extends SubCommand {
                 "&7> &e/"+ s +" add <player> <ip> &aAdds an ip to a player's whitelist",
                 "&7> &e/"+ s +" remove <player> <ip> &aRemoves an ip from a player's whitelist",
                 "&7> &e/"+ s +" list <player> &aShows current IPs listed for a player",
+                "&7> &e/"+ s +" reload &aReloads configurations and messages",
                 "&a&m----------------------------------------------"
         );
 
