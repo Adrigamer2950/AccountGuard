@@ -15,5 +15,5 @@ commands:
   accountguard:
     aliases:
       - ag
-    usage: /ag help
+    usage: "§c/ag help"
     description: Main command for AccountGuard plugin
