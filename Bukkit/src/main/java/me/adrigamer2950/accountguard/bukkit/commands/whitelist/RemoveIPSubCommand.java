@@ -25,13 +25,15 @@ public class RemoveIPSubCommand extends SubCommand {
     @SuppressWarnings("DuplicatedCode")
     @Override
     public boolean execute(CommandSender commandSender, String s, String[] args) {
+        AGBukkit plugin = ((AGBukkit) getPlugin());
+
         if(!Permissions.hasPermission(commandSender, Permissions.REMOVE_IPS)) {
-            commandSender.sendMessage(Colors.translateColors("&cYou don't have permissions to do that"));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cYou don't have permissions to do that"));
             return true;
         }
 
         if(args.length < 2) {
-            commandSender.sendMessage(Colors.translateColors("&cYou have to specify a player"));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cYou have to specify a player"));
             return true;
         }
 
@@ -44,30 +46,30 @@ public class RemoveIPSubCommand extends SubCommand {
         }
 
         if(!op.hasPlayedBefore()) {
-            commandSender.sendMessage(Colors.translateColors("&cThat player doesn't exist"));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cThat player doesn't exist"));
             return true;
         }
 
         if(args.length < 3) {
-            commandSender.sendMessage(Colors.translateColors("&cYou need to specify an IP"));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cYou need to specify an IP"));
             return true;
         }
 
         String ip = args[2];
 
         if(!IPUtil.isValid(ip)) {
-            commandSender.sendMessage(Colors.translateColors("&cNot valid IP"));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cNot valid IP"));
             return true;
         }
 
         if(!((AGBukkit) getPlugin()).database.hasIP(op.getUniqueId(), ip)) {
-            commandSender.sendMessage(Colors.translateColors("&cThat IP isn't listed"));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cThat IP isn't listed"));
             return true;
         }
 
         ((AGBukkit) getPlugin()).database.removeIP(op.getUniqueId(), ip);
 
-        commandSender.sendMessage(Colors.translateColors("&cIP removed successfully"));
+        commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cIP removed successfully"));
 
         return true;
     }

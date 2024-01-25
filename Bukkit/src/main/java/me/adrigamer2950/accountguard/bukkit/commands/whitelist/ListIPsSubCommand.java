@@ -22,13 +22,15 @@ public class ListIPsSubCommand extends SubCommand {
 
     @Override
     public boolean execute(CommandSender commandSender, String s, String[] args) {
+        AGBukkit plugin = ((AGBukkit) getPlugin());
+
         if(!Permissions.hasPermission(commandSender, Permissions.LIST_IPS)) {
-            commandSender.sendMessage(Colors.translateColors("&cYou don't have permissions to do that"));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cYou don't have permissions to do that"));
             return true;
         }
 
         if(args.length < 2) {
-            commandSender.sendMessage(Colors.translateColors("&cYou have to specify a player"));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cYou have to specify a player"));
             return true;
         }
 
@@ -41,11 +43,11 @@ public class ListIPsSubCommand extends SubCommand {
         }
 
         if(!op.hasPlayedBefore()) {
-            commandSender.sendMessage(Colors.translateColors("&cThat player doesn't exist"));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cThat player doesn't exist"));
             return true;
         }
 
-        commandSender.sendMessage(Colors.translateColors(String.format("&6%s &aIPs:", op.getName())));
+        commandSender.sendMessage(Colors.translateColors(String.format(plugin.config.PREFIX + "&6%s &aIPs:", op.getName())));
         for(String ip : ((AGBukkit) getPlugin()).database.getIPs(op.getUniqueId())) {
             commandSender.sendMessage(
                     Colors.translateColors(

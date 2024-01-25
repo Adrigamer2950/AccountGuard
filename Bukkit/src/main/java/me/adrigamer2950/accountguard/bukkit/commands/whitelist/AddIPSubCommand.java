@@ -23,6 +23,8 @@ public class AddIPSubCommand extends SubCommand {
 
     @Override
     public boolean execute(CommandSender commandSender, String s, String[] args) {
+        AGBukkit plugin = ((AGBukkit) getPlugin());
+
         if(!Permissions.hasPermission(commandSender, Permissions.ADD_IPS)) {
             commandSender.sendMessage(Colors.translateColors("&cYou don't have permissions to do that"));
             return true;
@@ -42,30 +44,30 @@ public class AddIPSubCommand extends SubCommand {
         }
 
         if(!op.hasPlayedBefore()) {
-            commandSender.sendMessage(Colors.translateColors("&cThat player doesn't exist"));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cThat player doesn't exist"));
             return true;
         }
 
         if(args.length < 3) {
-            commandSender.sendMessage(Colors.translateColors("&cYou need to specify an IP"));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cYou need to specify an IP"));
             return true;
         }
 
         String ip = args[2];
 
         if(!IPUtil.isValid(ip)) {
-            commandSender.sendMessage(Colors.translateColors("&cNot valid IP"));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cNot valid IP"));
             return true;
         }
 
-        if(((AGBukkit) getPlugin()).database.hasIP(op.getUniqueId(), ip)) {
-            commandSender.sendMessage(Colors.translateColors("&cThat IP is already listed"));
+        if(plugin.database.hasIP(op.getUniqueId(), ip)) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cThat IP is already listed"));
             return true;
         }
 
-        ((AGBukkit) getPlugin()).database.addIP(op.getUniqueId(), ip);
+        plugin.database.addIP(op.getUniqueId(), ip);
 
-        commandSender.sendMessage(Colors.translateColors("&aIP added successfully"));
+        commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&aIP added successfully"));
 
         return true;
     }

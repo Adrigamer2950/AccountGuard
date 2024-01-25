@@ -4,9 +4,12 @@ import me.adrigamer2950.adriapi.api.config.yaml.YamlConfig;
 
 public final class Config {
 
+    public final String PREFIX;
     public final Database Database;
 
     public Config(YamlConfig yaml) {
+        this.PREFIX = yaml.getYaml().getString("prefix");
+
         this.Database = new Database(yaml);
     }
 
