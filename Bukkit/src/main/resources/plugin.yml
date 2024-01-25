@@ -17,3 +17,24 @@ commands:
       - ag
     usage: "§c/ag help"
     description: Main command for AccountGuard plugin
+
+permissions:
+  accountguard.*:
+    default: false
+    description: "Gives all permissions"
+    children:
+      accountguard.admin.reload:
+        default: false
+        description: "Gives permission to use '/ag reload' command"
+      accountguard.admin.add:
+        default: false
+        description: "Gives permission to use '/ag add' command"
+      accountguard.admin.remove:
+        default: false
+        description: "Gives permission to use '/ag remove' command"
+      accountguard.admin.list:
+        default: false
+        description: "Gives permission to use '/ag list' command"
+      accountguard.command:
+        default: true
+        description: "Gives permission to use '/ag' command"
