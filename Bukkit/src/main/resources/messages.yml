@@ -1,5 +1,5 @@
 no-permission: "&cYou don't have permission to do that!"
-kick-reason: "\n%s\n&cYour ip isn't whitelisted for this user!"
+kick-reason: "\n%prefix%\n\n&cYour ip isn't whitelisted for this user!"
 player-not-specified: "&cYou need to specify a player!"
 player-doesnt-exists: "&cThat player doesn't exist!"
 ip-not-specified: "&cYou need to specify an IP!"
