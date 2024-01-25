@@ -22,6 +22,7 @@ public class PlayerListener implements Listener {
         ) {
             e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Colors.translateColors(
                     plugin.messages.KICK_REASON
+                            .replaceAll("%prefix%", plugin.config.PREFIX)
             ));
         }
     }

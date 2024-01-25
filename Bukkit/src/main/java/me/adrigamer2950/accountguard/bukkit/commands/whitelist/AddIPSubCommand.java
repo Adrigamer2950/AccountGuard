@@ -44,30 +44,43 @@ public class AddIPSubCommand extends SubCommand {
         }
 
         if (!op.hasPlayedBefore()) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.PLAYER_DOESNT_EXISTS));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.PLAYER_DOESNT_EXISTS
+                    .replaceAll("%player%", op.getName())
+            ));
             return true;
         }
 
         if (args.length < 3) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_NOT_SPECIFIED));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_NOT_SPECIFIED
+                    .replaceAll("%player%", op.getName())
+            ));
             return true;
         }
 
         String ip = args[2];
 
         if (!IPUtil.isValid(ip)) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.INVALID_IP));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.INVALID_IP
+                    .replaceAll("%player%", op.getName())
+                    .replaceAll("%ip%", ip)
+            ));
             return true;
         }
 
         if (plugin.database.hasIP(op.getUniqueId(), ip)) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_ALREADY_IN_WHITELIST));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_ALREADY_IN_WHITELIST
+                    .replaceAll("%player%", op.getName())
+                    .replaceAll("%ip%", ip)
+            ));
             return true;
         }
 
         plugin.database.addIP(op.getUniqueId(), ip);
 
-        commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_ADDED_TO_WHITELIST));
+        commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_ADDED_TO_WHITELIST
+                .replaceAll("%player%", op.getName())
+                .replaceAll("%ip%", ip)
+        ));
 
         return true;
     }

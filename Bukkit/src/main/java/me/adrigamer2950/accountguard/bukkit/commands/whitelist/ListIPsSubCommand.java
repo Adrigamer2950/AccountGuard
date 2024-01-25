@@ -43,11 +43,15 @@ public class ListIPsSubCommand extends SubCommand {
         }
 
         if (!op.hasPlayedBefore()) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.PLAYER_DOESNT_EXISTS));
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.PLAYER_DOESNT_EXISTS
+                    .replaceAll("%player%", op.getName())
+            ));
             return true;
         }
 
-        commandSender.sendMessage(Colors.translateColors(String.format(plugin.config.PREFIX + plugin.messages.LIST_IPS_MESSAGE, op.getName())));
+        commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.LIST_IPS_MESSAGE
+                .replaceAll("%player%", op.getName())
+        ));
         for (String ip : ((AGBukkit) getPlugin()).database.getIPs(op.getUniqueId())) {
             commandSender.sendMessage(
                     Colors.translateColors(
