@@ -22,18 +22,18 @@ public class RemoveIPSubCommand extends SubCommand {
         super(parent, name);
     }
 
-    @SuppressWarnings("DuplicatedCode")
+    @SuppressWarnings("DuplicatedCode" )
     @Override
     public boolean execute(CommandSender commandSender, String s, String[] args) {
         AGBukkit plugin = ((AGBukkit) getPlugin());
 
-        if(!Permissions.hasPermission(commandSender, Permissions.REMOVE_IPS)) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cYou don't have permissions to do that"));
+        if (!Permissions.hasPermission(commandSender, Permissions.REMOVE_IPS)) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.NO_PERMISSION));
             return true;
         }
 
-        if(args.length < 2) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cYou have to specify a player"));
+        if (args.length < 2) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.PLAYER_NOT_SPECIFIED));
             return true;
         }
 
@@ -45,31 +45,31 @@ public class RemoveIPSubCommand extends SubCommand {
             op = Bukkit.getOfflinePlayer(args[1]);
         }
 
-        if(!op.hasPlayedBefore()) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cThat player doesn't exist"));
+        if (!op.hasPlayedBefore()) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.PLAYER_DOESNT_EXISTS));
             return true;
         }
 
-        if(args.length < 3) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cYou need to specify an IP"));
+        if (args.length < 3) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_NOT_SPECIFIED));
             return true;
         }
 
         String ip = args[2];
 
-        if(!IPUtil.isValid(ip)) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cNot valid IP"));
+        if (!IPUtil.isValid(ip)) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.INVALID_IP));
             return true;
         }
 
-        if(!((AGBukkit) getPlugin()).database.hasIP(op.getUniqueId(), ip)) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cThat IP isn't listed"));
+        if (!((AGBukkit) getPlugin()).database.hasIP(op.getUniqueId(), ip)) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_NOT_IN_WHITELIST));
             return true;
         }
 
         ((AGBukkit) getPlugin()).database.removeIP(op.getUniqueId(), ip);
 
-        commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cIP removed successfully"));
+        commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_REMOVED_FROM_WHITELIST));
 
         return true;
     }
@@ -77,11 +77,11 @@ public class RemoveIPSubCommand extends SubCommand {
 
     @Override
     public List<String> tabComplete(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] args) {
-        if(args.length == 2)
+        if (args.length == 2)
             return Bukkit.getOnlinePlayers().stream().map(HumanEntity::getName).filter(p -> p.toLowerCase().startsWith(args[1])).toList();
 
-        if(commandSender instanceof Player p)
-            if(args.length == 3)
+        if (commandSender instanceof Player p)
+            if (args.length == 3)
                 return ((AGBukkit) getPlugin()).database.getIPs(p.getUniqueId()).stream().toList();
 
         return List.of();

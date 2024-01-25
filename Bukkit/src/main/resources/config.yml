@@ -1,4 +1,4 @@
-prefix: "&7[&dAccount&aGuard&7]"
+prefix: "&dAccount&aGuard &7>> "
 
 database:
   driver: YAML # Can be YAML, H2, MySQL or Redis

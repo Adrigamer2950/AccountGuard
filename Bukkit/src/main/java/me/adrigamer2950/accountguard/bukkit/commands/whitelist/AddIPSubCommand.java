@@ -25,13 +25,13 @@ public class AddIPSubCommand extends SubCommand {
     public boolean execute(CommandSender commandSender, String s, String[] args) {
         AGBukkit plugin = ((AGBukkit) getPlugin());
 
-        if(!Permissions.hasPermission(commandSender, Permissions.ADD_IPS)) {
-            commandSender.sendMessage(Colors.translateColors("&cYou don't have permissions to do that"));
+        if (!Permissions.hasPermission(commandSender, Permissions.ADD_IPS)) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.NO_PERMISSION));
             return true;
         }
 
-        if(args.length < 2) {
-            commandSender.sendMessage(Colors.translateColors("&cYou have to specify a player"));
+        if (args.length < 2) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.PLAYER_NOT_SPECIFIED));
             return true;
         }
 
@@ -43,38 +43,38 @@ public class AddIPSubCommand extends SubCommand {
             op = Bukkit.getOfflinePlayer(args[1]);
         }
 
-        if(!op.hasPlayedBefore()) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cThat player doesn't exist"));
+        if (!op.hasPlayedBefore()) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.PLAYER_DOESNT_EXISTS));
             return true;
         }
 
-        if(args.length < 3) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cYou need to specify an IP"));
+        if (args.length < 3) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_NOT_SPECIFIED));
             return true;
         }
 
         String ip = args[2];
 
-        if(!IPUtil.isValid(ip)) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cNot valid IP"));
+        if (!IPUtil.isValid(ip)) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.INVALID_IP));
             return true;
         }
 
-        if(plugin.database.hasIP(op.getUniqueId(), ip)) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cThat IP is already listed"));
+        if (plugin.database.hasIP(op.getUniqueId(), ip)) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_ALREADY_IN_WHITELIST));
             return true;
         }
 
         plugin.database.addIP(op.getUniqueId(), ip);
 
-        commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&aIP added successfully"));
+        commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_ADDED_TO_WHITELIST));
 
         return true;
     }
 
     @Override
     public List<String> tabComplete(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] args) {
-        if(args.length == 2)
+        if (args.length == 2)
             return Bukkit.getOnlinePlayers().stream().map(HumanEntity::getName).filter(p -> p.toLowerCase().startsWith(args[1])).toList();
 
         return List.of();

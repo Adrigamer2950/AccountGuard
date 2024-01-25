@@ -24,13 +24,13 @@ public class ListIPsSubCommand extends SubCommand {
     public boolean execute(CommandSender commandSender, String s, String[] args) {
         AGBukkit plugin = ((AGBukkit) getPlugin());
 
-        if(!Permissions.hasPermission(commandSender, Permissions.LIST_IPS)) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cYou don't have permissions to do that"));
+        if (!Permissions.hasPermission(commandSender, Permissions.LIST_IPS)) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.NO_PERMISSION));
             return true;
         }
 
-        if(args.length < 2) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cYou have to specify a player"));
+        if (args.length < 2) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.PLAYER_NOT_SPECIFIED));
             return true;
         }
 
@@ -42,13 +42,13 @@ public class ListIPsSubCommand extends SubCommand {
             op = Bukkit.getOfflinePlayer(args[1]);
         }
 
-        if(!op.hasPlayedBefore()) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + "&cThat player doesn't exist"));
+        if (!op.hasPlayedBefore()) {
+            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.PLAYER_DOESNT_EXISTS));
             return true;
         }
 
-        commandSender.sendMessage(Colors.translateColors(String.format(plugin.config.PREFIX + "&6%s &aIPs:", op.getName())));
-        for(String ip : ((AGBukkit) getPlugin()).database.getIPs(op.getUniqueId())) {
+        commandSender.sendMessage(Colors.translateColors(String.format(plugin.config.PREFIX + plugin.messages.LIST_IPS_MESSAGE, op.getName())));
+        for (String ip : ((AGBukkit) getPlugin()).database.getIPs(op.getUniqueId())) {
             commandSender.sendMessage(
                     Colors.translateColors(
                             String.format("&7> &e%s", ip)
@@ -61,7 +61,7 @@ public class ListIPsSubCommand extends SubCommand {
 
     @Override
     public List<String> tabComplete(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] args) {
-        if(args.length == 2)
+        if (args.length == 2)
             return Bukkit.getOnlinePlayers().stream().map(HumanEntity::getName).filter(p -> p.toLowerCase().startsWith(args[1])).toList();
 
         return List.of();

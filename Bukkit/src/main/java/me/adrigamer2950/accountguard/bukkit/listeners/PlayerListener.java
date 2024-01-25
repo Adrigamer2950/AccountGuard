@@ -21,7 +21,7 @@ public class PlayerListener implements Listener {
                         && !this.plugin.database.hasIP(e.getUniqueId(), e.getAddress().getHostName())
         ) {
             e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Colors.translateColors(
-                    "\n\n&dAccount&aGuard\n &cYour ip is not whitelisted for this user!"
+                    plugin.messages.KICK_REASON
             ));
         }
     }
