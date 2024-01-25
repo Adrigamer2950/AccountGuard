@@ -19,6 +19,8 @@ public class MainCommand extends Command {
         addSubCommand(new AddIPSubCommand(this, "add"));
         addSubCommand(new RemoveIPSubCommand(this, "remove"));
         addSubCommand(new ListIPsSubCommand(this, "list"));
+
+        setHelpSubCommand(new HelpSubCommand(this, "help"));
     }
 
     @Override
