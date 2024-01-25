@@ -12,6 +12,7 @@ repositories {
 
 dependencies {
     implementation project(":Bukkit")
+    implementation project(":Velocity")
 }
 
 shadowJar {
