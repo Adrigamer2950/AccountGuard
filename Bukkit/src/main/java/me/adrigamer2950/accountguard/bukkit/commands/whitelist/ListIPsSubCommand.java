@@ -49,7 +49,7 @@ public class ListIPsSubCommand extends SubCommand {
         for(String ip : ((AGBukkit) getPlugin()).database.getIPs(op.getUniqueId())) {
             commandSender.sendMessage(
                     Colors.translateColors(
-                            String.format("&f| &e%s", ip)
+                            String.format("&7> &e%s", ip)
                     )
             );
         }
