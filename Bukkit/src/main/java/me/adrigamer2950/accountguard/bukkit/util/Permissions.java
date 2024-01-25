@@ -12,6 +12,7 @@ public class Permissions {
     public static final String LIST_IPS = "accountguard.admin.list";
     public static final String COMMAND = "accountguard.command";
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted" )
     public static boolean hasPermission(CommandSender sender, String permission) {
         return sender instanceof ConsoleCommandSender
                 || sender.hasPermission(permission)
