@@ -46,6 +46,16 @@ public abstract class Command implements SimpleCommand {
         execute(invocation.source(), invocation.alias(), invocation.arguments());
     }
 
+    public final void executeSubCommands(CommandSource source, String alias, String[] args) {
+        for(String arg : args) {
+            Optional<SubCommand> sc = this.subCommands.stream().filter(cmd -> arg.equalsIgnoreCase(cmd.getName())).findFirst();
+
+            if(sc.isEmpty()) continue;
+
+            sc.get().execute(source, alias, args);
+        }
+    }
+
     public abstract List<String> suggest(CommandSource source, String alias, String[] args);
 
     @Override
