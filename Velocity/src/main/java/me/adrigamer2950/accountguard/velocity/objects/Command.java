@@ -4,7 +4,8 @@ import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import me.adrigamer2950.accountguard.velocity.AGVelocity;
 
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class Command implements SimpleCommand {
 
@@ -48,5 +49,18 @@ public abstract class Command implements SimpleCommand {
     @Override
     public final List<String> suggest(Invocation invocation) {
         return suggest(invocation.source(), invocation.alias(), invocation.arguments());
+    }
+
+    public final List<String> suggestSubCommands(CommandSource source, String alias, String[] args) {
+
+        for(String arg : args) {
+            Optional<SubCommand> sc = this.subCommands.stream().filter(cmd -> arg.equalsIgnoreCase(cmd.getName())).findFirst();
+
+            if(sc.isEmpty()) continue;
+
+            return sc.get().suggest(source, alias, args);
+        }
+
+        return this.subCommands.stream().map(Command::getName).filter(str -> args[0].startsWith(str)).collect(Collectors.toList());
     }
 }
