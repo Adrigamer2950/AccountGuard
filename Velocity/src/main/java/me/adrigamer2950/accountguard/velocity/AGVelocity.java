@@ -5,6 +5,7 @@ import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.event.Subscribe;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.ProxyServer;
+import me.adrigamer2950.accountguard.velocity.commands.MainCommand;
 import org.slf4j.Logger;
 
 @Plugin(
@@ -34,6 +35,8 @@ public class AGVelocity {
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
+        new MainCommand(this, "agv").register(getProxy().getCommandManager());
+
         logger.info("Plugin has been initialised");
     }
 }
