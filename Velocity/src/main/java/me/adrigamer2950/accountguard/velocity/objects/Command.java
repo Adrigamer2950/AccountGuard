@@ -1,5 +1,7 @@
 package me.adrigamer2950.accountguard.velocity.objects;
 
+import com.velocitypowered.api.command.CommandManager;
+import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.command.SimpleCommand;
 import me.adrigamer2950.accountguard.velocity.AGVelocity;
@@ -62,5 +64,13 @@ public abstract class Command implements SimpleCommand {
         }
 
         return this.subCommands.stream().map(Command::getName).filter(str -> args[0].startsWith(str)).collect(Collectors.toList());
+    }
+
+    public final void register(CommandManager commandManager) {
+        CommandMeta meta = commandManager.metaBuilder(this.getName())
+                .plugin(plugin)
+                .build();
+
+        commandManager.register(meta, this);
     }
 }
