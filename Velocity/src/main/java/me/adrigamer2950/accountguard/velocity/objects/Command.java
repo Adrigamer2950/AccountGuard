@@ -10,10 +10,12 @@ public abstract class Command implements SimpleCommand {
 
     private final AGVelocity plugin;
     private final String name;
+    private final Set<SubCommand> subCommands;
 
     public Command(AGVelocity plugin, String name) {
         this.plugin = plugin;
         this.name = name;
+        this.subCommands = new HashSet<>();
     }
 
     public final String getName() {
@@ -22,6 +24,16 @@ public abstract class Command implements SimpleCommand {
 
     public final AGVelocity getPlugin() {
         return this.plugin;
+    }
+
+    public final Set<SubCommand> getSubCommands() {
+        return this.subCommands;
+    }
+
+    public final void addSubCommand(SubCommand subCommand) {
+        Objects.requireNonNull(subCommand);
+
+        this.subCommands.add(subCommand);
     }
 
     public abstract void execute(CommandSource source, String alias, String[] args);
