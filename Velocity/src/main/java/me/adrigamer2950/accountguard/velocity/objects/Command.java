@@ -53,7 +53,15 @@ public abstract class Command implements SimpleCommand {
             if(sc.isEmpty()) continue;
 
             sc.get().execute(source, alias, args);
+
+            return;
         }
+
+        Optional<SubCommand> sc = this.subCommands.stream().filter(cmd -> cmd.getName().equals("help")).findFirst();
+
+        if(sc.isEmpty()) return;
+
+        sc.get().execute(source, alias, args);
     }
 
     public abstract List<String> suggest(CommandSource source, String alias, String[] args);
