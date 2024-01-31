@@ -14,6 +14,9 @@ dependencies {
     implementation project(":bukkit")
     implementation project(":velocity")
     implementation project(":common")
+
+    // Boosted YAML Lib
+    implementation "dev.dejvokep:boosted-yaml:1.3"
 }
 
 shadowJar {
@@ -24,6 +27,7 @@ shadowJar {
 
     dependencies {
         exclude(dependency("org.jetbrains:annotations:24.0.0"))
+        relocate "dev.dejvokep.boostedyaml", "me.adrigamer2950.accountguard.libs"
     }
 }
 
