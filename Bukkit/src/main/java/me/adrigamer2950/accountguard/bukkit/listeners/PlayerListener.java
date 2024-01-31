@@ -17,8 +17,8 @@ public class PlayerListener implements Listener {
     @EventHandler
     public void onPlayerPreLogin(AsyncPlayerPreLoginEvent e) {
         if (
-                !this.plugin.database.getIPs(e.getUniqueId()).isEmpty()
-                        && !this.plugin.database.hasIP(e.getUniqueId(), e.getAddress().getHostName())
+                !this.plugin.getDatabase().getIPs(e.getUniqueId()).isEmpty()
+                        && !this.plugin.getDatabase().hasIP(e.getUniqueId(), e.getAddress().getHostName())
         ) {
             e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Colors.translateColors(
                     plugin.messages.KICK_REASON

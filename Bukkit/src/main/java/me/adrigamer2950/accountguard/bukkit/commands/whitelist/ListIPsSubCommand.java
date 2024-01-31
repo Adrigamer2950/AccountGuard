@@ -52,7 +52,7 @@ public class ListIPsSubCommand extends SubCommand {
         commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.LIST_IPS_MESSAGE
                 .replaceAll("%player%", op.getName())
         ));
-        for (String ip : ((AGBukkit) getPlugin()).database.getIPs(op.getUniqueId())) {
+        for (String ip : ((AGBukkit) getPlugin()).getDatabase().getIPs(op.getUniqueId())) {
             commandSender.sendMessage(
                     Colors.translateColors(
                             String.format("&7> &e%s", ip)

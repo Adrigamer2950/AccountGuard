@@ -69,14 +69,14 @@ public class RemoveIPSubCommand extends SubCommand {
             return true;
         }
 
-        if (!((AGBukkit) getPlugin()).database.hasIP(op.getUniqueId(), ip)) {
             commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_NOT_IN_WHITELIST
+        if (!plugin.getDatabase().hasIP(op.getUniqueId(), ip)) {
                     .replaceAll("%player%", op.getName())
                     .replaceAll("%ip%", ip)));
             return true;
         }
 
-        ((AGBukkit) getPlugin()).database.removeIP(op.getUniqueId(), ip);
+        plugin.getDatabase().removeIP(op.getUniqueId(), ip);
 
         commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_REMOVED_FROM_WHITELIST
                 .replaceAll("%player%", op.getName())
@@ -93,7 +93,7 @@ public class RemoveIPSubCommand extends SubCommand {
 
         if (commandSender instanceof Player p)
             if (args.length == 3)
-                return ((AGBukkit) getPlugin()).database.getIPs(p.getUniqueId()).stream().toList();
+                return ((AGBukkit) getPlugin()).getDatabase().getIPs(p.getUniqueId()).stream().toList();
 
         return List.of();
     }

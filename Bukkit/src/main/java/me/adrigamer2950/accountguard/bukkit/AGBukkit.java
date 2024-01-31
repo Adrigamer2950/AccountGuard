@@ -87,6 +87,11 @@ public final class AGBukkit extends JavaPlugin implements AccountGuard {
     }
 
     @Override
+    public Database getDatabase() {
+        return this.database;
+    }
+
+    @Override
     public void reloadConfig() {
         try {
             this.configFile.loadConfig();

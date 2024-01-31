@@ -75,7 +75,7 @@ public class AddIPSubCommand extends SubCommand {
             return true;
         }
 
-        plugin.database.addIP(op.getUniqueId(), ip);
+        plugin.getDatabase().addIP(op.getUniqueId(), ip);
 
         commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_ADDED_TO_WHITELIST
                 .replaceAll("%player%", op.getName())
