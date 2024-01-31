@@ -1,12 +1,13 @@
 package me.adrigamer2950.accountguard.bukkit;
 
 import me.adrigamer2950.accountguard.bukkit.commands.MainCommand;
-import me.adrigamer2950.accountguard.bukkit.config.Config;
+import me.adrigamer2950.accountguard.bukkit.config.BukkitConfig;
 import me.adrigamer2950.accountguard.bukkit.config.Messages;
 import me.adrigamer2950.accountguard.bukkit.database.yaml.YAMLDatabase;
 import me.adrigamer2950.accountguard.bukkit.listeners.PlayerListener;
 import me.adrigamer2950.accountguard.bukkit.util.Metrics;
 import me.adrigamer2950.accountguard.common.AccountGuard;
+import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.accountguard.common.database.Database;
 import me.adrigamer2950.accountguard.common.database.DatabaseType;
 import me.adrigamer2950.accountguard.common.logger.APILogger;
@@ -29,8 +30,8 @@ public final class AGBukkit extends JavaPlugin implements AccountGuard {
     private YamlConfig configFile;
     private YamlConfig messagesFile;
 
-    public Database database;
-    public Config config;
+    private Database database;
+    private Config config;
     public Messages messages;
 
     @Override
@@ -45,11 +46,11 @@ public final class AGBukkit extends JavaPlugin implements AccountGuard {
 
         this.configManager.createConfigFiles();
 
-        this.config = new Config(this.configFile);
+        this.config = new BukkitConfig(this.configFile);
 
         this.messages = new Messages(this.messagesFile);
 
-        switch (DatabaseType.valueOf(this.config.Database.DRIVER)) {
+        switch (DatabaseType.valueOf(this.config.Database.DRIVER())) {
             case YAML -> this.database = new YAMLDatabase(this, YAML);
             default -> throw new IllegalArgumentException("Wrong database driver at config.yml");
         }
@@ -92,11 +93,16 @@ public final class AGBukkit extends JavaPlugin implements AccountGuard {
     }
 
     @Override
+    public Config getPluginConfig() {
+        return this.config;
+    }
+
+    @Override
     public void reloadConfig() {
         try {
             this.configFile.loadConfig();
 
-            this.config = new Config(this.configFile);
+            this.config = new BukkitConfig(this.configFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

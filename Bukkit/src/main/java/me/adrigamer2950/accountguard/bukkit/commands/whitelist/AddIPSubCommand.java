@@ -26,12 +26,12 @@ public class AddIPSubCommand extends SubCommand {
         AGBukkit plugin = ((AGBukkit) getPlugin());
 
         if (!Permissions.hasPermission(commandSender, Permissions.ADD_IPS)) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.NO_PERMISSION));
+            commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix + plugin.messages.NO_PERMISSION));
             return true;
         }
 
         if (args.length < 2) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.PLAYER_NOT_SPECIFIED));
+            commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix + plugin.messages.PLAYER_NOT_SPECIFIED));
             return true;
         }
 
@@ -44,14 +44,14 @@ public class AddIPSubCommand extends SubCommand {
         }
 
         if (!op.hasPlayedBefore()) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.PLAYER_DOESNT_EXISTS
+            commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix + plugin.messages.PLAYER_DOESNT_EXISTS
                     .replaceAll("%player%", op.getName())
             ));
             return true;
         }
 
         if (args.length < 3) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_NOT_SPECIFIED
+            commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix + plugin.messages.IP_NOT_SPECIFIED
                     .replaceAll("%player%", op.getName())
             ));
             return true;
@@ -60,15 +60,15 @@ public class AddIPSubCommand extends SubCommand {
         String ip = args[2];
 
         if (!IPUtil.isValid(ip)) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.INVALID_IP
+            commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix + plugin.messages.INVALID_IP
                     .replaceAll("%player%", op.getName())
                     .replaceAll("%ip%", ip)
             ));
             return true;
         }
 
-        if (plugin.database.hasIP(op.getUniqueId(), ip)) {
-            commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_ALREADY_IN_WHITELIST
+        if (plugin.getDatabase().hasIP(op.getUniqueId(), ip)) {
+            commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix + plugin.messages.IP_ALREADY_IN_WHITELIST
                     .replaceAll("%player%", op.getName())
                     .replaceAll("%ip%", ip)
             ));
@@ -77,7 +77,7 @@ public class AddIPSubCommand extends SubCommand {
 
         plugin.getDatabase().addIP(op.getUniqueId(), ip);
 
-        commandSender.sendMessage(Colors.translateColors(plugin.config.PREFIX + plugin.messages.IP_ADDED_TO_WHITELIST
+        commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix + plugin.messages.IP_ADDED_TO_WHITELIST
                 .replaceAll("%player%", op.getName())
                 .replaceAll("%ip%", ip)
         ));
