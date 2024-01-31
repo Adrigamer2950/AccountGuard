@@ -5,44 +5,13 @@ import java.util.logging.Logger;
 /**
  * Main Logger class
  */
-public class APILogger {
+public class APILogger extends Logger {
 
     private final String name;
-    private final APILogger parent;
-
-    private final Logger javaLogger;
 
     public APILogger(String name, APILogger parent) {
+        super(parent == null ? name : parent.name + " - " + name, null);
+
         this.name = name;
-        this.parent = parent;
-
-        this.javaLogger = Logger.getGlobal();
-    }
-
-    public void info(String message) {
-        this.javaLogger.info(
-                String.format("[%s] %s",
-                        parent == null ? name : parent.name + " - " + name,
-                        message
-                )
-        );
-    }
-
-    public void warn(String message) {
-        this.javaLogger.warning(
-                String.format("&r[%s&r] %s",
-                        parent == null ? name : parent.name + " - " + name,
-                        message
-                )
-        );
-    }
-
-    public void error(String message) {
-        this.javaLogger.severe(
-                String.format("&r[%s&r] %s",
-                        parent == null ? name : parent.name + " - " + name,
-                        message
-                )
-        );
     }
 }

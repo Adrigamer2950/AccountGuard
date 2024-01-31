@@ -3,6 +3,7 @@ package me.adrigamer2950.accountguard.bukkit;
 import me.adrigamer2950.accountguard.bukkit.commands.MainCommand;
 import me.adrigamer2950.accountguard.bukkit.database.yaml.YAMLDatabase;
 import me.adrigamer2950.accountguard.bukkit.listeners.PlayerListener;
+import me.adrigamer2950.accountguard.bukkit.logger.BukkitLogger;
 import me.adrigamer2950.accountguard.bukkit.util.Metrics;
 import me.adrigamer2950.accountguard.common.AccountGuard;
 import me.adrigamer2950.accountguard.common.config.Config;
@@ -22,7 +23,7 @@ import static me.adrigamer2950.accountguard.common.database.DatabaseType.YAML;
 
 public final class AGBukkit extends JavaPlugin implements AccountGuard {
 
-    public final APILogger LOGGER = new APILogger("&dAccount&aGuard", null);
+    public final APILogger LOGGER = new BukkitLogger("AccountGuard", null);
 
     private CommandManager commandManager;
     private ConfigManager configManager;
