@@ -1,4 +1,5 @@
 rootProject.name = 'AccountGuard'
 
-include 'Bukkit'
-include 'Velocity'
+include 'common'
+include 'bukkit'
+include 'velocity'
