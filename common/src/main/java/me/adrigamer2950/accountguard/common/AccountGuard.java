@@ -10,6 +10,8 @@ public interface AccountGuard {
 
     Database getDatabase();
 
+    Config getPluginConfig();
+
     void reloadConfig();
 
     void reloadMessages();
