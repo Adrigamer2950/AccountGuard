@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.List;
 
 public final class AGBukkit extends JavaPlugin {
+public final class AGBukkit extends JavaPlugin implements AccountGuard {
 
     public final APILogger LOGGER = new APILogger("&dAccount&aGuard", null);
 
@@ -54,7 +55,7 @@ public final class AGBukkit extends JavaPlugin {
 
         new Metrics(this, 20823);
 
-        LOGGER.log("&aEnabled");
+        LOGGER.info("&aEnabled");
     }
 
     @Override
@@ -72,8 +73,15 @@ public final class AGBukkit extends JavaPlugin {
         this.database = null;
 
         LOGGER.log("&cDisabled");
+        LOGGER.info("&cDisabled");
     }
 
+    @Override
+    public APILogger getAPILogger() {
+        return this.LOGGER;
+    }
+
+    @Override
     public void reloadConfig() {
         try {
             this.configFile.loadConfig();
@@ -84,6 +92,7 @@ public final class AGBukkit extends JavaPlugin {
         }
     }
 
+    @Override
     public void reloadMessages() {
         try {
             this.messagesFile.loadConfig();
