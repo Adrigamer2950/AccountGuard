@@ -1,8 +1,8 @@
 package me.adrigamer2950.accountguard.bukkit.database.yaml;
 
 import me.adrigamer2950.accountguard.bukkit.AGBukkit;
-import me.adrigamer2950.accountguard.bukkit.database.Database;
-import me.adrigamer2950.accountguard.bukkit.database.DatabaseType;
+import me.adrigamer2950.accountguard.common.database.Database;
+import me.adrigamer2950.accountguard.common.database.DatabaseType;
 import me.adrigamer2950.adriapi.api.config.yaml.YamlConfig;
 
 import java.io.IOException;

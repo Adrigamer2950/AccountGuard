@@ -3,20 +3,23 @@ package me.adrigamer2950.accountguard.bukkit;
 import me.adrigamer2950.accountguard.bukkit.commands.MainCommand;
 import me.adrigamer2950.accountguard.bukkit.config.Config;
 import me.adrigamer2950.accountguard.bukkit.config.Messages;
-import me.adrigamer2950.accountguard.bukkit.database.Database;
-import me.adrigamer2950.accountguard.bukkit.database.DatabaseType;
+import me.adrigamer2950.accountguard.bukkit.database.yaml.YAMLDatabase;
 import me.adrigamer2950.accountguard.bukkit.listeners.PlayerListener;
 import me.adrigamer2950.accountguard.bukkit.util.Metrics;
+import me.adrigamer2950.accountguard.common.AccountGuard;
+import me.adrigamer2950.accountguard.common.database.Database;
+import me.adrigamer2950.accountguard.common.database.DatabaseType;
+import me.adrigamer2950.accountguard.common.logger.APILogger;
 import me.adrigamer2950.adriapi.api.command.manager.CommandManager;
 import me.adrigamer2950.adriapi.api.config.manager.ConfigManager;
 import me.adrigamer2950.adriapi.api.config.yaml.YamlConfig;
-import me.adrigamer2950.adriapi.api.logger.APILogger;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.IOException;
 import java.util.List;
 
-public final class AGBukkit extends JavaPlugin {
+import static me.adrigamer2950.accountguard.common.database.DatabaseType.YAML;
+
 public final class AGBukkit extends JavaPlugin implements AccountGuard {
 
     public final APILogger LOGGER = new APILogger("&dAccount&aGuard", null);
@@ -46,7 +49,10 @@ public final class AGBukkit extends JavaPlugin implements AccountGuard {
 
         this.messages = new Messages(this.messagesFile);
 
-        this.database = Database.getDatabase(this, DatabaseType.YAML);
+        switch (DatabaseType.valueOf(this.config.Database.DRIVER)) {
+            case YAML -> this.database = new YAMLDatabase(this, YAML);
+            default -> throw new IllegalArgumentException("Wrong database driver at config.yml");
+        }
 
         this.commandManager = new CommandManager(this);
         this.commandManager.registerCommand(new MainCommand(this, "accountguard", List.of("ag")));
@@ -72,7 +78,6 @@ public final class AGBukkit extends JavaPlugin implements AccountGuard {
         database.saveData();
         this.database = null;
 
-        LOGGER.log("&cDisabled");
         LOGGER.info("&cDisabled");
     }
 
