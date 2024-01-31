@@ -1,13 +1,12 @@
 package me.adrigamer2950.accountguard.bukkit;
 
 import me.adrigamer2950.accountguard.bukkit.commands.MainCommand;
-import me.adrigamer2950.accountguard.bukkit.config.BukkitConfig;
-import me.adrigamer2950.accountguard.bukkit.config.Messages;
 import me.adrigamer2950.accountguard.bukkit.database.yaml.YAMLDatabase;
 import me.adrigamer2950.accountguard.bukkit.listeners.PlayerListener;
 import me.adrigamer2950.accountguard.bukkit.util.Metrics;
 import me.adrigamer2950.accountguard.common.AccountGuard;
 import me.adrigamer2950.accountguard.common.config.Config;
+import me.adrigamer2950.accountguard.common.config.Messages;
 import me.adrigamer2950.accountguard.common.database.Database;
 import me.adrigamer2950.accountguard.common.database.DatabaseType;
 import me.adrigamer2950.accountguard.common.logger.APILogger;
@@ -32,7 +31,7 @@ public final class AGBukkit extends JavaPlugin implements AccountGuard {
 
     private Database database;
     private Config config;
-    public Messages messages;
+    private Messages messages;
 
     @Override
     public void onEnable() {
@@ -46,11 +45,10 @@ public final class AGBukkit extends JavaPlugin implements AccountGuard {
 
         this.configManager.createConfigFiles();
 
-        this.config = new BukkitConfig(this.configFile);
+        this.reloadConfig();
+        this.reloadMessages();
 
-        this.messages = new Messages(this.messagesFile);
-
-        switch (DatabaseType.valueOf(this.config.Database.DRIVER())) {
+        switch (DatabaseType.valueOf(this.config.Database().DRIVER())) {
             case YAML -> this.database = new YAMLDatabase(this, YAML);
             default -> throw new IllegalArgumentException("Wrong database driver at config.yml");
         }
@@ -98,11 +96,30 @@ public final class AGBukkit extends JavaPlugin implements AccountGuard {
     }
 
     @Override
+    public Messages getPluginMessages() {
+        return this.messages;
+    }
+
+    @Override
     public void reloadConfig() {
         try {
             this.configFile.loadConfig();
 
-            this.config = new BukkitConfig(this.configFile);
+            this.config = new Config(
+                    this.configFile.getYaml().getString("prefix"),
+                    new Config.DatabaseConfig(
+                            this.configFile.getYaml().getString("database.driver"),
+                            this.configFile.getYaml().getString("database.mysql.hostname"),
+                            this.configFile.getYaml().getInt("database.mysql.port"),
+                            this.configFile.getYaml().getString("database.mysql.database"),
+                            this.configFile.getYaml().getString("database.mysql.username"),
+                            this.configFile.getYaml().getString("database.mysql.password"),
+                            this.configFile.getYaml().getString("database.redis.hostname"),
+                            this.configFile.getYaml().getInt("database.redis.port"),
+                            this.configFile.getYaml().getString("database.redis.username"),
+                            this.configFile.getYaml().getString("database.redis.password")
+                    )
+            );
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -113,7 +130,20 @@ public final class AGBukkit extends JavaPlugin implements AccountGuard {
         try {
             this.messagesFile.loadConfig();
 
-            this.messages = new Messages(this.messagesFile);
+            this.messages = new Messages(
+                    this.messagesFile.getYaml().getString("no-permission"),
+                    this.messagesFile.getYaml().getString("kick-reason"),
+                    this.messagesFile.getYaml().getString("player-not-specified"),
+                    this.messagesFile.getYaml().getString("player-doesnt-exists"),
+                    this.messagesFile.getYaml().getString("ip-not-specified"),
+                    this.messagesFile.getYaml().getString("invalid-ip"),
+                    this.messagesFile.getYaml().getString("ip-added-to-whitelist"),
+                    this.messagesFile.getYaml().getString("ip-already-in-whitelist"),
+                    this.messagesFile.getYaml().getString("ip-removed-from-whitelist"),
+                    this.messagesFile.getYaml().getString("ip-not-in-whitelist"),
+                    this.messagesFile.getYaml().getString("reload-message"),
+                    this.messagesFile.getYaml().getString("list-ips-message")
+            );
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

@@ -21,8 +21,8 @@ public class PlayerListener implements Listener {
                         && !this.plugin.getDatabase().hasIP(e.getUniqueId(), e.getAddress().getHostName())
         ) {
             e.disallow(AsyncPlayerPreLoginEvent.Result.KICK_OTHER, Colors.translateColors(
-                    plugin.messages.KICK_REASON
-                            .replaceAll("%prefix%", plugin.getPluginConfig().Prefix)
+                    plugin.getPluginMessages().KICK_REASON()
+                            .replaceAll("%prefix%", plugin.getPluginConfig().Prefix())
             ));
         }
     }

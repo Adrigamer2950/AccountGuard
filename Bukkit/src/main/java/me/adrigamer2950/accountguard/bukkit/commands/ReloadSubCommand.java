@@ -21,7 +21,7 @@ public class ReloadSubCommand extends SubCommand {
         AGBukkit plugin = ((AGBukkit) getPlugin());
 
         if(!Permissions.hasPermission(commandSender, Permissions.RELOAD)) {
-            commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix + plugin.messages.NO_PERMISSION));
+            commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix() + plugin.getPluginMessages().NO_PERMISSION()));
             return true;
         }
 
@@ -29,7 +29,7 @@ public class ReloadSubCommand extends SubCommand {
         plugin.reloadMessages();
 
         commandSender.sendMessage(Colors.translateColors(
-                plugin.getPluginConfig().Prefix + plugin.messages.RELOAD_MESSAGE
+                plugin.getPluginConfig().Prefix() + plugin.getPluginMessages().RELOAD_MESSAGE()
         ));
 
         return true;

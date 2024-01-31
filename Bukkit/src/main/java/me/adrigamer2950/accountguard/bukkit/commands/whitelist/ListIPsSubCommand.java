@@ -25,12 +25,12 @@ public class ListIPsSubCommand extends SubCommand {
         AGBukkit plugin = ((AGBukkit) getPlugin());
 
         if (!Permissions.hasPermission(commandSender, Permissions.LIST_IPS)) {
-            commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix + plugin.messages.NO_PERMISSION));
+            commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix() + plugin.getPluginMessages().NO_PERMISSION()));
             return true;
         }
 
         if (args.length < 2) {
-            commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix + plugin.messages.PLAYER_NOT_SPECIFIED));
+            commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix() + plugin.getPluginMessages().PLAYER_NOT_SPECIFIED()));
             return true;
         }
 
@@ -43,13 +43,13 @@ public class ListIPsSubCommand extends SubCommand {
         }
 
         if (!op.hasPlayedBefore()) {
-            commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix + plugin.messages.PLAYER_DOESNT_EXISTS
+            commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix() + plugin.getPluginMessages().PLAYER_DOESNT_EXISTS()
                     .replaceAll("%player%", op.getName())
             ));
             return true;
         }
 
-        commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix + plugin.messages.LIST_IPS_MESSAGE
+        commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix() + plugin.getPluginMessages().LIST_IPS_MESSAGE()
                 .replaceAll("%player%", op.getName())
         ));
         for (String ip : ((AGBukkit) getPlugin()).getDatabase().getIPs(op.getUniqueId())) {

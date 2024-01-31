@@ -30,7 +30,7 @@ public class MainCommand extends Command {
     @Override
     public boolean execute(CommandSender commandSender, String s, String[] strings) {
         if(!Permissions.hasPermission(commandSender, Permissions.COMMAND)) {
-            commandSender.sendMessage(Colors.translateColors(((AGBukkit) getPlugin()).messages.NO_PERMISSION));
+            commandSender.sendMessage(Colors.translateColors(((AGBukkit) getPlugin()).getPluginMessages().NO_PERMISSION()));
             return true;
         }
 
