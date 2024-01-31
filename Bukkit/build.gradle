@@ -33,6 +33,9 @@ dependencies {
 
     // AdriAPI
     compileOnly "me.adrigamer2950:adriapi:1.1.1"
+
+    // AccountGuard Common
+    compileOnly project(":common")
 }
 
 def targetJavaVersion = 17
