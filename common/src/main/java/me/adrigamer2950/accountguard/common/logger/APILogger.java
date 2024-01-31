@@ -21,7 +21,7 @@ public class APILogger {
 
     public void info(String message) {
         this.javaLogger.info(
-                String.format("&r[%s&r] %s",
+                String.format("[%s] %s",
                         parent == null ? name : parent.name + " - " + name,
                         message
                 )
