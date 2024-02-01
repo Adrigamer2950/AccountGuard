@@ -18,6 +18,7 @@ import me.adrigamer2950.accountguard.common.database.Database;
 import me.adrigamer2950.accountguard.common.database.DatabaseType;
 import me.adrigamer2950.accountguard.common.logger.APILogger;
 import me.adrigamer2950.accountguard.velocity.commands.MainCommand;
+import me.adrigamer2950.accountguard.velocity.database.yaml.OfflinePlayerDatabase;
 import me.adrigamer2950.accountguard.velocity.database.yaml.YAMLDatabase;
 
 import java.io.File;
