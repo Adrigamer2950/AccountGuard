@@ -51,13 +51,13 @@ public class AGVelocity implements AccountGuard {
         this.logger = new APILogger("AccountGuard", null);
 
         YamlDocument configYaml = YamlDocument.create(
-                new File("config.yml"),
-                Objects.requireNonNull(this.getClass().getResourceAsStream("config.yml")),
+                new File("plugins/accountguard/config.yml"),
+                Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("config.yml")),
                 GeneralSettings.DEFAULT,
                 LoaderSettings.builder().setAutoUpdate(true).build(),
                 DumperSettings.DEFAULT,
-                UpdaterSettings.builder().setVersioning(new BasicVersioning("config-version")
-                ).build());
+                UpdaterSettings.DEFAULT
+        );
 
         this.config = new Config(
                 configYaml.getString("prefix"),
@@ -110,7 +110,7 @@ public class AGVelocity implements AccountGuard {
         try {
             if (this.configYaml == null)
                 this.configYaml = YamlDocument.create(
-                        new File("config.yml"),
+                        new File("plugins/accountguard/config.yml"),
                         Objects.requireNonNull(this.getClass().getResourceAsStream("config.yml")),
                         GeneralSettings.DEFAULT,
                         LoaderSettings.builder().setAutoUpdate(true).build(),
@@ -145,7 +145,7 @@ public class AGVelocity implements AccountGuard {
         try {
             if (this.messagesYaml == null)
                 this.messagesYaml = YamlDocument.create(
-                        new File("messages.yml"),
+                        new File("plugins/accountguard/messages.yml"),
                         Objects.requireNonNull(this.getClass().getResourceAsStream("messages.yml")),
                         GeneralSettings.DEFAULT,
                         LoaderSettings.builder().setAutoUpdate(true).build(),
