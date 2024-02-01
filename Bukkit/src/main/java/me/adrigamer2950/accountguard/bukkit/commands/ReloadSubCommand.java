@@ -1,7 +1,7 @@
 package me.adrigamer2950.accountguard.bukkit.commands;
 
 import me.adrigamer2950.accountguard.bukkit.AGBukkit;
-import me.adrigamer2950.accountguard.bukkit.util.Permissions;
+import me.adrigamer2950.accountguard.bukkit.util.BukkitPermissions;
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.command.SubCommand;
@@ -20,7 +20,7 @@ public class ReloadSubCommand extends SubCommand {
     public boolean execute(CommandSender commandSender, String s, String[] strings) {
         AGBukkit plugin = ((AGBukkit) getPlugin());
 
-        if(!Permissions.hasPermission(commandSender, Permissions.RELOAD)) {
+        if(!BukkitPermissions.hasPermission(commandSender, BukkitPermissions.RELOAD)) {
             commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix() + plugin.getPluginMessages().NO_PERMISSION()));
             return true;
         }

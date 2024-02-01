@@ -1,16 +1,10 @@
 package me.adrigamer2950.accountguard.bukkit.util;
 
+import me.adrigamer2950.accountguard.common.permissions.Permissions;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.ConsoleCommandSender;
 
-public class Permissions {
-
-    public static final String ALL = "accountguard.*";
-    public static final String RELOAD = "accountguard.admin.reload";
-    public static final String ADD_IPS = "accountguard.admin.add";
-    public static final String REMOVE_IPS = "accountguard.admin.remove";
-    public static final String LIST_IPS = "accountguard.admin.list";
-    public static final String COMMAND = "accountguard.command";
+public class BukkitPermissions extends Permissions {
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted" )
     public static boolean hasPermission(CommandSender sender, String permission) {

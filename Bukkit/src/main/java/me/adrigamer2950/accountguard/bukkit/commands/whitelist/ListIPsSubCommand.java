@@ -1,7 +1,8 @@
 package me.adrigamer2950.accountguard.bukkit.commands.whitelist;
 
 import me.adrigamer2950.accountguard.bukkit.AGBukkit;
-import me.adrigamer2950.accountguard.bukkit.util.Permissions;
+import me.adrigamer2950.accountguard.bukkit.util.BukkitPermissions;
+import me.adrigamer2950.accountguard.bukkit.util.BukkitPermissions;
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.command.SubCommand;
@@ -24,7 +25,7 @@ public class ListIPsSubCommand extends SubCommand {
     public boolean execute(CommandSender commandSender, String s, String[] args) {
         AGBukkit plugin = ((AGBukkit) getPlugin());
 
-        if (!Permissions.hasPermission(commandSender, Permissions.LIST_IPS)) {
+        if (!BukkitPermissions.hasPermission(commandSender, BukkitPermissions.LIST_IPS)) {
             commandSender.sendMessage(Colors.translateColors(plugin.getPluginConfig().Prefix() + plugin.getPluginMessages().NO_PERMISSION()));
             return true;
         }
