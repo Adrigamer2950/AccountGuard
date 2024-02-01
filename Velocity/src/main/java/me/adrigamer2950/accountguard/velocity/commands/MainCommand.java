@@ -12,6 +12,7 @@ public class MainCommand extends Command {
         super(plugin, name);
 
         addSubCommand(new HelpSubCommand(plugin, this, "help"));
+        addSubCommand(new ReloadSubCommand(plugin, this, "reload"));
     }
 
     @Override
