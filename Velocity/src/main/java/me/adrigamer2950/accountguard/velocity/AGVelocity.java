@@ -24,8 +24,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
 
-import static me.adrigamer2950.accountguard.common.database.DatabaseType.YAML;
-
 @Plugin(
         id = "accountguard",
         name = "AccountGuard",
@@ -49,6 +47,7 @@ public class AGVelocity implements AccountGuard {
     private Config config;
     private Messages messages;
     private final Database database;
+    private final OfflinePlayerDatabase offlinePlayerDatabase;
 
     @Inject
     public AGVelocity(ProxyServer proxy) throws IOException {
@@ -81,9 +80,11 @@ public class AGVelocity implements AccountGuard {
         );
 
         switch (DatabaseType.valueOf(this.config.Database().DRIVER())) {
-            case YAML -> this.database = new YAMLDatabase(this, YAML);
+            case YAML -> this.database = new YAMLDatabase(this);
             default -> throw new IllegalArgumentException("Wrong database driver at config.yml");
         }
+
+        this.offlinePlayerDatabase = new OfflinePlayerDatabase(this);
 
         logger.info("§aPlugin has been constructed");
     }
@@ -103,6 +104,10 @@ public class AGVelocity implements AccountGuard {
     @Override
     public Database getDatabase() {
         return this.database;
+    }
+
+    public OfflinePlayerDatabase getOfflinePlayerDatabase() {
+        return this.offlinePlayerDatabase;
     }
 
     @Override

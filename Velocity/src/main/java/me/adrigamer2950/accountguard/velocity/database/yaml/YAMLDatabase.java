@@ -14,14 +14,18 @@ import java.util.stream.Collectors;
 
 public class YAMLDatabase extends Database {
 
-    private final YamlDocument yaml;
+    protected final YamlDocument yaml;
 
-    public YAMLDatabase(AccountGuard plugin, DatabaseType type) {
-        super(plugin, type);
+    public YAMLDatabase(AccountGuard plugin) {
+        this("data", plugin);
+    }
+
+    public YAMLDatabase(String name, AccountGuard plugin) {
+        super(plugin, DatabaseType.YAML);
 
         try {
             this.yaml = YamlDocument.create(
-                    new File("plugins/accountguard/data.yml")
+                    new File("plugins/accountguard/" + name + ".yml")
             );
 
             this.yaml.reload();
