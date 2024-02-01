@@ -48,7 +48,7 @@ public class AGVelocity implements AccountGuard {
 
     private Config config;
     private Messages messages;
-    private Database database;
+    private final Database database;
 
     @Inject
     public AGVelocity(ProxyServer proxy) throws IOException {
