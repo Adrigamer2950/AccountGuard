@@ -1,4 +1,4 @@
-package me.adrigamer2950.accountguard.bukkit.util;
+package me.adrigamer2950.accountguard.common.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

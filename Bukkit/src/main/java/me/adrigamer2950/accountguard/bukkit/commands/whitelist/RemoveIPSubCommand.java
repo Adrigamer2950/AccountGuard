@@ -2,7 +2,7 @@ package me.adrigamer2950.accountguard.bukkit.commands.whitelist;
 
 import me.adrigamer2950.accountguard.bukkit.AGBukkit;
 import me.adrigamer2950.accountguard.bukkit.util.BukkitPermissions;
-import me.adrigamer2950.accountguard.bukkit.util.IPUtil;
+import me.adrigamer2950.accountguard.common.util.IPUtil;
 import me.adrigamer2950.adriapi.api.colors.Colors;
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.command.SubCommand;
