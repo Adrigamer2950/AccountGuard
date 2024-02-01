@@ -4,12 +4,10 @@ import dev.dejvokep.boostedyaml.YamlDocument;
 import me.adrigamer2950.accountguard.common.AccountGuard;
 import me.adrigamer2950.accountguard.common.database.Database;
 import me.adrigamer2950.accountguard.common.database.DatabaseType;
-import me.adrigamer2950.accountguard.velocity.AGVelocity;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
