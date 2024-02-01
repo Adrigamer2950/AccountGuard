@@ -52,7 +52,7 @@ public class AGVelocity implements AccountGuard {
     private final OfflinePlayerDatabase offlinePlayerDatabase;
 
     @Inject
-    public AGVelocity(ProxyServer proxy) throws IOException {
+    public AGVelocity(ProxyServer proxy) {
         AGVelocity.proxy = proxy;
         this.logger = new APILogger("AccountGuard", null);
 
