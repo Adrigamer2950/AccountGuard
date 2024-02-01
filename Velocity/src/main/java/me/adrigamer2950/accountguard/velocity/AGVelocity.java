@@ -15,12 +15,16 @@ import me.adrigamer2950.accountguard.common.AccountGuard;
 import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.accountguard.common.config.Messages;
 import me.adrigamer2950.accountguard.common.database.Database;
+import me.adrigamer2950.accountguard.common.database.DatabaseType;
 import me.adrigamer2950.accountguard.common.logger.APILogger;
 import me.adrigamer2950.accountguard.velocity.commands.MainCommand;
+import me.adrigamer2950.accountguard.velocity.database.yaml.YAMLDatabase;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.Objects;
+
+import static me.adrigamer2950.accountguard.common.database.DatabaseType.YAML;
 
 @Plugin(
         id = "accountguard",
@@ -44,6 +48,7 @@ public class AGVelocity implements AccountGuard {
 
     private Config config;
     private Messages messages;
+    private Database database;
 
     @Inject
     public AGVelocity(ProxyServer proxy) throws IOException {
@@ -75,7 +80,12 @@ public class AGVelocity implements AccountGuard {
                 )
         );
 
-        logger.info("Plugin has been constructed");
+        switch (DatabaseType.valueOf(this.config.Database().DRIVER())) {
+            case YAML -> this.database = new YAMLDatabase(this, YAML);
+            default -> throw new IllegalArgumentException("Wrong database driver at config.yml");
+        }
+
+        logger.info("§aPlugin has been constructed");
     }
 
     @Subscribe
@@ -92,7 +102,7 @@ public class AGVelocity implements AccountGuard {
 
     @Override
     public Database getDatabase() {
-        return null;
+        return this.database;
     }
 
     @Override

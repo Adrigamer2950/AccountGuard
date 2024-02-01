@@ -4,6 +4,7 @@ import me.adrigamer2950.accountguard.common.AccountGuard;
 import me.adrigamer2950.accountguard.common.logger.SubLogger;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
@@ -29,11 +30,43 @@ public abstract class Database {
 
     public abstract void saveData();
 
-    public abstract void addIP(UUID uuid, String ip);
+    public void addIP(UUID uuid, String ip) {
+        Set<String> ips = this.getIPs(uuid);
 
-    public abstract void removeIP(UUID uuid, String ip);
+        if (ips.contains(ip))
+            return;
 
-    public abstract boolean hasIP(UUID uuid, String ip);
+        ips.add(ip);
 
-    public abstract Set<String> getIPs(UUID uuid);
+        this.ips.put(uuid, ips);
+    }
+
+    public void removeIP(UUID uuid, String ip) {
+        Set<String> ips = this.getIPs(uuid);
+
+        if (!ips.contains(ip))
+            return;
+
+        ips.remove(ip);
+
+        this.ips.put(uuid, ips);
+    }
+
+    public boolean hasIP(UUID uuid, String ip) {
+        if(this.ips == null) return false;
+
+        if(this.ips.get(uuid) == null) return false;
+
+        return this.ips.get(uuid).contains(ip);
+    }
+
+    public Set<String> getIPs(UUID uuid) {
+        if(this.ips == null)
+            return new HashSet<>();
+
+        if(this.ips.get(uuid) == null)
+            return new HashSet<>();
+
+        return this.ips.get(uuid);
+    }
 }

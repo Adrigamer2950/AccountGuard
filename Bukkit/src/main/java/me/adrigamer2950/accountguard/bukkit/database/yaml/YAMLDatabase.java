@@ -44,60 +44,20 @@ public class YAMLDatabase extends Database {
 
     @Override
     public void saveData() {
-        this.ips.forEach((uuid, ips) -> {
-            if (ips.isEmpty()) this.ips.remove(uuid);
-            else this.yaml.getYaml().set(uuid.toString(), ips.stream().toList());
-        });
+        for(UUID uuid : this.ips.keySet()) {
+            Set<String> ips = this.ips.get(uuid);
+
+            if (ips.isEmpty()) {
+                this.ips.remove(uuid);
+                this.yaml.getYaml().set(uuid.toString(), null);
+            } else
+                this.yaml.getYaml().set(uuid.toString(), ips.stream().toList());
+        }
 
         try {
             this.yaml.saveConfig();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-
-    @Override
-    public void addIP(UUID uuid, String ip) {
-        Set<String> ips = this.getIPs(uuid);
-
-        if (ips.contains(ip))
-            return;
-
-        ips.add(ip);
-
-        this.ips.put(uuid, ips);
-    }
-
-    @Override
-    public void removeIP(UUID uuid, String ip) {
-        Set<String> ips = this.getIPs(uuid);
-
-        if (!ips.contains(ip))
-            return;
-
-        ips.remove(ip);
-
-        this.ips.put(uuid, ips);
-    }
-
-    @Override
-    public boolean hasIP(UUID uuid, String ip) {
-        if(this.ips == null) return false;
-
-        if(this.ips.get(uuid) == null) return false;
-
-        return this.ips.get(uuid).contains(ip);
-    }
-
-    @Override
-    public Set<String> getIPs(UUID uuid) {
-        if(this.ips == null)
-            return new HashSet<>();
-
-        if(this.ips.get(uuid) == null)
-            return new HashSet<>();
-
-
-        return this.ips.get(uuid);
     }
 }
