@@ -2,6 +2,7 @@ package me.adrigamer2950.accountguard.velocity.commands;
 
 import com.velocitypowered.api.command.CommandSource;
 import me.adrigamer2950.accountguard.velocity.AGVelocity;
+import me.adrigamer2950.accountguard.velocity.commands.whitelist.AddIPSubCommand;
 import me.adrigamer2950.accountguard.velocity.objects.Command;
 
 import java.util.List;
@@ -13,6 +14,8 @@ public class MainCommand extends Command {
 
         addSubCommand(new HelpSubCommand(plugin, this, "help"));
         addSubCommand(new ReloadSubCommand(plugin, this, "reload"));
+
+        addSubCommand(new AddIPSubCommand(plugin, this, "add"));
     }
 
     @Override
