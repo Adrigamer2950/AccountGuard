@@ -1,3 +1,5 @@
+messages-version: 1 # Only used in Velocity for now
+
 no-permission: "&cYou don't have permission to do that!"
 kick-reason: "\n%prefix%\n\n&cYour ip isn't whitelisted for this user!"
 player-not-specified: "&cYou need to specify a player!"

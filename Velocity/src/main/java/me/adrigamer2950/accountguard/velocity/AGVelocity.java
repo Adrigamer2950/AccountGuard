@@ -57,30 +57,8 @@ public class AGVelocity implements AccountGuard {
         AGVelocity.proxy = proxy;
         this.logger = new VelocityLogger("AccountGuard", null);
 
-        YamlDocument configYaml = YamlDocument.create(
-                new File("plugins/accountguard/config.yml"),
-                Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("config.yml")),
-                GeneralSettings.DEFAULT,
-                LoaderSettings.builder().setAutoUpdate(true).build(),
-                DumperSettings.DEFAULT,
-                UpdaterSettings.DEFAULT
-        );
-
-        this.config = new Config(
-                configYaml.getString("prefix"),
-                new Config.DatabaseConfig(
-                        configYaml.getString("database.driver"),
-                        configYaml.getString("database.mysql.hostname"),
-                        configYaml.getInt("database.mysql.port"),
-                        configYaml.getString("database.mysql.database"),
-                        configYaml.getString("database.mysql.username"),
-                        configYaml.getString("database.mysql.password"),
-                        configYaml.getString("database.redis.hostname"),
-                        configYaml.getInt("database.redis.port"),
-                        configYaml.getString("database.redis.username"),
-                        configYaml.getString("database.redis.password")
-                )
-        );
+        this.reloadConfig();
+        this.reloadMessages();
 
         switch (DatabaseType.valueOf(this.config.Database().DRIVER())) {
             case YAML -> this.database = new YAMLDatabase(this);
@@ -89,7 +67,7 @@ public class AGVelocity implements AccountGuard {
 
         this.offlinePlayerDatabase = new OfflinePlayerDatabase(this);
 
-        logger.info("§aPlugin has been constructed");
+        logger.info("Plugin has been constructed");
     }
 
     @Subscribe
@@ -131,7 +109,7 @@ public class AGVelocity implements AccountGuard {
             if (this.configYaml == null)
                 this.configYaml = YamlDocument.create(
                         new File("plugins/accountguard/config.yml"),
-                        Objects.requireNonNull(this.getClass().getResourceAsStream("config.yml")),
+                        Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("config.yml")),
                         GeneralSettings.DEFAULT,
                         LoaderSettings.builder().setAutoUpdate(true).build(),
                         DumperSettings.DEFAULT,
@@ -166,7 +144,7 @@ public class AGVelocity implements AccountGuard {
             if (this.messagesYaml == null)
                 this.messagesYaml = YamlDocument.create(
                         new File("plugins/accountguard/messages.yml"),
-                        Objects.requireNonNull(this.getClass().getResourceAsStream("messages.yml")),
+                        Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("messages.yml")),
                         GeneralSettings.DEFAULT,
                         LoaderSettings.builder().setAutoUpdate(true).build(),
                         DumperSettings.DEFAULT,
