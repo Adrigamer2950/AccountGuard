@@ -1,5 +1,6 @@
 package me.adrigamer2950.accountguard.velocity.listeners;
 
+import com.velocitypowered.api.event.PostOrder;
 import com.velocitypowered.api.event.Subscribe;
 import me.adrigamer2950.accountguard.velocity.AGVelocity;
 
@@ -10,7 +11,7 @@ public final class OfflinePlayerListener {
         this.plugin = plugin;
     }
 
-    @Subscribe
+    @Subscribe(order = PostOrder.FIRST)
     public void onPlayerJoin(com.velocitypowered.api.event.connection.PostLoginEvent e) {
         this.plugin.getOfflinePlayerDatabase().setUUID(e.getPlayer().getUsername(), e.getPlayer().getUniqueId());
     }
