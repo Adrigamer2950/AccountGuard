@@ -21,6 +21,7 @@ import me.adrigamer2950.accountguard.velocity.commands.MainCommand;
 import me.adrigamer2950.accountguard.velocity.database.yaml.OfflinePlayerDatabase;
 import me.adrigamer2950.accountguard.velocity.database.yaml.YAMLDatabase;
 import me.adrigamer2950.accountguard.velocity.listeners.OfflinePlayerListener;
+import me.adrigamer2950.accountguard.velocity.logger.VelocityLogger;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,7 +55,7 @@ public class AGVelocity implements AccountGuard {
     @Inject
     public AGVelocity(ProxyServer proxy) {
         AGVelocity.proxy = proxy;
-        this.logger = new APILogger("AccountGuard", null);
+        this.logger = new VelocityLogger("AccountGuard", null);
 
         YamlDocument configYaml = YamlDocument.create(
                 new File("plugins/accountguard/config.yml"),

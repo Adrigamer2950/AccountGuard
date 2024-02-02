@@ -7,7 +7,7 @@ import java.util.logging.Logger;
  */
 public class APILogger extends Logger {
 
-    private final String name;
+    public final String name;
 
     public APILogger(String name, APILogger parent) {
         super(parent == null ? name : parent.name + " - " + name, null);
