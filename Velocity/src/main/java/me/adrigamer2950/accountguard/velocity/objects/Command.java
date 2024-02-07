@@ -81,7 +81,7 @@ public abstract class Command implements SimpleCommand {
             return sc.get().suggest(source, alias, args);
         }
 
-        return this.subCommands.stream().map(Command::getName).filter(str -> args[0].startsWith(str)).collect(Collectors.toList());
+        return this.subCommands.stream().map(Command::getName).filter(str -> args.length != 1 || str.startsWith(args[0])).collect(Collectors.toList());
     }
 
     public final void register(CommandManager commandManager) {
