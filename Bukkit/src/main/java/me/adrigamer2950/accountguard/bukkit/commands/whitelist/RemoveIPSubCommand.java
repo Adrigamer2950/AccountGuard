@@ -10,10 +10,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Set;
 import java.util.UUID;
 
 public class RemoveIPSubCommand extends SubCommand {
@@ -91,9 +91,19 @@ public class RemoveIPSubCommand extends SubCommand {
         if (args.length == 2)
             return Bukkit.getOnlinePlayers().stream().map(HumanEntity::getName).filter(p -> p.toLowerCase().startsWith(args[1])).toList();
 
-        if (commandSender instanceof Player p)
-            if (args.length == 3)
-                return ((AGBukkit) getPlugin()).getDatabase().getIPs(p.getUniqueId()).stream().toList();
+        OfflinePlayer op;
+        try {
+            op = Bukkit.getOfflinePlayer(UUID.fromString(args[1]));
+        } catch (IllegalArgumentException e) {
+            //noinspection deprecation
+            op = Bukkit.getOfflinePlayer(args[1]);
+        }
+
+        if(op == null) return List.of();
+
+        Set<String> ips = ((AGBukkit) getPlugin()).getDatabase().getIPs(op.getUniqueId());
+        if(ips != null)
+            return ips.stream().toList();
 
         return List.of();
     }
