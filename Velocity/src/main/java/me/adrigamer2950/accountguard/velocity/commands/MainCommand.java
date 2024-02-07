@@ -3,6 +3,7 @@ package me.adrigamer2950.accountguard.velocity.commands;
 import com.velocitypowered.api.command.CommandSource;
 import me.adrigamer2950.accountguard.velocity.AGVelocity;
 import me.adrigamer2950.accountguard.velocity.commands.whitelist.AddIPSubCommand;
+import me.adrigamer2950.accountguard.velocity.commands.whitelist.ListIPsSubCommand;
 import me.adrigamer2950.accountguard.velocity.commands.whitelist.RemoveIPSubCommand;
 import me.adrigamer2950.accountguard.velocity.objects.Command;
 
@@ -18,6 +19,7 @@ public class MainCommand extends Command {
 
         addSubCommand(new AddIPSubCommand(plugin, this, "add"));
         addSubCommand(new RemoveIPSubCommand(plugin, this, "remove"));
+        addSubCommand(new ListIPsSubCommand(plugin, this, "list"));
     }
 
     @Override
