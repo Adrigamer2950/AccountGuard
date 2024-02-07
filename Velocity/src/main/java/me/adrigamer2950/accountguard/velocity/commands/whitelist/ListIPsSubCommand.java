@@ -62,15 +62,6 @@ public class ListIPsSubCommand extends SubCommand {
         if(args.length == 2)
             return AGVelocity.getProxy().getAllPlayers().stream().map(Player::getUsername).filter(name -> name.toLowerCase().startsWith(args[1])).toList();
 
-        UUID uuid = getPlugin().getOfflinePlayerDatabase().getUUID(args[1]);
-
-        if(uuid == null) return List.of();
-
-        Set<String> ips = getPlugin().getDatabase().getIPs(uuid);
-
-        if(!ips.isEmpty())
-            return ips.stream().toList();
-
         return List.of();
     }
 }
