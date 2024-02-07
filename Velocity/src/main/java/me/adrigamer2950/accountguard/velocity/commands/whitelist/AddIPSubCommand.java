@@ -1,6 +1,7 @@
 package me.adrigamer2950.accountguard.velocity.commands.whitelist;
 
 import com.velocitypowered.api.command.CommandSource;
+import com.velocitypowered.api.proxy.Player;
 import me.adrigamer2950.accountguard.common.permissions.Permissions;
 import me.adrigamer2950.accountguard.common.util.IPUtil;
 import me.adrigamer2950.accountguard.velocity.AGVelocity;
@@ -86,6 +87,9 @@ public class AddIPSubCommand extends SubCommand {
 
     @Override
     public List<String> suggest(CommandSource source, String alias, String[] args) {
-        return null;
+        if(args.length == 2)
+            return AGVelocity.getProxy().getAllPlayers().stream().map(Player::getUsername).filter(name -> name.toLowerCase().startsWith(args[1])).toList();
+
+        return List.of();
     }
 }
