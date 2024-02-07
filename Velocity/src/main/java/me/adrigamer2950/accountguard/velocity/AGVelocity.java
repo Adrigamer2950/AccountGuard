@@ -20,6 +20,7 @@ import me.adrigamer2950.accountguard.common.logger.APILogger;
 import me.adrigamer2950.accountguard.velocity.commands.MainCommand;
 import me.adrigamer2950.accountguard.velocity.database.yaml.OfflinePlayerDatabase;
 import me.adrigamer2950.accountguard.velocity.database.yaml.YAMLDatabase;
+import me.adrigamer2950.accountguard.velocity.listeners.JoinListener;
 import me.adrigamer2950.accountguard.velocity.listeners.OfflinePlayerListener;
 import me.adrigamer2950.accountguard.velocity.logger.VelocityLogger;
 
@@ -75,6 +76,7 @@ public class AGVelocity implements AccountGuard {
         new MainCommand(this, "agv").register(getProxy().getCommandManager());
 
         getProxy().getEventManager().register(this, new OfflinePlayerListener(this));
+        getProxy().getEventManager().register(this, new JoinListener(this));
 
         logger.info("Plugin has been initialised");
     }
