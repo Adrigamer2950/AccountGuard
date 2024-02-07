@@ -82,8 +82,6 @@ public class RemoveIPSubCommand extends SubCommand {
                 .replaceAll("%player%", args[1])
                 .replaceAll("%ip%", ip)
         ));
-
-        System.out.println(Arrays.toString(getPlugin().getDatabase().getIPs(uuid).toArray()));
     }
 
     @Override
