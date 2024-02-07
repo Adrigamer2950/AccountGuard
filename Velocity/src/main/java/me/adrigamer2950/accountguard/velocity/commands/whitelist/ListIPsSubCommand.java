@@ -3,14 +3,12 @@ package me.adrigamer2950.accountguard.velocity.commands.whitelist;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.Player;
 import me.adrigamer2950.accountguard.common.permissions.Permissions;
-import me.adrigamer2950.accountguard.common.util.IPUtil;
 import me.adrigamer2950.accountguard.velocity.AGVelocity;
 import me.adrigamer2950.accountguard.velocity.objects.Command;
 import me.adrigamer2950.accountguard.velocity.objects.SubCommand;
 import me.adrigamer2950.accountguard.velocity.util.VelocityPermissions;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;

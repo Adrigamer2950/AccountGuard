@@ -10,7 +10,6 @@ import me.adrigamer2950.accountguard.velocity.objects.SubCommand;
 import me.adrigamer2950.accountguard.velocity.util.VelocityPermissions;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.UUID;
