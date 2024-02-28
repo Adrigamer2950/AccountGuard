@@ -117,8 +117,8 @@ public class AGVelocity implements AccountGuard {
                         DumperSettings.DEFAULT,
                         UpdaterSettings.builder().setVersioning(new BasicVersioning("config-version")
                         ).build());
-            else
-                this.configYaml.reload();
+
+            this.configYaml.reload();
 
             this.config = new Config(
                     this.configYaml.getString("prefix"),
