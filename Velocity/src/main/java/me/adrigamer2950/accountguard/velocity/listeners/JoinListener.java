@@ -14,7 +14,7 @@ public class JoinListener {
     }
 
     @Subscribe(order = PostOrder.NORMAL)
-    public void onPlayerJoin(com.velocitypowered.api.event.connection.PostLoginEvent e) {
+    public void onPlayerJoin(com.velocitypowered.api.event.connection.LoginEvent e) {
         if (
                 !this.plugin.getDatabase().getIPs(e.getPlayer().getUniqueId()).isEmpty()
                         && !this.plugin.getDatabase().hasIP(e.getPlayer().getUniqueId(), e.getPlayer().getRemoteAddress().getAddress().getHostAddress())
