@@ -1,12 +1,26 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 group = 'me.adrigamer2950.accountguard'
 version = properties.get("version")
 
+dependencies {
+    implementation project(':common')
+}
+
+shadowJar {
+    archiveBaseName.set('AccountGuard')
+    archiveClassifier.set('')
+    //noinspection GroovyAssignabilityCheck
+    archiveVersion.set(version)
+}
+
 tasks {
     tasks.withType(JavaCompile).configureEach {
         options.encoding = 'UTF-8'
     }
+
+    tasks.build.finalizedBy(shadowJar)
 }
