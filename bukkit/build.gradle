@@ -1,0 +1,64 @@
+//file:noinspection GroovyAssignabilityCheck
+//file:noinspection GroovyAccessibility
+plugins {
+    id 'java'
+}
+
+group = 'me.adrigamer2950.accountguard'
+version = parent.version
+description = parent.description
+author = parent.author
+
+repositories {
+    mavenCentral()
+    maven {
+        url = "https://repo.papermc.io/repository/maven-public/"
+    }
+    maven {
+        url = "https://repo.devadri.es/repository/releases"
+    }
+}
+
+dependencies {
+    // Paper API
+    //noinspection VulnerableLibrariesLocal
+    compileOnly "io.papermc.paper:paper-api:1.19.4-R0.1-SNAPSHOT"
+
+    // AdriAPI
+    compileOnly 'me.adrigamer2950:AdriAPI:2.0.1'
+}
+
+def targetJavaVersion = 17
+
+tasks {
+    tasks.withType(JavaCompile).configureEach {
+        if (targetJavaVersion >= 10 || JavaVersion.current().isJava10Compatible()) {
+            options.release = targetJavaVersion
+            options.encoding = 'UTF-8'
+        }
+    }
+
+    java {
+        def javaVersion = JavaVersion.toVersion(targetJavaVersion)
+        sourceCompatibility = javaVersion
+        targetCompatibility = javaVersion
+        if (JavaVersion.current() < javaVersion) {
+            toolchain.languageVersion = JavaLanguageVersion.of(targetJavaVersion)
+        }
+    }
+
+    processResources {
+        def props = [
+                version: this.version,
+                description: this.description,
+                author: this.author
+        ]
+        inputs.properties props
+        filteringCharset 'UTF-8'
+        filesMatching('plugin.yml') {
+            expand props
+        }
+    }
+}
+
+tasks.register('prepareKotlinBuildScriptModel') {}

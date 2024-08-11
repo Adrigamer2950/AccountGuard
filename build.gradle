@@ -4,10 +4,19 @@ plugins {
 }
 
 group = 'me.adrigamer2950.accountguard'
-version = properties.get("version")
+version = properties.get("version") + (
+        project.hasProperty("BUILD_NUMBER") ?
+                ("-DEV" + (
+                        project.property("BUILD_NUMBER") == "0" ? "" : ("-b" + project.property("BUILD_NUMBER")))
+                )
+                : ""
+)
+description = properties.get("description")
+author = properties.get("author")
 
 dependencies {
     implementation project(':common')
+    implementation project(':bukkit')
 }
 
 shadowJar {

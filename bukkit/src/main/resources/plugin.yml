@@ -1,0 +1,10 @@
+name: AccountGuard
+version: '${version}'
+description: '${description}'
+author: '${author}'
+main: me.adrigamer2950.accountguard.bukkit.AGBukkit
+api-version: '1.19'
+website: https://github.com/Adrigamer2950/AccountGuard
+
+depend:
+  - AdriAPI
