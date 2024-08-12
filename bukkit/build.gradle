@@ -26,6 +26,12 @@ dependencies {
 
     // AdriAPI
     compileOnly 'me.adrigamer2950:AdriAPI:2.0.1'
+
+    // Common
+    compileOnly project(':common')
+
+    // Boosted Yaml
+    compileOnly 'dev.dejvokep:boosted-yaml:1.3.6'
 }
 
 def targetJavaVersion = 17

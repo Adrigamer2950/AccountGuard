@@ -9,3 +9,6 @@ folia-supported: true
 
 depend:
   - AdriAPI
+
+libraries:
+  - dev.dejvokep:boosted-yaml:1.3.6
