@@ -14,6 +14,10 @@ public class YAMLDatabase extends Database {
 
     private final YamlDocument yaml;
 
+    public YAMLDatabase(File file) {
+        this(file, null);
+    }
+
     public YAMLDatabase(File file, InputStream defaults) {
         try {
             this.yaml = YamlDocument.create(
