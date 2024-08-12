@@ -5,6 +5,7 @@ author: '${author}'
 main: me.adrigamer2950.accountguard.bukkit.AGBukkit
 api-version: '1.19'
 website: https://github.com/Adrigamer2950/AccountGuard
+folia-supported: true
 
 depend:
   - AdriAPI
