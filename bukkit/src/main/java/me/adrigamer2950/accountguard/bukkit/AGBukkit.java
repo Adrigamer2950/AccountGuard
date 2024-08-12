@@ -1,12 +1,33 @@
 package me.adrigamer2950.accountguard.bukkit;
 
+import dev.dejvokep.boostedyaml.YamlDocument;
+import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.adriapi.api.APIPlugin;
+import java.io.File;
+import java.io.IOException;
 
 public final class AGBukkit extends APIPlugin {
+
+    public Config config;
 
     @Override
     public void onPreLoad() {
         getApiLogger().info("&6Loading...");
+
+        try {
+            YamlDocument configYaml = YamlDocument.create(
+                    new File(this.getDataFolder(), "config.yml"),
+                    getResource("config.yml")
+            );
+
+            this.config = new Config(
+                    new Config.Database(
+                            Config.Database.Type.valueOf(configYaml.getString("database.driver"))
+                    )
+            );
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override
@@ -16,6 +37,8 @@ public final class AGBukkit extends APIPlugin {
 
     @Override
     public void onUnload() {
+        this.config = null;
+
         getApiLogger().info("&cDisabled!");
     }
 }

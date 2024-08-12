@@ -1,0 +1,6 @@
+
+# Available drivers:
+# - YAML
+#
+database:
+  driver: YAML
