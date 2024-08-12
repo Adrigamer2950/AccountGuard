@@ -12,3 +12,8 @@ depend:
 
 libraries:
   - dev.dejvokep:boosted-yaml:1.3.6
+
+commands:
+  ag:
+    description: Main command
+    usage: /ag help

@@ -1,6 +1,7 @@
 package me.adrigamer2950.accountguard.bukkit;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
+import me.adrigamer2950.accountguard.bukkit.commands.MainCommand;
 import me.adrigamer2950.accountguard.bukkit.database.yaml.YAMLDatabase;
 import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.accountguard.common.database.Database;
@@ -43,6 +44,8 @@ public final class AGBukkit extends APIPlugin {
 
     @Override
     public void onPostLoad() {
+        registerCommand(new MainCommand(this, "ag"));
+
         getApiLogger().info("&aEnabled!");
     }
 
