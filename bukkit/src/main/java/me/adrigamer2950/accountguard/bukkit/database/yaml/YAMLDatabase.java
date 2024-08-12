@@ -56,9 +56,7 @@ public class YAMLDatabase extends Database {
     @Override
     public void saveData() {
         try {
-            this.ips.forEach((uuid, ips) -> {
-                this.yaml.set(uuid.toString(), ips.stream().toList());
-            });
+            this.ips.forEach((uuid, ips) -> this.yaml.set(uuid.toString(), ips.stream().toList()));
 
             this.yaml.save();
         } catch (IOException e) {

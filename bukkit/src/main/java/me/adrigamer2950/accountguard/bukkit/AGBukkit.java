@@ -8,6 +8,7 @@ import me.adrigamer2950.adriapi.api.APIPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Objects;
 
 public final class AGBukkit extends APIPlugin {
 
@@ -21,7 +22,7 @@ public final class AGBukkit extends APIPlugin {
         try {
             YamlDocument configYaml = YamlDocument.create(
                     new File(this.getDataFolder(), "config.yml"),
-                    getResource("config.yml")
+                    Objects.requireNonNull(getResource("config.yml"))
             );
 
             this.config = new Config(
