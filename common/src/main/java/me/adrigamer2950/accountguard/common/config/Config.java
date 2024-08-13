@@ -5,7 +5,9 @@ public record Config(Database database) {
     public record Database(Type driver) {
 
         public enum Type {
-            YAML
+            YAML,
+            H2,
+            MYSQL
         }
     }
 }

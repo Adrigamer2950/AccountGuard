@@ -32,11 +32,12 @@ public final class AGBukkit extends APIPlugin {
                     )
             );
 
-            this.database = switch (this.config.database().driver()) {
-                case YAML -> new YAMLDatabase(
+            switch (this.config.database().driver()) {
+                case YAML -> this.database = new YAMLDatabase(
                         new File(this.getDataFolder(), "data.yml")
                 );
-            };
+                default -> throw new IllegalArgumentException("Other types of databases are not available for now");
+            }
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
