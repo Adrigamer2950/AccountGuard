@@ -11,6 +11,8 @@ public class MainCommand extends Command<AGBukkit> {
         super(pl, name);
 
         addSubCommand(new HelpSubCommand(this, "help"));
+
+        addSubCommand(new ReloadSubCommand(this, "reload"));
     }
 
     @Override
