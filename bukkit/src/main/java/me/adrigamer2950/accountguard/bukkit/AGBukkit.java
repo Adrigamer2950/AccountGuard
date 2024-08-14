@@ -51,6 +51,8 @@ public final class AGBukkit extends APIPlugin {
 
     @Override
     public void onUnload() {
+        this.database.saveData();
+
         this.config = null;
         this.database = null;
 
