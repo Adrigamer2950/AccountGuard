@@ -13,9 +13,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
-public class AddIPSubCommand extends SubCommand<AGBukkit> {
+public class RemoveIPSubCommand extends SubCommand<AGBukkit> {
 
-    public AddIPSubCommand(Command<AGBukkit> parent, String name) {
+    public RemoveIPSubCommand(Command<AGBukkit> parent, String name) {
         super(parent, name);
     }
 
@@ -57,10 +57,10 @@ public class AddIPSubCommand extends SubCommand<AGBukkit> {
             return true;
         }
 
-        if (getPlugin().database.addIP(player.getUniqueId(), ip))
-            user.sendMessage("&aIP added into %s's IP Whitelist".formatted(player.getName()));
+        if (getPlugin().database.removeIP(player.getUniqueId(), ip))
+            user.sendMessage("&aIP removed from %s's IP Whitelist".formatted(player.getName()));
         else
-            user.sendMessage("&cThat IP is already in %s's IP Whitelist!".formatted(player.getName()));
+            user.sendMessage("&cThat IP isn't in %s's IP Whitelist!".formatted(player.getName()));
 
         return true;
     }
