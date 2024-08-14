@@ -12,7 +12,7 @@ public class MainCommand extends Command<AGBukkit> {
     public MainCommand(@NotNull AGBukkit pl, @NotNull String name) {
         super(pl, name);
 
-        addSubCommand(new HelpSubCommand(this, "help"));
+        setHelpSubCommand(new HelpSubCommand(this, "help"));
 
         addSubCommand(new ReloadSubCommand(this, "reload"));
 
