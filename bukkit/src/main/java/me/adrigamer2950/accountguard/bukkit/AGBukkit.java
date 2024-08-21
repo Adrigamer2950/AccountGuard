@@ -4,6 +4,7 @@ import dev.dejvokep.boostedyaml.YamlDocument;
 import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.bukkit.commands.MainCommand;
 import me.adrigamer2950.accountguard.bukkit.database.yaml.YAMLDatabase;
+import me.adrigamer2950.accountguard.bukkit.listeners.PlayerListener;
 import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.accountguard.common.database.Database;
 import me.adrigamer2950.adriapi.api.APIPlugin;
@@ -45,6 +46,7 @@ public final class AGBukkit extends APIPlugin {
     @Override
     public void onPostLoad() {
         registerCommand(new MainCommand(this, "ag"));
+        registerListener(new PlayerListener(this));
 
         getApiLogger().info("&aEnabled!");
     }
