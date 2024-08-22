@@ -1,4 +1,6 @@
 rootProject.name = 'AccountGuard'
 
-include 'common'
-include 'bukkit'
+["common", "bukkit", "velocity"].forEach {
+    include("$it")
+    project(":$it").projectDir = file(it)
+}
