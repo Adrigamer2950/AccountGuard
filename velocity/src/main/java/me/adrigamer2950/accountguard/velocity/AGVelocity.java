@@ -9,7 +9,10 @@ import org.slf4j.Logger;
 @Plugin(
         id = "accountguard",
         name = "AccountGuard",
-        version = BuildConstants.VERSION
+        version = BuildConstants.VERSION,
+        description = BuildConstants.DESCRIPTION,
+        authors = BuildConstants.AUTHOR,
+        url = "https://github.com/Adrigamer2950/AccountGuard"
 )
 public class AGVelocity {
 
