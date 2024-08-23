@@ -9,3 +9,12 @@ tasks {
         options.encoding = 'UTF-8'
     }
 }
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Boosted YAML
+    compileOnly 'dev.dejvokep:boosted-yaml:1.3.6'
+}

@@ -3,7 +3,7 @@ package me.adrigamer2950.accountguard.bukkit;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.bukkit.commands.MainCommand;
-import me.adrigamer2950.accountguard.bukkit.database.yaml.YAMLDatabase;
+import me.adrigamer2950.accountguard.common.database.yaml.YAMLDatabase;
 import me.adrigamer2950.accountguard.bukkit.listeners.PlayerListener;
 import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.accountguard.common.database.Database;

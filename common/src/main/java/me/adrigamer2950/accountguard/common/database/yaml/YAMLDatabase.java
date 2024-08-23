@@ -1,4 +1,4 @@
-package me.adrigamer2950.accountguard.bukkit.database.yaml;
+package me.adrigamer2950.accountguard.common.database.yaml;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
 import me.adrigamer2950.accountguard.common.database.Database;
