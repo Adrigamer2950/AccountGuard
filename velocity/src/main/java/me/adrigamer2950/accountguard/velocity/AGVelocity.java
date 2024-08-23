@@ -10,6 +10,7 @@ import dev.dejvokep.boostedyaml.YamlDocument;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.common.config.Config;
+import me.adrigamer2950.accountguard.velocity.commands.MainCommand;
 import me.adrigamer2950.accountguard.velocity.database.OfflinePlayerDatabase;
 import org.slf4j.Logger;
 
@@ -77,6 +78,8 @@ public class AGVelocity {
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
+        new MainCommand(this, "agv")
+                .register(getProxy().getCommandManager());
 
         this.logger.info("Plugin started");
     }
