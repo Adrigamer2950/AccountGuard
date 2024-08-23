@@ -7,10 +7,10 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import dev.dejvokep.boostedyaml.YamlDocument;
+import lombok.Getter;
 import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.accountguard.velocity.database.OfflinePlayerDatabase;
-import me.adrigamer2950.accountguard.velocity.util.FileDownloader;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -30,38 +30,23 @@ public class AGVelocity {
 
     @Inject
     private final Logger logger;
-    private final ProxyServer proxy;
+    @Getter private final ProxyServer proxy;
 
+    private YamlDocument configYaml;
+    @Getter private Config config;
 
-    private final YamlDocument configYaml;
-    private Config config;
-
-    private final OfflinePlayerDatabase opDatabase;
+    @Getter private OfflinePlayerDatabase opDatabase;
 
     @Inject
     public AGVelocity(ProxyServer proxy, Logger logger, @DataDirectory Path dataDirectory) throws IOException {
         this.logger = logger;
         this.proxy = proxy;
 
-        File libsFolder = dataDirectory.resolve("libs").toFile();
-        //noinspection ResultOfMethodCallIgnored
-        libsFolder.mkdirs();
-
-        File yamlLib = new File(dataDirectory.resolve("libs").toFile(), "boosted-yaml-1.3.6.jar");
-
-        if (!yamlLib.exists()) {
-            this.logger.info("Downloading libs");
-
-            FileDownloader.downloadFromMavenCentral("dev.dejvokep", "boosted-yaml", "1.3.6", yamlLib.getParentFile().toPath());
-
-            this.proxy.getPluginManager().addToClasspath(this, yamlLib.toPath());
-        }
-
         File configFile = new File(dataDirectory.toFile(), "config.yml");
 
         this.configYaml = YamlDocument.create(
                 configFile,
-                Objects.requireNonNull(this.getClass().getResourceAsStream("config.yml"))
+                Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("config.yml"))
         );
 
         if (!configFile.exists())
@@ -93,5 +78,6 @@ public class AGVelocity {
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
 
+        this.logger.info("Plugin started");
     }
 }
