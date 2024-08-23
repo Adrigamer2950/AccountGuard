@@ -47,10 +47,12 @@ public abstract class Command<T extends AGVelocity> implements SimpleCommand {
 
         if(sc.isEmpty()) return;
 
-        List<String> l = new ArrayList<>(Arrays.asList(args));
-        l.remove(0);
-        //noinspection ToArrayCallWithZeroLengthArrayArgument
-        args = l.toArray(new String[l.size()]);
+        if (args.length > 0) {
+            List<String> l = new ArrayList<>(Arrays.asList(args));
+            l.remove(0);
+            //noinspection ToArrayCallWithZeroLengthArrayArgument
+            args = l.toArray(new String[l.size()]);
+        }
 
         sc.get().execute(source, alias, args);
     }
