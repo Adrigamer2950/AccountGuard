@@ -1,7 +1,7 @@
+//file:noinspection VulnerableLibrariesLocal
 plugins {
     id 'java'
-    id 'eclipse'
-    id "org.jetbrains.gradle.plugin.idea-ext" version "1.0.1"
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 repositories {
@@ -13,8 +13,19 @@ repositories {
 }
 
 dependencies {
+    // Velocity API
     compileOnly "com.velocitypowered:velocity-api:3.3.0-SNAPSHOT"
     annotationProcessor "com.velocitypowered:velocity-api:3.3.0-SNAPSHOT"
+
+    // Common
+    implementation project(':common')
+
+    // Boosted YAML
+    compileOnly 'dev.dejvokep:boosted-yaml:1.3.6'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
 }
 
 def targetJavaVersion = 17
@@ -44,13 +55,24 @@ tasks {
         archiveVersion.set(version)
     }
 
-    tasks.build.doLast {
+    shadowJar {
+        archiveBaseName.set('AccountGuard')
+        archiveClassifier.set('Velocity')
+
+        dependencies {
+            relocate "dev.dejvokep.boostedyaml", "me.adrigamer2950.accountguard.libs"
+        }
+    }
+
+    tasks.shadowJar.doLast {
         copy {
             from "./build/libs/"
             into "../build/"
             include "*.jar"
         }
     }
+
+    tasks.build.finalizedBy(shadowJar)
 
     tasks.register("wrapper") {}
 
