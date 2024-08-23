@@ -3,7 +3,7 @@ package me.adrigamer2950.accountguard.bukkit;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.bukkit.commands.MainCommand;
-import me.adrigamer2950.accountguard.common.database.yaml.YAMLDatabase;
+import me.adrigamer2950.accountguard.common.database.yaml.WhitelistDatabase;
 import me.adrigamer2950.accountguard.bukkit.listeners.PlayerListener;
 import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.accountguard.common.database.Database;
@@ -33,8 +33,8 @@ public final class AGBukkit extends APIPlugin {
             this.reloadConfig();
 
             switch (this.config.database().driver()) {
-                case YAML -> this.database = new YAMLDatabase(
-                        new File(this.getDataFolder(), "data.yml")
+                case YAML -> this.database = new WhitelistDatabase(
+                        new File(this.getDataFolder().toPath().resolve("data").toFile(), "whitelist.yml")
                 );
                 default -> throw new IllegalArgumentException("Other types of databases are not available for now");
             }
