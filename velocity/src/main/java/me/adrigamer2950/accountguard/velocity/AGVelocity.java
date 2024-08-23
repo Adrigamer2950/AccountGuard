@@ -9,6 +9,7 @@ import com.velocitypowered.api.proxy.ProxyServer;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.common.config.Config;
+import me.adrigamer2950.accountguard.velocity.database.OfflinePlayerDatabase;
 import me.adrigamer2950.accountguard.velocity.util.FileDownloader;
 import org.slf4j.Logger;
 
@@ -34,6 +35,8 @@ public class AGVelocity {
 
     private final YamlDocument configYaml;
     private Config config;
+
+    private final OfflinePlayerDatabase opDatabase;
 
     @Inject
     public AGVelocity(ProxyServer proxy, Logger logger, @DataDirectory Path dataDirectory) throws IOException {
@@ -65,6 +68,15 @@ public class AGVelocity {
             this.configYaml.save();
 
         this.reloadConfig();
+
+        File opFile = new File(
+                dataDirectory.toFile(),
+                "offline_players.yml"
+        );
+
+        this.opDatabase = new OfflinePlayerDatabase(
+            YamlDocument.create(opFile)
+        );
     }
 
     @SneakyThrows
