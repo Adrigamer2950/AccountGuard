@@ -33,10 +33,10 @@ public class AGVelocity {
     private final Logger logger;
     @Getter private final ProxyServer proxy;
 
-    private YamlDocument configYaml;
+    private final YamlDocument configYaml;
     @Getter private Config config;
 
-    @Getter private OfflinePlayerDatabase opDatabase;
+    @Getter private final OfflinePlayerDatabase opDatabase;
 
     @Inject
     public AGVelocity(ProxyServer proxy, Logger logger, @DataDirectory Path dataDirectory) throws IOException {
