@@ -10,6 +10,8 @@ import dev.dejvokep.boostedyaml.YamlDocument;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.common.config.Config;
+import me.adrigamer2950.accountguard.common.database.Database;
+import me.adrigamer2950.accountguard.common.database.yaml.WhitelistDatabase;
 import me.adrigamer2950.accountguard.velocity.commands.MainCommand;
 import me.adrigamer2950.accountguard.velocity.database.OfflinePlayerDatabase;
 import me.adrigamer2950.accountguard.velocity.listeners.PlayerListener;
@@ -33,16 +35,19 @@ public class AGVelocity {
     @Inject
     private final Logger logger;
     @Getter private final ProxyServer proxy;
+    private final Path dataDirectory;
 
     private final YamlDocument configYaml;
     @Getter private Config config;
 
-    @Getter private final OfflinePlayerDatabase opDatabase;
+    @Getter private OfflinePlayerDatabase opDatabase;
+    @Getter private final Database whitelistDatabase;
 
     @Inject
     public AGVelocity(ProxyServer proxy, Logger logger, @DataDirectory Path dataDirectory) throws IOException {
         this.logger = logger;
         this.proxy = proxy;
+        this.dataDirectory = dataDirectory;
 
         File configFile = new File(dataDirectory.toFile(), "config.yml");
 
@@ -56,16 +61,12 @@ public class AGVelocity {
 
         this.reloadConfig();
 
-        File opFile = new File(
-                dataDirectory.toFile(),
-                "offline_players.yml"
-        );
-
-        this.opDatabase = new OfflinePlayerDatabase(
-            YamlDocument.create(opFile)
-        );
-
-        proxy.getEventManager().register(this, new PlayerListener(this));
+        switch (this.config.database().driver()) {
+            case YAML -> this.whitelistDatabase = new WhitelistDatabase(
+                    new File(dataDirectory.resolve("data").toFile(), "whitelist.yml")
+            );
+            default -> throw new IllegalArgumentException("Other types of databases are not available for now");
+        }
     }
 
     @SneakyThrows
@@ -81,6 +82,16 @@ public class AGVelocity {
 
     @Subscribe
     public void onProxyInitialization(ProxyInitializeEvent event) {
+    public void onProxyInitialization(ProxyInitializeEvent event) throws IOException {
+        File opFile = new File(
+                dataDirectory.toFile(),
+                "offline_players.yml"
+        );
+
+        this.opDatabase = new OfflinePlayerDatabase(
+                YamlDocument.create(opFile), this
+        );
+
         new MainCommand(this, "agv")
                 .register(getProxy().getCommandManager());
 
