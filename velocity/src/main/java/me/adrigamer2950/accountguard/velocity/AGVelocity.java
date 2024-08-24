@@ -81,7 +81,6 @@ public class AGVelocity {
     }
 
     @Subscribe
-    public void onProxyInitialization(ProxyInitializeEvent event) {
     public void onProxyInitialization(ProxyInitializeEvent event) throws IOException {
         File opFile = new File(
                 dataDirectory.toFile(),
@@ -91,6 +90,8 @@ public class AGVelocity {
         this.opDatabase = new OfflinePlayerDatabase(
                 YamlDocument.create(opFile), this
         );
+
+        proxy.getEventManager().register(this, new PlayerListener(this));
 
         new MainCommand(this, "agv")
                 .register(getProxy().getCommandManager());
