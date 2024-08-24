@@ -10,6 +10,8 @@ public class MainCommand extends Command<AGVelocity> {
 
     public MainCommand(AGVelocity plugin, String name) {
         super(plugin, name);
+
+        addSubCommand(new HelpSubCommand(this, "help"));
     }
 
     @Override
