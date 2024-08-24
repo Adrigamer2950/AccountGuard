@@ -12,6 +12,7 @@ import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.accountguard.velocity.commands.MainCommand;
 import me.adrigamer2950.accountguard.velocity.database.OfflinePlayerDatabase;
+import me.adrigamer2950.accountguard.velocity.listeners.PlayerListener;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -63,6 +64,8 @@ public class AGVelocity {
         this.opDatabase = new OfflinePlayerDatabase(
             YamlDocument.create(opFile)
         );
+
+        proxy.getEventManager().register(this, new PlayerListener(this));
     }
 
     @SneakyThrows
