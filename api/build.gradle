@@ -1,0 +1,76 @@
+plugins {
+    id 'java'
+}
+
+group = 'me.adrigamer2950.accountguard'
+version = properties.get("version") + (
+        project.hasProperty("BUILD_NUMBER") ?
+                ("-DEV" + (
+                        project.property("BUILD_NUMBER") == "0" ? "" : ("-b" + project.property("BUILD_NUMBER")))
+                )
+                : ""
+)
+description = properties.get("description")
+author = properties.get("author")
+
+if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD")) {
+    java {
+        withJavadocJar()
+        withSourcesJar()
+    }
+
+    publishing {
+        repositories {
+            maven {
+                def baseUrl = "https://repo.devadri.es/repository/"
+
+                url = uri(
+                        baseUrl + (project.hasProperty("BUILD_NUMBER") ? "dev" : "releases")
+                )
+                credentials {
+                    username = project.property("NEXUS_USERNAME")
+                    password = project.property("NEXUS_PASSWORD")
+                }
+            }
+        }
+
+        publications {
+            maven(MavenPublication) {
+                groupId = this.group
+                artifactId = rootProject.name + "-API"
+                version = this.version
+
+                from components.java
+
+                pom {
+                    name = rootProject.name
+                    description = this.description
+                    url = "https://github.com/Adrigamer2950/AccountGuard"
+
+                    licenses {
+                        license {
+                            name = 'GPL-3.0'
+                            url = 'https://www.gnu.org/licenses/gpl-3.0.html'
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id = "Adrigamer2950"
+                            name = "Adri"
+                        }
+                    }
+
+                    scm {
+                        url = "https://github.com/Adrigamer2950/AccountGuard"
+                    }
+
+                    issueManagement {
+                        system = 'GitHub'
+                        url = 'https://github.com/Adrigamer2950/AccountGuard/issues'
+                    }
+                }
+            }
+        }
+    }
+}
