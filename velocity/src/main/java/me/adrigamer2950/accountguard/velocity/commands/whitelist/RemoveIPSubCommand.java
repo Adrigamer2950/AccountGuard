@@ -25,14 +25,14 @@ public class RemoveIPSubCommand extends SubCommand<AGVelocity> {
     public void execute(CommandSource source, String alias, String[] args) {
         if (!VelocityUtil.hasPermission(source, Permissions.REMOVE_IP_OWN)) {
             source.sendMessage(
-                    LegacyComponentSerializer.legacyAmpersand().deserialize("&cYou don't have permission to do that!")
+                    LegacyComponentSerializer.legacyAmpersand().deserialize(getPlugin().getMessages().NO_PERMISSION())
             );
             return;
         }
 
         if (args.length == 0) {
             source.sendMessage(
-                    LegacyComponentSerializer.legacyAmpersand().deserialize("&cYou have to specify an IP!")
+                    LegacyComponentSerializer.legacyAmpersand().deserialize(getPlugin().getMessages().IP_NOT_SPECIFIED())
             );
             return;
         }
@@ -41,7 +41,7 @@ public class RemoveIPSubCommand extends SubCommand<AGVelocity> {
 
         if (!IPUtil.checkIP(ip)) {
             source.sendMessage(
-                    LegacyComponentSerializer.legacyAmpersand().deserialize("&cInvalid IP!")
+                    LegacyComponentSerializer.legacyAmpersand().deserialize(getPlugin().getMessages().INVALID_IP())
             );
             return;
         }
@@ -52,7 +52,7 @@ public class RemoveIPSubCommand extends SubCommand<AGVelocity> {
 
         if (playerName == null && source instanceof ConsoleCommandSource) {
             source.sendMessage(
-                    LegacyComponentSerializer.legacyAmpersand().deserialize("&cYou must specify a Player's username if you executing from the console!")
+                    LegacyComponentSerializer.legacyAmpersand().deserialize(getPlugin().getMessages().PLAYER_NAME_NOT_SPECIFIED_FROM_CONSOLE())
             );
             return;
         }
@@ -63,25 +63,29 @@ public class RemoveIPSubCommand extends SubCommand<AGVelocity> {
 
         if (player == null) {
             source.sendMessage(
-                    LegacyComponentSerializer.legacyAmpersand().deserialize("&cThat player has never joined this server (at least since AccountGuard was added to this server)!")
+                    LegacyComponentSerializer.legacyAmpersand().deserialize(getPlugin().getMessages().PLAYER_NOT_FOUND())
             );
             return;
         }
 
         if (playerName != null && !VelocityUtil.hasPermission(source, Permissions.REMOVE_IP_OTHER)) {
             source.sendMessage(
-                    LegacyComponentSerializer.legacyAmpersand().deserialize("&cYou don't have permissions to change other player's IP whitelist")
+                    LegacyComponentSerializer.legacyAmpersand().deserialize(getPlugin().getMessages().NO_CHANGE_OTHER_WHITELIST_PERMISSION())
             );
             return;
         }
 
         if (getPlugin().getWhitelistDatabase().removeIP(player.getUuid(), ip))
             source.sendMessage(
-                    LegacyComponentSerializer.legacyAmpersand().deserialize("&aIP removed from %s's IP Whitelist".formatted(player.getName()))
+                    LegacyComponentSerializer.legacyAmpersand().deserialize(
+                            getPlugin().getMessages().IP_REMOVED_FROM_WHITELIST().replaceAll("%player%", Objects.requireNonNull(player.getName()))
+                    )
             );
         else
             source.sendMessage(
-                    LegacyComponentSerializer.legacyAmpersand().deserialize("&cThat IP isn't in %s's IP Whitelist!".formatted(player.getName()))
+                    LegacyComponentSerializer.legacyAmpersand().deserialize(
+                            getPlugin().getMessages().IP_NOT_IN_WHITELIST().replaceAll("%player%", Objects.requireNonNull(player.getName()))
+                    )
             );
 
         getPlugin().getWhitelistDatabase().saveData();

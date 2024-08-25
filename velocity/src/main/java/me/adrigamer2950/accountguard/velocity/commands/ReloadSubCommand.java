@@ -17,9 +17,12 @@ public class ReloadSubCommand extends SubCommand<AGVelocity> {
     @Override
     public void execute(CommandSource source, String alias, String[] args) {
         getPlugin().reloadConfig();
+        getPlugin().reloadMessages();
 
         source.sendMessage(
-                LegacyComponentSerializer.legacyAmpersand().deserialize("&aConfiguration reloaded")
+                LegacyComponentSerializer.legacyAmpersand().deserialize(
+                        getPlugin().getMessages().RELOAD_MESSAGE()
+                )
         );
     }
 

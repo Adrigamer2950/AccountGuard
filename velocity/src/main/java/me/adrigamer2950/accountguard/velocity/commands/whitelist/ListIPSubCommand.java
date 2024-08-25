@@ -24,7 +24,7 @@ public class ListIPSubCommand extends SubCommand<AGVelocity> {
     public void execute(CommandSource source, String alias, String[] args) {
         if (!VelocityUtil.hasPermission(source, Permissions.ADD_IP_OWN)) {
             source.sendMessage(
-                    LegacyComponentSerializer.legacyAmpersand().deserialize("&cYou don't have permission to do that!")
+                    LegacyComponentSerializer.legacyAmpersand().deserialize(getPlugin().getMessages().NO_PERMISSION())
             );
             return;
         }
@@ -35,7 +35,7 @@ public class ListIPSubCommand extends SubCommand<AGVelocity> {
 
         if (playerName == null && source instanceof ConsoleCommandSource) {
             source.sendMessage(
-                    LegacyComponentSerializer.legacyAmpersand().deserialize("&cYou must specify a Player's username if you executing from the console!")
+                    LegacyComponentSerializer.legacyAmpersand().deserialize(getPlugin().getMessages().PLAYER_NAME_NOT_SPECIFIED_FROM_CONSOLE())
             );
             return;
         }
@@ -46,14 +46,14 @@ public class ListIPSubCommand extends SubCommand<AGVelocity> {
 
         if (player == null) {
             source.sendMessage(
-                    LegacyComponentSerializer.legacyAmpersand().deserialize("&cThat player has never joined this server (at least since AccountGuard was added to this server)!")
+                    LegacyComponentSerializer.legacyAmpersand().deserialize(getPlugin().getMessages().PLAYER_NOT_FOUND())
             );
             return;
         }
 
         if (playerName != null && !VelocityUtil.hasPermission(source, Permissions.LIST_IP_OTHER)) {
             source.sendMessage(
-                    LegacyComponentSerializer.legacyAmpersand().deserialize("&cYou don't have permissions to view other player's IP whitelist")
+                    LegacyComponentSerializer.legacyAmpersand().deserialize(getPlugin().getMessages().NO_VIEW_OTHER_WHITELIST_PERMISSION())
             );
             return;
         }
@@ -64,7 +64,9 @@ public class ListIPSubCommand extends SubCommand<AGVelocity> {
                 LegacyComponentSerializer.legacyAmpersand().deserialize("&f&m                                          ")
         );
         source.sendMessage(
-                LegacyComponentSerializer.legacyAmpersand().deserialize("&6%s &fwhitelisted IP's:".formatted(player.getName()))
+                LegacyComponentSerializer.legacyAmpersand().deserialize(
+                        getPlugin().getMessages().WHITELIST_IP_LIST().replaceAll("%player%", Objects.requireNonNull(player.getName()))
+                )
         );
 
         for (String ip : ips) {

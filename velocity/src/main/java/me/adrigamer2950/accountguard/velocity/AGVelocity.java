@@ -12,6 +12,7 @@ import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.accountguard.common.database.Database;
 import me.adrigamer2950.accountguard.common.database.yaml.WhitelistDatabase;
+import me.adrigamer2950.accountguard.common.messages.Messages;
 import me.adrigamer2950.accountguard.velocity.commands.MainCommand;
 import me.adrigamer2950.accountguard.velocity.database.OfflinePlayerDatabase;
 import me.adrigamer2950.accountguard.velocity.listeners.PlayerListener;
@@ -40,6 +41,9 @@ public class AGVelocity {
     private final YamlDocument configYaml;
     @Getter private Config config;
 
+    private final YamlDocument messagesYaml;
+    @Getter private Messages messages;
+
     @Getter private OfflinePlayerDatabase opDatabase;
     @Getter private final Database whitelistDatabase;
 
@@ -56,9 +60,6 @@ public class AGVelocity {
                 Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("config.yml"))
         );
 
-        if (!configFile.exists())
-            this.configYaml.save();
-
         this.reloadConfig();
 
         switch (this.config.database().driver()) {
@@ -67,6 +68,13 @@ public class AGVelocity {
             );
             default -> throw new IllegalArgumentException("Other types of databases are not available for now");
         }
+
+        this.messagesYaml = YamlDocument.create(
+                new File(dataDirectory.toFile(), "messages.yml"),
+                Objects.requireNonNull(this.getClass().getClassLoader().getResourceAsStream("messages.yml"))
+        );
+
+        this.reloadMessages();
     }
 
     @SneakyThrows
@@ -77,6 +85,27 @@ public class AGVelocity {
                 new Config.Database(
                         Config.Database.Type.valueOf(this.configYaml.getString("database.driver"))
                 )
+        );
+    }
+
+    @SneakyThrows
+    public void reloadMessages() {
+        this.messagesYaml.reload();
+
+        this.messages = new Messages(
+                this.messagesYaml.getString("NO_PERMISSION"),
+                this.messagesYaml.getString("NO_CHANGE_OTHER_WHITELIST_PERMISSION"),
+                this.messagesYaml.getString("NO_VIEW_OTHER_WHITELIST_PERMISSION"),
+                this.messagesYaml.getString("IP_NOT_SPECIFIED"),
+                this.messagesYaml.getString("INVALID_IP"),
+                this.messagesYaml.getString("PLAYER_NAME_NOT_SPECIFIED_FROM_CONSOLE"),
+                this.messagesYaml.getString("PLAYER_NOT_FOUND"),
+                this.messagesYaml.getString("IP_ADDED_IN_WHITELIST"),
+                this.messagesYaml.getString("IP_ALREADY_IN_WHITELIST"),
+                this.messagesYaml.getString("IP_REMOVED_FROM_WHITELIST"),
+                this.messagesYaml.getString("IP_NOT_IN_WHITELIST"),
+                this.messagesYaml.getString("WHITELIST_IP_LIST"),
+                this.messagesYaml.getString("RELOAD_MESSAGE")
         );
     }
 
