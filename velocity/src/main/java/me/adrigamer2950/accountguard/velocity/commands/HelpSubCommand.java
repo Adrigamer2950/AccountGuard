@@ -17,14 +17,14 @@ public class HelpSubCommand extends SubCommand<AGVelocity> {
     @Override
     public void execute(CommandSource source, String alias, String[] args) {
         List<String> l = List.of(
-                "&m                                                      ",
+                "|&m                                                      &r|",
                 "&6<> &farguments are mandatory, &6[] &farguments are optional except in console",
                 "&7> &e/%s help &aShows this help message".formatted(alias),
                 "&7> &e/%s reload &aReload configuration files".formatted(alias),
                 "&7> &e/%s add <ip> [player] &aShows this help message".formatted(alias),
                 "&7> &e/%s remove <ip> [player] &aShows this help message".formatted(alias),
                 "&7> &e/%s list [player] &aShows this help message".formatted(alias),
-                "&m                                                      "
+                "|&m                                                      &r|"
         );
 
         for (String s : l)

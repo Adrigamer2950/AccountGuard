@@ -16,14 +16,14 @@ public class HelpSubCommand extends SubCommand<AGBukkit> {
     @Override
     public boolean execute(User user, String label, String[] args) {
         List<String> l = List.of(
-                "&m                                                      ",
+                "|&m                                                      &r|",
                 "&6<> &farguments are mandatory, &6[] &farguments are optional",
                 "&7> &e/%s help &aShows this help message".formatted(label),
                 "&7> &e/%s reload &aReload configuration files".formatted(label),
                 "&7> &e/%s add <ip> [player] &aShows this help message".formatted(label),
                 "&7> &e/%s remove <ip> [player] &aShows this help message".formatted(label),
                 "&7> &e/%s list [player] &aShows this help message".formatted(label),
-                "&m                                                      "
+                "|&m                                                      &r|"
         );
 
         for (String s : l)
