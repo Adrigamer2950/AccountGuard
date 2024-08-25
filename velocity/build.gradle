@@ -4,6 +4,11 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
+group = 'me.adrigamer2950.accountguard'
+version = parent.version
+description = parent.description
+author = parent.author
+
 repositories {
     mavenCentral()
     maven {
