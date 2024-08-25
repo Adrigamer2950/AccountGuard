@@ -17,4 +17,8 @@ repositories {
 dependencies {
     // Boosted YAML
     compileOnly 'dev.dejvokep:boosted-yaml:1.3.6'
+
+    // Lombok
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
 }
