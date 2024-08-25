@@ -16,6 +16,8 @@ public class MainCommand extends Command<AGVelocity> {
 
         addSubCommand(new HelpSubCommand(this, "help"));
 
+        addSubCommand(new ReloadSubCommand(this, "reload"));
+
         addSubCommand(new AddIPSubCommand(this, "add"));
         addSubCommand(new RemoveIPSubCommand(this, "remove"));
         addSubCommand(new ListIPSubCommand(this, "list"));
