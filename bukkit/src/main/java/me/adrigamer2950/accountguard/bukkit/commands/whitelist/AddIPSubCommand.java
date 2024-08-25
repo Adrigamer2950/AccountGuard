@@ -26,7 +26,7 @@ public class AddIPSubCommand extends SubCommand<AGBukkit> {
     @Override
     public boolean execute(User user, String label, String[] args) {
         if (!BukkitUtil.hasPermission(user, Permissions.ADD_IP_OWN)) {
-            user.sendMessage("&cYou don't have permission to do that!");
+            user.sendMessage(getPlugin().messages.NO_PERMISSION());
             return true;
         }
 
@@ -35,14 +35,14 @@ public class AddIPSubCommand extends SubCommand<AGBukkit> {
         args = list.toArray(new String[list.size()]);
 
         if (args.length == 0) {
-            user.sendMessage("&cYou have to specify an IP!");
+            user.sendMessage(getPlugin().messages.IP_NOT_SPECIFIED());
             return true;
         }
 
         String ip = args[0];
 
         if (!IPUtil.checkIP(ip)) {
-            user.sendMessage("&cInvalid IP!");
+            user.sendMessage(getPlugin().messages.INVALID_IP());
             return true;
         }
 
@@ -51,7 +51,7 @@ public class AddIPSubCommand extends SubCommand<AGBukkit> {
             playerName = args[1];
 
         if (playerName == null && user.isConsole()) {
-            user.sendMessage("&cYou must specify a Player's username if you executing from the console!");
+            user.sendMessage(getPlugin().messages.PLAYER_NAME_NOT_SPECIFIED_FROM_CONSOLE());
             return true;
         }
 
@@ -60,19 +60,19 @@ public class AddIPSubCommand extends SubCommand<AGBukkit> {
         );
 
         if (playerName != null && !BukkitUtil.hasPermission(user, Permissions.ADD_IP_OTHER)) {
-            user.sendMessage("&cYou don't have permissions to change other player's IP whitelist");
+            user.sendMessage(getPlugin().messages.NO_CHANGE_OTHER_WHITELIST_PERMISSION());
             return true;
         }
 
         if (player == null) {
-            user.sendMessage("&cThat player has never joined this server!");
+            user.sendMessage(getPlugin().messages.PLAYER_NOT_FOUND());
             return true;
         }
 
         if (getPlugin().database.addIP(player.getUniqueId(), ip))
-            user.sendMessage("&aIP added into %s's IP Whitelist".formatted(player.getName()));
+            user.sendMessage(getPlugin().messages.IP_ADDED_IN_WHITELIST().replaceAll("%player%", Objects.requireNonNull(player.getName())));
         else
-            user.sendMessage("&cThat IP is already in %s's IP Whitelist!".formatted(player.getName()));
+            user.sendMessage(getPlugin().messages.IP_ALREADY_IN_WHITELIST().replaceAll("%player%", Objects.requireNonNull(player.getName())));
 
         return true;
     }

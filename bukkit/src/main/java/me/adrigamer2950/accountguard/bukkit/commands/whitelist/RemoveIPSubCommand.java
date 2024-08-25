@@ -26,7 +26,7 @@ public class RemoveIPSubCommand extends SubCommand<AGBukkit> {
     @Override
     public boolean execute(User user, String label, String[] args) {
         if (!BukkitUtil.hasPermission(user, Permissions.REMOVE_IP_OWN)) {
-            user.sendMessage("&cYou don't have permission to do that!");
+            user.sendMessage(getPlugin().messages.NO_PERMISSION());
             return true;
         }
 
@@ -35,14 +35,14 @@ public class RemoveIPSubCommand extends SubCommand<AGBukkit> {
         args = list.toArray(new String[list.size()]);
 
         if (args.length == 0) {
-            user.sendMessage("&cYou have to specify an IP!");
+            user.sendMessage(getPlugin().messages.IP_NOT_SPECIFIED());
             return true;
         }
 
         String ip = args[0];
 
         if (!IPUtil.checkIP(ip)) {
-            user.sendMessage("&cInvalid IP!");
+            user.sendMessage(getPlugin().messages.INVALID_IP());
             return true;
         }
 
@@ -51,7 +51,7 @@ public class RemoveIPSubCommand extends SubCommand<AGBukkit> {
             playerName = args[1];
 
         if (playerName == null && user.isConsole()) {
-            user.sendMessage("&cYou must specify a Player's username if you executing from the console!");
+            user.sendMessage(getPlugin().messages.PLAYER_NAME_NOT_SPECIFIED_FROM_CONSOLE());
             return true;
         }
 
@@ -59,20 +59,20 @@ public class RemoveIPSubCommand extends SubCommand<AGBukkit> {
                 (user.isPlayer() && playerName == null) ? user.getPlayerOrNull().getName() : Objects.requireNonNull(playerName)
         );
 
-        if (player == null) {
-            user.sendMessage("&cThat player has never joined this server!");
+        if (playerName != null && !BukkitUtil.hasPermission(user, Permissions.REMOVE_IP_OTHER)) {
+            user.sendMessage(getPlugin().messages.NO_CHANGE_OTHER_WHITELIST_PERMISSION());
             return true;
         }
 
-        if (playerName != null && !BukkitUtil.hasPermission(user, Permissions.REMOVE_IP_OTHER)) {
-            user.sendMessage("&cYou don't have permissions to change other player's IP whitelist");
+        if (player == null) {
+            user.sendMessage(getPlugin().messages.PLAYER_NOT_FOUND());
             return true;
         }
 
         if (getPlugin().database.removeIP(player.getUniqueId(), ip))
-            user.sendMessage("&aIP removed from %s's IP Whitelist".formatted(player.getName()));
+            user.sendMessage(getPlugin().messages.IP_REMOVED_FROM_WHITELIST().replaceAll("%player%", Objects.requireNonNull(player.getName())));
         else
-            user.sendMessage("&cThat IP isn't in %s's IP Whitelist!".formatted(player.getName()));
+            user.sendMessage(getPlugin().messages.IP_NOT_IN_WHITELIST().replaceAll("%player%", Objects.requireNonNull(player.getName())));
 
         return true;
     }

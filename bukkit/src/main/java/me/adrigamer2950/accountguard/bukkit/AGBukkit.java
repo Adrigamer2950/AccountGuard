@@ -7,6 +7,7 @@ import me.adrigamer2950.accountguard.common.database.yaml.WhitelistDatabase;
 import me.adrigamer2950.accountguard.bukkit.listeners.PlayerListener;
 import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.accountguard.common.database.Database;
+import me.adrigamer2950.accountguard.common.messages.Messages;
 import me.adrigamer2950.adriapi.api.APIPlugin;
 
 import java.io.File;
@@ -15,9 +16,11 @@ import java.util.Objects;
 
 public final class AGBukkit extends APIPlugin {
 
-    public YamlDocument configYaml;
+    private YamlDocument configYaml;
+    private YamlDocument messagesYaml;
 
     public Config config;
+    public Messages messages;
     public Database database;
 
     @Override
@@ -38,6 +41,13 @@ public final class AGBukkit extends APIPlugin {
                 );
                 default -> throw new IllegalArgumentException("Other types of databases are not available for now");
             }
+
+            this.messagesYaml = YamlDocument.create(
+                    new File(this.getDataFolder(), "messages.yml"),
+                    Objects.requireNonNull(getResource("messages.yml"))
+            );
+
+            this.reloadMessages();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -69,6 +79,27 @@ public final class AGBukkit extends APIPlugin {
                 new Config.Database(
                         Config.Database.Type.valueOf(configYaml.getString("database.driver"))
                 )
+        );
+    }
+
+    @SneakyThrows
+    public void reloadMessages() {
+        this.messagesYaml.reload();
+
+        this.messages = new Messages(
+                this.messagesYaml.getString("NO_PERMISSION"),
+                this.messagesYaml.getString("NO_CHANGE_OTHER_WHITELIST_PERMISSION"),
+                this.messagesYaml.getString("NO_VIEW_OTHER_WHITELIST_PERMISSION"),
+                this.messagesYaml.getString("IP_NOT_SPECIFIED"),
+                this.messagesYaml.getString("INVALID_IP"),
+                this.messagesYaml.getString("PLAYER_NAME_NOT_SPECIFIED_FROM_CONSOLE"),
+                this.messagesYaml.getString("PLAYER_NOT_FOUND"),
+                this.messagesYaml.getString("IP_ADDED_IN_WHITELIST"),
+                this.messagesYaml.getString("IP_ALREADY_IN_WHITELIST"),
+                this.messagesYaml.getString("IP_REMOVED_FROM_WHITELIST"),
+                this.messagesYaml.getString("IP_NOT_IN_WHITELIST"),
+                this.messagesYaml.getString("WHITELIST_IP_LIST"),
+                this.messagesYaml.getString("RELOAD_MESSAGE")
         );
     }
 }

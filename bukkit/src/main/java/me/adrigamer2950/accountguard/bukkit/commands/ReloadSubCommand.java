@@ -16,13 +16,14 @@ public class ReloadSubCommand extends SubCommand<AGBukkit> {
     @Override
     public boolean execute(User user, String label, String[] args) {
         if (!BukkitUtil.hasPermission(user, Permissions.RELOAD)) {
-            user.sendMessage("&cYou don't have permissions!");
+            user.sendMessage(getPlugin().messages.NO_PERMISSION());
             return true;
         }
 
         getPlugin().reloadConfig();
+        getPlugin().reloadMessages();
 
-        user.sendMessage("&aConfiguration reloaded");
+        user.sendMessage(getPlugin().messages.RELOAD_MESSAGE());
 
         return true;
     }

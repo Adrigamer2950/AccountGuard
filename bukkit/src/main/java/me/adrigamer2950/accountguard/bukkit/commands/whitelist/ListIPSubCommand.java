@@ -24,7 +24,7 @@ public class ListIPSubCommand extends SubCommand<AGBukkit> {
     @Override
     public boolean execute(User user, String label, String[] args) {
         if (!BukkitUtil.hasPermission(user, Permissions.LIST_IP_OWN)) {
-            user.sendMessage("&cYou don't have permission to do that!");
+            user.sendMessage(getPlugin().messages.NO_PERMISSION());
             return true;
         }
 
@@ -37,7 +37,7 @@ public class ListIPSubCommand extends SubCommand<AGBukkit> {
             playerName = args[0];
 
         if (playerName == null && user.isConsole()) {
-            user.sendMessage("&cYou must specify a Player's username if you executing from the console!");
+            user.sendMessage(getPlugin().messages.PLAYER_NAME_NOT_SPECIFIED_FROM_CONSOLE());
             return true;
         }
 
@@ -46,25 +46,25 @@ public class ListIPSubCommand extends SubCommand<AGBukkit> {
         );
 
         if (player == null) {
-            user.sendMessage("&cThat player has never joined this server!");
+            user.sendMessage(getPlugin().messages.PLAYER_NOT_FOUND());
             return true;
         }
 
         if (playerName != null && !BukkitUtil.hasPermission(user, Permissions.LIST_IP_OTHER)) {
-            user.sendMessage("&cYou don't have permissions to view other player's IP whitelist");
+            user.sendMessage(getPlugin().messages.NO_VIEW_OTHER_WHITELIST_PERMISSION());
             return true;
         }
 
         List<String> ips = getPlugin().database.getIPs(player.getUniqueId()).stream().toList();
 
-        user.sendMessage("&f&m                                          ");
-        user.sendMessage("&6%s &fwhitelisted IP's:".formatted(player.getName()));
+        user.sendMessage("&m|                                          &r|");
+        user.sendMessage(getPlugin().messages.WHITELIST_IP_LIST().replaceAll("%player%", Objects.requireNonNull(player.getName())));
 
         for (String ip : ips) {
             user.sendMessage("&f| &e%s".formatted(ip));
         }
 
-        user.sendMessage("&f&m                                          ");
+        user.sendMessage("&m|                                          &r|");
 
         return true;
     }
