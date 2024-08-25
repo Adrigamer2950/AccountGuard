@@ -17,3 +17,22 @@ commands:
   ag:
     description: Main command
     usage: /ag help
+
+permissions:
+  accountguard.*:
+    default: false
+    children:
+      accountguard.reload:
+        default: false
+      accountguard.add.own:
+        default: false
+      accountguard.add.other:
+        default: false
+      accountguard.remove.own:
+        default: false
+      accountguard.remove.other:
+        default: false
+      accountguard.list.own:
+        default: false
+      accountguard.list.other:
+        default: false

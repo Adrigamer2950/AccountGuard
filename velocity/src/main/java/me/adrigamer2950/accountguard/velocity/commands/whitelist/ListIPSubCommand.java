@@ -3,10 +3,12 @@ package me.adrigamer2950.accountguard.velocity.commands.whitelist;
 import com.velocitypowered.api.command.CommandSource;
 import com.velocitypowered.api.proxy.ConsoleCommandSource;
 import com.velocitypowered.api.proxy.Player;
+import me.adrigamer2950.accountguard.common.permissions.Permissions;
 import me.adrigamer2950.accountguard.velocity.AGVelocity;
 import me.adrigamer2950.accountguard.velocity.objects.Command;
 import me.adrigamer2950.accountguard.velocity.objects.OfflinePlayer;
 import me.adrigamer2950.accountguard.velocity.objects.SubCommand;
+import me.adrigamer2950.accountguard.velocity.util.VelocityUtil;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 
 import java.util.List;
@@ -20,6 +22,13 @@ public class ListIPSubCommand extends SubCommand<AGVelocity> {
 
     @Override
     public void execute(CommandSource source, String alias, String[] args) {
+        if (!VelocityUtil.hasPermission(source, Permissions.ADD_IP_OWN)) {
+            source.sendMessage(
+                    LegacyComponentSerializer.legacyAmpersand().deserialize("&cYou don't have permission to do that!")
+            );
+            return;
+        }
+
         String playerName = null;
         if (args.length >= 1)
             playerName = args[0];
@@ -38,6 +47,13 @@ public class ListIPSubCommand extends SubCommand<AGVelocity> {
         if (player == null) {
             source.sendMessage(
                     LegacyComponentSerializer.legacyAmpersand().deserialize("&cThat player has never joined this server (at least since AccountGuard was added to this server)!")
+            );
+            return;
+        }
+
+        if (playerName != null && !VelocityUtil.hasPermission(source, Permissions.LIST_IP_OTHER)) {
+            source.sendMessage(
+                    LegacyComponentSerializer.legacyAmpersand().deserialize("&cYou don't have permissions to view other player's IP whitelist")
             );
             return;
         }

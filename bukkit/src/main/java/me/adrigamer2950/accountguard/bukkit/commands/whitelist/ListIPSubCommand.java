@@ -1,6 +1,8 @@
 package me.adrigamer2950.accountguard.bukkit.commands.whitelist;
 
 import me.adrigamer2950.accountguard.bukkit.AGBukkit;
+import me.adrigamer2950.accountguard.bukkit.permissions.BukkitUtil;
+import me.adrigamer2950.accountguard.common.permissions.Permissions;
 import me.adrigamer2950.adriapi.api.command.Command;
 import me.adrigamer2950.adriapi.api.command.SubCommand;
 import me.adrigamer2950.adriapi.api.user.User;
@@ -21,6 +23,11 @@ public class ListIPSubCommand extends SubCommand<AGBukkit> {
     @SuppressWarnings("ToArrayCallWithZeroLengthArrayArgument")
     @Override
     public boolean execute(User user, String label, String[] args) {
+        if (!BukkitUtil.hasPermission(user, Permissions.LIST_IP_OWN)) {
+            user.sendMessage("&cYou don't have permission to do that!");
+            return true;
+        }
+
         List<String> list = new ArrayList<>(Arrays.asList(args));
         list.remove(0);
         args = list.toArray(new String[list.size()]);
@@ -40,6 +47,11 @@ public class ListIPSubCommand extends SubCommand<AGBukkit> {
 
         if (player == null) {
             user.sendMessage("&cThat player has never joined this server!");
+            return true;
+        }
+
+        if (playerName != null && !BukkitUtil.hasPermission(user, Permissions.LIST_IP_OTHER)) {
+            user.sendMessage("&cYou don't have permissions to view other player's IP whitelist");
             return true;
         }
 
