@@ -11,18 +11,19 @@ import java.util.concurrent.TimeUnit;
 
 public class OfflinePlayerDatabase extends YAMLDatabase {
 
-    public final HashMap<String, UUID> players;
+    public HashMap<String, UUID> players = new HashMap<>();
 
     public OfflinePlayerDatabase(YamlDocument yaml, AGVelocity plugin) {
         super(yaml);
-
-        this.players = new HashMap<>();
 
         plugin.getProxy().getScheduler().buildTask(plugin, this::saveData).repeat(60, TimeUnit.SECONDS).schedule();
     }
 
     @Override
     public void loadData() {
+        if (this.players == null)
+            this.players = new HashMap<>();
+
         super.loadData();
 
         for (String username : this.yaml.getRoutesAsStrings(false)) {
