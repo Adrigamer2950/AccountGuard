@@ -69,7 +69,7 @@ public class AddIPSubCommand extends SubCommand<AGBukkit> {
             return true;
         }
 
-        if (getPlugin().database.addIP(player.getUniqueId(), ip))
+        if (getPlugin().addIP(player.getUniqueId(), ip))
             user.sendMessage(getPlugin().messages.IP_ADDED_IN_WHITELIST().replaceAll("%player%", Objects.requireNonNull(player.getName())));
         else
             user.sendMessage(getPlugin().messages.IP_ALREADY_IN_WHITELIST().replaceAll("%player%", Objects.requireNonNull(player.getName())));

@@ -69,7 +69,7 @@ public class RemoveIPSubCommand extends SubCommand<AGBukkit> {
             return true;
         }
 
-        if (getPlugin().database.removeIP(player.getUniqueId(), ip))
+        if (getPlugin().removeIP(player.getUniqueId(), ip))
             user.sendMessage(getPlugin().messages.IP_REMOVED_FROM_WHITELIST().replaceAll("%player%", Objects.requireNonNull(player.getName())));
         else
             user.sendMessage(getPlugin().messages.IP_NOT_IN_WHITELIST().replaceAll("%player%", Objects.requireNonNull(player.getName())));

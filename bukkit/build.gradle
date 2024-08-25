@@ -31,6 +31,9 @@ dependencies {
     // Common
     implementation project(':common')
 
+    // API
+    implementation project(':api')
+
     // Boosted Yaml
     compileOnly 'dev.dejvokep:boosted-yaml:1.3.6'
 

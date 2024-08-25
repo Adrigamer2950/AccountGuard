@@ -55,7 +55,7 @@ public class ListIPSubCommand extends SubCommand<AGBukkit> {
             return true;
         }
 
-        List<String> ips = getPlugin().database.getIPs(player.getUniqueId()).stream().toList();
+        List<String> ips = getPlugin().getIPs(player.getUniqueId()).stream().toList();
 
         user.sendMessage("&m|                                          &r|");
         user.sendMessage(getPlugin().messages.WHITELIST_IP_LIST().replaceAll("%player%", Objects.requireNonNull(player.getName())));
