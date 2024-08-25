@@ -3,6 +3,7 @@ package me.adrigamer2950.accountguard.bukkit;
 import dev.dejvokep.boostedyaml.YamlDocument;
 import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.api.AccountGuard;
+import me.adrigamer2950.accountguard.api.AccountGuardProvider;
 import me.adrigamer2950.accountguard.bukkit.commands.MainCommand;
 import me.adrigamer2950.accountguard.common.database.yaml.WhitelistDatabase;
 import me.adrigamer2950.accountguard.bukkit.listeners.PlayerListener;
@@ -62,6 +63,8 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
         registerCommand(new MainCommand(this, "ag"));
         registerListener(new PlayerListener(this));
 
+        AccountGuardProvider.register(this);
+
         getApiLogger().info("&aEnabled!");
     }
 
@@ -71,6 +74,8 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
 
         this.config = null;
         this.database = null;
+
+        AccountGuardProvider.unRegister();
 
         getApiLogger().info("&cDisabled!");
     }
