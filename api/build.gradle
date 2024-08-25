@@ -1,5 +1,7 @@
+//file:noinspection GroovyAssignabilityCheck
 plugins {
     id 'java'
+    id 'maven-publish'
 }
 
 group = 'me.adrigamer2950.accountguard'
@@ -73,4 +75,13 @@ if (project.hasProperty("NEXUS_USERNAME") && project.hasProperty("NEXUS_PASSWORD
             }
         }
     }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // JetBrains Annotations
+    compileOnly "org.jetbrains:annotations:24.0.1"
 }
