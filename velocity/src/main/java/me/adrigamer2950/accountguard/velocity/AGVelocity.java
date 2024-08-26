@@ -3,6 +3,7 @@ package me.adrigamer2950.accountguard.velocity;
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
 import com.velocitypowered.api.event.Subscribe;
+import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
@@ -14,6 +15,8 @@ import me.adrigamer2950.accountguard.api.AccountGuardProvider;
 import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.accountguard.common.database.Database;
 import me.adrigamer2950.accountguard.common.database.h2.WhitelistH2Database;
+import me.adrigamer2950.accountguard.common.database.sql.SqlLikeDatabase;
+import me.adrigamer2950.accountguard.common.database.sqlite.WhitelistSQLiteDatabase;
 import me.adrigamer2950.accountguard.common.database.yaml.WhitelistYAMLDatabase;
 import me.adrigamer2950.accountguard.common.messages.Messages;
 import me.adrigamer2950.accountguard.common.util.IPUtil;
@@ -74,6 +77,9 @@ public class AGVelocity implements AccountGuard {
                     new File(dataDirectory.resolve("data").toFile(), "whitelist.yml")
             );
             case H2 -> this.whitelistDatabase = new WhitelistH2Database(
+                    dataDirectory.resolve("data").toString()
+            );
+            case SQLITE -> this.whitelistDatabase = new WhitelistSQLiteDatabase(
                     dataDirectory.resolve("data").toString()
             );
             default -> throw new IllegalArgumentException("Other types of databases are not available for now");
@@ -138,6 +144,14 @@ public class AGVelocity implements AccountGuard {
                 .register(getProxy().getCommandManager());
 
         this.logger.info("Plugin started");
+    }
+
+    @Subscribe
+    public void onProxyShutdown(ProxyShutdownEvent e) throws SQLException {
+        this.getWhitelistDatabase().saveData();
+
+        if (this.getWhitelistDatabase() instanceof SqlLikeDatabase)
+            ((SqlLikeDatabase) this.getWhitelistDatabase()).closeConnection();
     }
 
     @Override

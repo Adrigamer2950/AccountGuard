@@ -2,6 +2,7 @@
 # Available drivers:
 # - YAML
 # - H2
+# - SQLite
 #
 database:
   driver: H2

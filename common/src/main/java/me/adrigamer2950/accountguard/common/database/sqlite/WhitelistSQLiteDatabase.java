@@ -1,21 +1,22 @@
-package me.adrigamer2950.accountguard.common.database.h2;
+package me.adrigamer2950.accountguard.common.database.sqlite;
 
-import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.common.database.sql.SqlLikeDatabase;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public class WhitelistH2Database extends SqlLikeDatabase {
+public class WhitelistSQLiteDatabase extends SqlLikeDatabase {
 
-    public WhitelistH2Database(String pluginDataPath) throws SQLException, ClassNotFoundException {
+    public WhitelistSQLiteDatabase(String pluginDataPath) throws SQLException, ClassNotFoundException {
         super(
-                "jdbc:h2:" + pluginDataPath + "/h2"
+                "jdbc:sqlite:" + pluginDataPath + "/sqlite.db"
         );
     }
 
     @Override
     public Connection getConnection() throws ClassNotFoundException {
-        Class.forName("org.h2.Driver");
+        Class.forName("org.sqlite.JDBC");
 
         if (this.connection != null)
             return this.connection;
@@ -32,11 +33,10 @@ public class WhitelistH2Database extends SqlLikeDatabase {
         return this.connection;
     }
 
-    @SneakyThrows
     @Override
     public void saveData() {
-        super.saveSqlData("merge into ip_whitelist (uuid, ips) key (uuid) values (?, ?)");
-
-        this.closeConnection();
+        super.saveSqlData(
+                "insert or replace into ip_whitelist (uuid, ips) values (?, ?)"
+        );
     }
 }

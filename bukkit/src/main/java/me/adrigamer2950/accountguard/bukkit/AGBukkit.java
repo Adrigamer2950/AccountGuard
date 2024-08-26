@@ -6,6 +6,8 @@ import me.adrigamer2950.accountguard.api.AccountGuard;
 import me.adrigamer2950.accountguard.api.AccountGuardProvider;
 import me.adrigamer2950.accountguard.bukkit.commands.MainCommand;
 import me.adrigamer2950.accountguard.common.database.h2.WhitelistH2Database;
+import me.adrigamer2950.accountguard.common.database.sql.SqlLikeDatabase;
+import me.adrigamer2950.accountguard.common.database.sqlite.WhitelistSQLiteDatabase;
 import me.adrigamer2950.accountguard.common.database.yaml.WhitelistYAMLDatabase;
 import me.adrigamer2950.accountguard.bukkit.listeners.PlayerListener;
 import me.adrigamer2950.accountguard.common.config.Config;
@@ -46,7 +48,8 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
                 case YAML -> this.database = new WhitelistYAMLDatabase(
                         new File(this.getDataFolder().toPath().resolve("data").toFile(), "whitelist.yml")
                 );
-                case H2 -> this.database = new WhitelistH2Database(this.getDataFolder().getAbsolutePath());
+                case H2 -> this.database = new WhitelistH2Database(this.getDataFolder().toPath().resolve("data").toAbsolutePath().toString());
+                case SQLITE -> this.database = new WhitelistSQLiteDatabase(this.getDataFolder().toPath().resolve("data").toAbsolutePath().toString());
                 default -> throw new IllegalArgumentException("Other types of databases are not available for now");
             }
 
@@ -73,9 +76,19 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
 
     @Override
     public void onUnload() {
-        this.database.saveData();
+        if (this.database != null) {
+            this.database.saveData();
+
+            if (this.database instanceof SqlLikeDatabase)
+                try {
+                    ((SqlLikeDatabase) this.database).closeConnection();
+                } catch (SQLException ignored) {}
+        }
 
         this.config = null;
+        this.configYaml = null;
+        this.messages = null;
+        this.messagesYaml = null;
         this.database = null;
 
         AccountGuardProvider.unRegister();
@@ -89,7 +102,7 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
 
         this.config = new Config(
                 new Config.Database(
-                        Config.Database.Type.valueOf(configYaml.getString("database.driver"))
+                        Config.Database.Type.valueOf(configYaml.getString("database.driver").toUpperCase())
                 )
         );
     }

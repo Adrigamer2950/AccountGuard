@@ -7,6 +7,7 @@ public record Config(Database database) {
         public enum Type {
             YAML,
             H2,
+            SQLITE,
             MYSQL
         }
     }
