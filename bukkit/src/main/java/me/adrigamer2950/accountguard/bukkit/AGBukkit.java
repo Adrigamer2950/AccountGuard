@@ -133,6 +133,11 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
     }
 
     @Override
+    protected int getBStatsServiceId() {
+        return 20823;
+    }
+
+    @Override
     public Set<String> getIPs(UUID uuid) {
         return database.getIPs(uuid);
     }

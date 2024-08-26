@@ -25,6 +25,7 @@ import me.adrigamer2950.accountguard.velocity.commands.MainCommand;
 import me.adrigamer2950.accountguard.velocity.database.OfflinePlayerDatabase;
 import me.adrigamer2950.accountguard.velocity.listeners.PlayerListener;
 import net.byteflux.libby.VelocityLibraryManager;
+import org.bstats.velocity.Metrics;
 import org.slf4j.Logger;
 
 import java.io.File;
@@ -45,10 +46,10 @@ import java.util.UUID;
 )
 public class AGVelocity implements AccountGuard {
 
-    @Inject
     private final Logger logger;
     @Getter private final ProxyServer proxy;
     private final Path dataDirectory;
+    private final Metrics.Factory bStatsFactory;
 
     @Getter private Config config;
 
@@ -58,10 +59,11 @@ public class AGVelocity implements AccountGuard {
     @Getter private Database whitelistDatabase;
 
     @Inject
-    public AGVelocity(ProxyServer proxy, Logger logger, @DataDirectory Path dataDirectory) {
+    public AGVelocity(ProxyServer proxy, Logger logger, @DataDirectory Path dataDirectory, Metrics.Factory bStatsFactory) {
         this.logger = logger;
         this.proxy = proxy;
         this.dataDirectory = dataDirectory;
+        this.bStatsFactory = bStatsFactory;
     }
 
     @SneakyThrows
@@ -142,6 +144,8 @@ public class AGVelocity implements AccountGuard {
 
         new MainCommand(this, "agv")
                 .register(getProxy().getCommandManager());
+
+        bStatsFactory.make(this, 23194);
 
         AccountGuardProvider.register(this);
 
