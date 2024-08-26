@@ -13,7 +13,8 @@ import me.adrigamer2950.accountguard.api.AccountGuard;
 import me.adrigamer2950.accountguard.api.AccountGuardProvider;
 import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.accountguard.common.database.Database;
-import me.adrigamer2950.accountguard.common.database.yaml.WhitelistDatabase;
+import me.adrigamer2950.accountguard.common.database.h2.WhitelistH2Database;
+import me.adrigamer2950.accountguard.common.database.yaml.WhitelistYAMLDatabase;
 import me.adrigamer2950.accountguard.common.messages.Messages;
 import me.adrigamer2950.accountguard.common.util.IPUtil;
 import me.adrigamer2950.accountguard.velocity.commands.MainCommand;
@@ -24,6 +25,7 @@ import org.slf4j.Logger;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -53,7 +55,7 @@ public class AGVelocity implements AccountGuard {
     @Getter private final Database whitelistDatabase;
 
     @Inject
-    public AGVelocity(ProxyServer proxy, Logger logger, @DataDirectory Path dataDirectory) throws IOException {
+    public AGVelocity(ProxyServer proxy, Logger logger, @DataDirectory Path dataDirectory) throws IOException, SQLException, ClassNotFoundException {
         this.logger = logger;
         this.proxy = proxy;
         this.dataDirectory = dataDirectory;
@@ -68,8 +70,11 @@ public class AGVelocity implements AccountGuard {
         this.reloadConfig();
 
         switch (this.config.database().driver()) {
-            case YAML -> this.whitelistDatabase = new WhitelistDatabase(
+            case YAML -> this.whitelistDatabase = new WhitelistYAMLDatabase(
                     new File(dataDirectory.resolve("data").toFile(), "whitelist.yml")
+            );
+            case H2 -> this.whitelistDatabase = new WhitelistH2Database(
+                    dataDirectory.resolve("data").toString()
             );
             default -> throw new IllegalArgumentException("Other types of databases are not available for now");
         }

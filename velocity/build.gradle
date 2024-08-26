@@ -34,6 +34,9 @@ dependencies {
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.32'
     annotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    // H2
+    implementation 'com.h2database:h2:2.2.220'
 }
 
 def targetJavaVersion = 17

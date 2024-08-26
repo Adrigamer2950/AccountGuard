@@ -5,7 +5,8 @@ import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.api.AccountGuard;
 import me.adrigamer2950.accountguard.api.AccountGuardProvider;
 import me.adrigamer2950.accountguard.bukkit.commands.MainCommand;
-import me.adrigamer2950.accountguard.common.database.yaml.WhitelistDatabase;
+import me.adrigamer2950.accountguard.common.database.h2.WhitelistH2Database;
+import me.adrigamer2950.accountguard.common.database.yaml.WhitelistYAMLDatabase;
 import me.adrigamer2950.accountguard.bukkit.listeners.PlayerListener;
 import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.accountguard.common.database.Database;
@@ -15,6 +16,7 @@ import me.adrigamer2950.adriapi.api.APIPlugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -41,9 +43,10 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
             this.reloadConfig();
 
             switch (this.config.database().driver()) {
-                case YAML -> this.database = new WhitelistDatabase(
+                case YAML -> this.database = new WhitelistYAMLDatabase(
                         new File(this.getDataFolder().toPath().resolve("data").toFile(), "whitelist.yml")
                 );
+                case H2 -> this.database = new WhitelistH2Database(this.getDataFolder().getAbsolutePath());
                 default -> throw new IllegalArgumentException("Other types of databases are not available for now");
             }
 
@@ -53,7 +56,7 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
             );
 
             this.reloadMessages();
-        } catch (IOException e) {
+        } catch (IOException | SQLException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
     }

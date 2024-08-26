@@ -1,6 +1,7 @@
 
 # Available drivers:
 # - YAML
+# - H2
 #
 database:
-  driver: YAML
+  driver: H2

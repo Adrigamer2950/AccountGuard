@@ -5,9 +5,9 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.UUID;
 
-public class WhitelistDatabase extends YAMLDatabase {
+public class WhitelistYAMLDatabase extends YAMLDatabase {
 
-    public WhitelistDatabase(File file) {
+    public WhitelistYAMLDatabase(File file) {
         super(file);
     }
 
