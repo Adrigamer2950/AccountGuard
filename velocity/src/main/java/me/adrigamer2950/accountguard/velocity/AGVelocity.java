@@ -119,10 +119,10 @@ public class AGVelocity implements AccountGuard {
                     new File(dataDirectory.resolve("data").toFile(), "whitelist.yml")
             );
             case H2 -> this.whitelistDatabase = new WhitelistH2Database(
-                    dataDirectory.resolve("data").toString()
+                    dataDirectory.resolve("data").toAbsolutePath().toString()
             );
             case SQLITE -> this.whitelistDatabase = new WhitelistSQLiteDatabase(
-                    dataDirectory.resolve("data").toString()
+                    dataDirectory.resolve("data").toAbsolutePath().toString()
             );
             default -> throw new IllegalArgumentException("Other types of databases are not available for now");
         }
