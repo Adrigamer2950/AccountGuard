@@ -12,6 +12,10 @@ tasks {
 
 repositories {
     mavenCentral()
+    maven {
+        name = "AlessioDP"
+        url = "https://repo.alessiodp.com/releases"
+    }
 }
 
 dependencies {
@@ -21,4 +25,7 @@ dependencies {
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.32'
     annotationProcessor 'org.projectlombok:lombok:1.18.32'
+
+    // Libby
+    compileOnly "net.byteflux:libby-core:1.3.1"
 }

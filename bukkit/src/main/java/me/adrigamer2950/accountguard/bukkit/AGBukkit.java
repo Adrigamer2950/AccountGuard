@@ -5,6 +5,7 @@ import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.api.AccountGuard;
 import me.adrigamer2950.accountguard.api.AccountGuardProvider;
 import me.adrigamer2950.accountguard.bukkit.commands.MainCommand;
+import me.adrigamer2950.accountguard.common.AGLoader;
 import me.adrigamer2950.accountguard.common.database.h2.WhitelistH2Database;
 import me.adrigamer2950.accountguard.common.database.sql.SqlLikeDatabase;
 import me.adrigamer2950.accountguard.common.database.sqlite.WhitelistSQLiteDatabase;
@@ -15,6 +16,7 @@ import me.adrigamer2950.accountguard.common.database.Database;
 import me.adrigamer2950.accountguard.common.messages.Messages;
 import me.adrigamer2950.accountguard.common.util.IPUtil;
 import me.adrigamer2950.adriapi.api.APIPlugin;
+import net.byteflux.libby.BukkitLibraryManager;
 
 import java.io.File;
 import java.io.IOException;
@@ -35,6 +37,8 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
     @Override
     public void onPreLoad() {
         getApiLogger().info("&6Loading...");
+
+        AGLoader.loadLibraries(new BukkitLibraryManager(this));
 
         try {
             this.configYaml = YamlDocument.create(

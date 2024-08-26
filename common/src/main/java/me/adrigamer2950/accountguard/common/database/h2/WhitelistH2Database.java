@@ -15,7 +15,7 @@ public class WhitelistH2Database extends SqlLikeDatabase {
 
     @Override
     public Connection getConnection() throws ClassNotFoundException {
-        Class.forName("org.h2.Driver");
+        Class.forName("me.adrigamer2950.accountguard.libs.h2.Driver");
 
         if (this.connection != null)
             return this.connection;
