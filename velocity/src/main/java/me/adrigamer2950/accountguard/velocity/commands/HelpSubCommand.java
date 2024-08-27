@@ -33,6 +33,6 @@ public class HelpSubCommand extends SubCommand<AGVelocity> {
 
     @Override
     public List<String> suggest(CommandSource source, String alias, String[] args) {
-        return null;
+        return List.of();
     }
 }
