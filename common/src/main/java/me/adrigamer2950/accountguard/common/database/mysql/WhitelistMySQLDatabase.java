@@ -4,7 +4,6 @@ import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.common.database.sql.SqlLikeDatabase;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class WhitelistMySQLDatabase extends SqlLikeDatabase {

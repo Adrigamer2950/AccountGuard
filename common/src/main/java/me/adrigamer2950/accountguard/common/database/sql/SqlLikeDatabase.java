@@ -47,6 +47,7 @@ public abstract class SqlLikeDatabase extends Database {
                 statement.setString(1, uuid.toString());
             }
             else {
+                //noinspection SqlSourceToSinkFlow
                 statement = connection.prepareStatement(insertStatement);
 
                 //noinspection OptionalGetWithoutIsPresent
@@ -76,6 +77,7 @@ public abstract class SqlLikeDatabase extends Database {
         Connection connection = getConnection();
         PreparedStatement statement;
 
+        //noinspection SqlSourceToSinkFlow
         statement = connection.prepareStatement(statementString);
 
         statement.execute();
