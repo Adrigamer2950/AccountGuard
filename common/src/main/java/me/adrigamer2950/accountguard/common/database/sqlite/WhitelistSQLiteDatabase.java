@@ -3,7 +3,6 @@ package me.adrigamer2950.accountguard.common.database.sqlite;
 import me.adrigamer2950.accountguard.common.database.sql.SqlLikeDatabase;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class WhitelistSQLiteDatabase extends SqlLikeDatabase {
