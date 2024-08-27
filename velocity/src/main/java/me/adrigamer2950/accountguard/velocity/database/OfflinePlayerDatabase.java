@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 
 public class OfflinePlayerDatabase extends YAMLDatabase {
 
-    public HashMap<String, UUID> players = new HashMap<>();
+    public HashMap<String, UUID> players;
 
     public OfflinePlayerDatabase(YamlDocument yaml, AGVelocity plugin) {
         super(yaml);
@@ -37,8 +37,6 @@ public class OfflinePlayerDatabase extends YAMLDatabase {
 
     @Override
     public void saveData() {
-        this.yaml.clear();
-
         this.players.forEach((username, uuid) -> this.yaml.set(username, uuid.toString()));
 
         super.saveData();
