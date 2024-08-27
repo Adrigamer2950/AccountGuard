@@ -4,10 +4,7 @@ import lombok.NonNull;
 import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.common.database.Database;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -71,7 +68,18 @@ public abstract class SqlLikeDatabase extends Database {
         statement.execute();
     }
 
-    public abstract Connection getConnection() throws ClassNotFoundException;
+    public Connection getConnection() throws ClassNotFoundException {
+        if (this.connection != null)
+            return this.connection;
+
+        try {
+            this.connection = DriverManager.getConnection(this.url);
+
+            return this.connection;
+        } catch (SQLException e) {
+            throw new RuntimeException("Error while trying to connect to the H2 database", e);
+        }
+    }
 
     @SneakyThrows
     @Override

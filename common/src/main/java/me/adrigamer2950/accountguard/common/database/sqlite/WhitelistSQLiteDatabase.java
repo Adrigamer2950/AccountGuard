@@ -18,19 +18,7 @@ public class WhitelistSQLiteDatabase extends SqlLikeDatabase {
     public Connection getConnection() throws ClassNotFoundException {
         Class.forName("me.adrigamer2950.accountguard.libs.sqlite.JDBC");
 
-        if (this.connection != null)
-            return this.connection;
-
-        Connection connection;
-        try {
-            connection = DriverManager.getConnection(this.url);
-        } catch (SQLException e) {
-            throw new RuntimeException("Error while trying to connect to the H2 database", e);
-        }
-
-        this.connection = connection;
-
-        return this.connection;
+        return super.getConnection();
     }
 
     @Override
