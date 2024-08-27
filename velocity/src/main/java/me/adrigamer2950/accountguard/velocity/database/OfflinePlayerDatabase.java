@@ -16,7 +16,7 @@ public class OfflinePlayerDatabase extends YAMLDatabase {
     public OfflinePlayerDatabase(YamlDocument yaml, AGVelocity plugin) {
         super(yaml);
 
-        plugin.getProxy().getScheduler().buildTask(plugin, this::saveData).repeat(60, TimeUnit.SECONDS).schedule();
+        plugin.getProxy().getScheduler().buildTask(plugin, this::saveData).repeat(15, TimeUnit.SECONDS).schedule();
     }
 
     @Override
