@@ -61,7 +61,7 @@ public class ListIPSubCommand extends SubCommand<AGVelocity> {
         List<String> ips = getPlugin().getWhitelistDatabase().getIPs(player.getUuid()).stream().toList();
 
         source.sendMessage(
-                LegacyComponentSerializer.legacyAmpersand().deserialize("&f&m                                          ")
+                LegacyComponentSerializer.legacyAmpersand().deserialize("&m|                                          &r|")
         );
         source.sendMessage(
                 LegacyComponentSerializer.legacyAmpersand().deserialize(
@@ -76,7 +76,7 @@ public class ListIPSubCommand extends SubCommand<AGVelocity> {
         }
 
         source.sendMessage(
-                LegacyComponentSerializer.legacyAmpersand().deserialize("&f&m                                          ")
+                LegacyComponentSerializer.legacyAmpersand().deserialize("&m|                                          &r|")
         );
     }
 
