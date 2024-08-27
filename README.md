@@ -8,9 +8,9 @@ Protect your users/staff accounts from being hacked and misused on your server a
 [![Dev Build Status](https://ci.devadri.es/job/AccountGuard-Dev/badge/icon?subject=Dev%20Build)](https://ci.devadri.es/job/AccountGuard-Dev/)
 [![Build Status](https://ci.devadri.es/job/AccountGuard-Release/badge/icon?subject=Release)](https://ci.devadri.es/job/AccountGuard-Release/)
 
-# Docs
-Under development...
-
 # Resources
+- [Docs](https://docs.devadri.es)
 - [CI Server](https://ci.devadri.es)
-- [Repository](https://repo.devadri.es)
+- [bStats Bukkit](https://bstats.org/plugin/bukkit/AccountGuard%20Bukkit/20823)
+- [bStats Velocity](https://bstats.org/plugin/velocity/AccountGuard%20Velocity/23194)
+- [Maven Repository](https://repo.devadri.es)
