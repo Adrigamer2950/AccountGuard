@@ -13,8 +13,17 @@ public abstract class SqlLikeDatabase extends Database {
     protected final String url;
     protected Connection connection;
 
+    protected final String username;
+    protected final String password;
+
     public SqlLikeDatabase(String url) throws SQLException, ClassNotFoundException {
+        this(url, null, null);
+    }
+
+    public SqlLikeDatabase(String url, String username, String password) throws SQLException, ClassNotFoundException {
         this.url = url;
+        this.username = username;
+        this.password = password;
 
         initDatabase();
 
@@ -60,10 +69,14 @@ public abstract class SqlLikeDatabase extends Database {
     }
 
     public void initDatabase() throws SQLException, ClassNotFoundException {
+        this.initDatabase("create table if not exists ip_whitelist (uuid varchar not null unique, ips varchar, primary key (uuid));");
+    }
+
+    public void initDatabase(String statementString) throws SQLException, ClassNotFoundException {
         Connection connection = getConnection();
         PreparedStatement statement;
 
-        statement = connection.prepareStatement("create table if not exists ip_whitelist (uuid varchar not null unique, ips varchar, primary key (uuid));");
+        statement = connection.prepareStatement(statementString);
 
         statement.execute();
     }
@@ -73,7 +86,7 @@ public abstract class SqlLikeDatabase extends Database {
             return this.connection;
 
         try {
-            this.connection = DriverManager.getConnection(this.url);
+            this.connection = DriverManager.getConnection(this.url, this.username, this.password);
 
             return this.connection;
         } catch (SQLException e) {

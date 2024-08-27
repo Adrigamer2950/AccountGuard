@@ -3,6 +3,13 @@
 # - YAML
 # - H2
 # - SQLite
+# - MySQL
 #
 database:
   driver: H2
+  mysql:
+    hostname: "localhost"
+    port: 3306
+    database: "accountguard"
+    username: "root"
+    password: ""

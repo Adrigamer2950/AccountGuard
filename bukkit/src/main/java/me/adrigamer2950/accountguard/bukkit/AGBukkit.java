@@ -7,6 +7,7 @@ import me.adrigamer2950.accountguard.api.AccountGuardProvider;
 import me.adrigamer2950.accountguard.bukkit.commands.MainCommand;
 import me.adrigamer2950.accountguard.common.AGLoader;
 import me.adrigamer2950.accountguard.common.database.h2.WhitelistH2Database;
+import me.adrigamer2950.accountguard.common.database.mysql.WhitelistMySQLDatabase;
 import me.adrigamer2950.accountguard.common.database.sql.SqlLikeDatabase;
 import me.adrigamer2950.accountguard.common.database.sqlite.WhitelistSQLiteDatabase;
 import me.adrigamer2950.accountguard.common.database.yaml.WhitelistYAMLDatabase;
@@ -54,7 +55,15 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
                 );
                 case H2 -> this.database = new WhitelistH2Database(this.getDataFolder().toPath().resolve("data").toAbsolutePath().toString());
                 case SQLITE -> this.database = new WhitelistSQLiteDatabase(this.getDataFolder().toPath().resolve("data").toAbsolutePath().toString());
-                default -> throw new IllegalArgumentException("Other types of databases are not available for now");
+                case MYSQL -> this.database = new WhitelistMySQLDatabase(
+                        "jdbc:mysql://%s:%s/%s".formatted(
+                                this.config.database().mysql().hostname(),
+                                this.config.database().mysql().port(),
+                                this.config.database().mysql().database()
+                        ),
+                        this.config.database().mysql().username(),
+                        this.config.database().mysql().password()
+                );
             }
 
             this.messagesYaml = YamlDocument.create(
@@ -106,7 +115,14 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
 
         this.config = new Config(
                 new Config.Database(
-                        Config.Database.Type.valueOf(configYaml.getString("database.driver").toUpperCase())
+                        Config.Database.Type.valueOf(configYaml.getString("database.driver").toUpperCase()),
+                        new Config.Database.MySQL(
+                                configYaml.getString("database.mysql.hostname"),
+                                configYaml.getInt("database.mysql.port"),
+                                configYaml.getString("database.mysql.database"),
+                                configYaml.getString("database.mysql.username"),
+                                configYaml.getString("database.mysql.password")
+                        )
                 )
         );
     }

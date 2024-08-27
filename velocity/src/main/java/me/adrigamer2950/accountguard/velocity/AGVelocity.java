@@ -16,6 +16,7 @@ import me.adrigamer2950.accountguard.common.AGLoader;
 import me.adrigamer2950.accountguard.common.config.Config;
 import me.adrigamer2950.accountguard.common.database.Database;
 import me.adrigamer2950.accountguard.common.database.h2.WhitelistH2Database;
+import me.adrigamer2950.accountguard.common.database.mysql.WhitelistMySQLDatabase;
 import me.adrigamer2950.accountguard.common.database.sql.SqlLikeDatabase;
 import me.adrigamer2950.accountguard.common.database.sqlite.WhitelistSQLiteDatabase;
 import me.adrigamer2950.accountguard.common.database.yaml.WhitelistYAMLDatabase;
@@ -79,7 +80,14 @@ public class AGVelocity implements AccountGuard {
 
         this.config = new Config(
                 new Config.Database(
-                        Config.Database.Type.valueOf(configYaml.getString("database.driver"))
+                        Config.Database.Type.valueOf(configYaml.getString("database.driver")),
+                        new Config.Database.MySQL(
+                                configYaml.getString("database.mysql.hostname"),
+                                configYaml.getInt("database.mysql.port"),
+                                configYaml.getString("database.mysql.database"),
+                                configYaml.getString("database.mysql.username"),
+                                configYaml.getString("database.mysql.password")
+                        )
                 )
         );
     }
@@ -126,7 +134,15 @@ public class AGVelocity implements AccountGuard {
             case SQLITE -> this.whitelistDatabase = new WhitelistSQLiteDatabase(
                     dataDirectory.resolve("data").toAbsolutePath().toString()
             );
-            default -> throw new IllegalArgumentException("Other types of databases are not available for now");
+            case MYSQL -> this.whitelistDatabase = new WhitelistMySQLDatabase(
+                    "jdbc:mysql://%s:%s/%s".formatted(
+                            this.config.database().mysql().hostname(),
+                            this.config.database().mysql().port(),
+                            this.config.database().mysql().database()
+                    ),
+                    this.config.database().mysql().username(),
+                    this.config.database().mysql().password()
+            );
         }
 
         this.reloadMessages();
