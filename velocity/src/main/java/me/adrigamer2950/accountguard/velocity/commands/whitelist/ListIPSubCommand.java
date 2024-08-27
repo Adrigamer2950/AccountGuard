@@ -82,6 +82,6 @@ public class ListIPSubCommand extends SubCommand<AGVelocity> {
 
     @Override
     public List<String> suggest(CommandSource source, String alias, String[] args) {
-        return getPlugin().getProxy().getAllPlayers().stream().map(Player::getUsername).toList();
+        return getPlugin().getProxy().getAllPlayers().stream().map(Player::getUsername).filter(s -> s.toLowerCase().startsWith(args[1].toLowerCase())).toList();
     }
 }
