@@ -1,4 +1,7 @@
 # AccountGuard
+<p align="center">
+    <img src="https://raw.githubusercontent.com/Adrigamer2950/AccountGuard/master/logo.jpeg" height="364" alt="Logo" />
+</p>
 
 Protect your users/staff accounts from being hacked and misused on your server as easily as ever
 
