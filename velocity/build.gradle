@@ -81,6 +81,8 @@ tasks {
             relocate "net.byteflux.libby", "me.adrigamer2950.accountguard.libs.libby"
 
             relocate "dev.dejvokep.boostedyaml", "me.adrigamer2950.accountguard.libs.boosted-yaml"
+
+            relocate "org.bstats", "me.adrigamer2950.accountguard.util.bstats"
         }
     }
 
