@@ -114,6 +114,7 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
         this.configYaml.reload();
 
         this.config = new Config(
+                configYaml.getString("prefix") + " ",
                 new Config.Database(
                         Config.Database.Type.valueOf(configYaml.getString("database.driver").toUpperCase()),
                         new Config.Database.MySQL(

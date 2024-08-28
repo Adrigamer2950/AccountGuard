@@ -1,4 +1,6 @@
 
+prefix: "&7[&bAccount&6Guard&7]"
+
 # Available drivers:
 # - YAML
 # - H2

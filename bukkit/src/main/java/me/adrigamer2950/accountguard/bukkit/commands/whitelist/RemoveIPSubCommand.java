@@ -26,7 +26,7 @@ public class RemoveIPSubCommand extends SubCommand<AGBukkit> {
     @Override
     public boolean execute(User user, String label, String[] args) {
         if (!BukkitUtil.hasPermission(user, Permissions.REMOVE_IP_OWN)) {
-            user.sendMessage(getPlugin().messages.NO_PERMISSION());
+            user.sendMessage(getPlugin().config.prefix() + getPlugin().messages.NO_PERMISSION());
             return true;
         }
 
@@ -35,14 +35,14 @@ public class RemoveIPSubCommand extends SubCommand<AGBukkit> {
         args = list.toArray(new String[list.size()]);
 
         if (args.length == 0) {
-            user.sendMessage(getPlugin().messages.IP_NOT_SPECIFIED());
+            user.sendMessage(getPlugin().config.prefix() + getPlugin().messages.IP_NOT_SPECIFIED());
             return true;
         }
 
         String ip = args[0];
 
         if (!IPUtil.checkIP(ip)) {
-            user.sendMessage(getPlugin().messages.INVALID_IP());
+            user.sendMessage(getPlugin().config.prefix() + getPlugin().messages.INVALID_IP());
             return true;
         }
 
@@ -51,7 +51,7 @@ public class RemoveIPSubCommand extends SubCommand<AGBukkit> {
             playerName = args[1];
 
         if (playerName == null && user.isConsole()) {
-            user.sendMessage(getPlugin().messages.PLAYER_NAME_NOT_SPECIFIED_FROM_CONSOLE());
+            user.sendMessage(getPlugin().config.prefix() + getPlugin().messages.PLAYER_NAME_NOT_SPECIFIED_FROM_CONSOLE());
             return true;
         }
 
@@ -60,19 +60,19 @@ public class RemoveIPSubCommand extends SubCommand<AGBukkit> {
         );
 
         if (playerName != null && !BukkitUtil.hasPermission(user, Permissions.REMOVE_IP_OTHER)) {
-            user.sendMessage(getPlugin().messages.NO_CHANGE_OTHER_WHITELIST_PERMISSION());
+            user.sendMessage(getPlugin().config.prefix() + getPlugin().messages.NO_CHANGE_OTHER_WHITELIST_PERMISSION());
             return true;
         }
 
         if (player == null) {
-            user.sendMessage(getPlugin().messages.PLAYER_NOT_FOUND());
+            user.sendMessage(getPlugin().config.prefix() + getPlugin().messages.PLAYER_NOT_FOUND());
             return true;
         }
 
         if (getPlugin().removeIP(player.getUniqueId(), ip))
-            user.sendMessage(getPlugin().messages.IP_REMOVED_FROM_WHITELIST().replaceAll("%player%", Objects.requireNonNull(player.getName())));
+            user.sendMessage(getPlugin().config.prefix() + getPlugin().messages.IP_REMOVED_FROM_WHITELIST().replaceAll("%player%", Objects.requireNonNull(player.getName())));
         else
-            user.sendMessage(getPlugin().messages.IP_NOT_IN_WHITELIST().replaceAll("%player%", Objects.requireNonNull(player.getName())));
+            user.sendMessage(getPlugin().config.prefix() + getPlugin().messages.IP_NOT_IN_WHITELIST().replaceAll("%player%", Objects.requireNonNull(player.getName())));
 
         return true;
     }

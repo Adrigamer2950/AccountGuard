@@ -24,7 +24,7 @@ public class ListIPSubCommand extends SubCommand<AGBukkit> {
     @Override
     public boolean execute(User user, String label, String[] args) {
         if (!BukkitUtil.hasPermission(user, Permissions.LIST_IP_OWN)) {
-            user.sendMessage(getPlugin().messages.NO_PERMISSION());
+            user.sendMessage(getPlugin().config.prefix() + getPlugin().messages.NO_PERMISSION());
             return true;
         }
 
@@ -37,7 +37,7 @@ public class ListIPSubCommand extends SubCommand<AGBukkit> {
             playerName = args[0];
 
         if (playerName == null && user.isConsole()) {
-            user.sendMessage(getPlugin().messages.PLAYER_NAME_NOT_SPECIFIED_FROM_CONSOLE());
+            user.sendMessage(getPlugin().config.prefix() + getPlugin().messages.PLAYER_NAME_NOT_SPECIFIED_FROM_CONSOLE());
             return true;
         }
 
@@ -46,12 +46,12 @@ public class ListIPSubCommand extends SubCommand<AGBukkit> {
         );
 
         if (player == null) {
-            user.sendMessage(getPlugin().messages.PLAYER_NOT_FOUND());
+            user.sendMessage(getPlugin().config.prefix() + getPlugin().messages.PLAYER_NOT_FOUND());
             return true;
         }
 
         if (playerName != null && !BukkitUtil.hasPermission(user, Permissions.LIST_IP_OTHER)) {
-            user.sendMessage(getPlugin().messages.NO_VIEW_OTHER_WHITELIST_PERMISSION());
+            user.sendMessage(getPlugin().config.prefix() + getPlugin().messages.NO_VIEW_OTHER_WHITELIST_PERMISSION());
             return true;
         }
 

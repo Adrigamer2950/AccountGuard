@@ -1,6 +1,7 @@
 package me.adrigamer2950.accountguard.common.config;
 
 public record Config(Database database) {
+public record Config(String prefix, Database database) {
 
     public record Database(Type driver, MySQL mysql) {
 

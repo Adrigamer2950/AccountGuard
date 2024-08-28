@@ -23,7 +23,7 @@ public class ReloadSubCommand extends SubCommand<AGBukkit> {
         getPlugin().reloadConfig();
         getPlugin().reloadMessages();
 
-        user.sendMessage(getPlugin().messages.RELOAD_MESSAGE());
+        user.sendMessage(getPlugin().config.prefix() + getPlugin().messages.RELOAD_MESSAGE());
 
         return true;
     }
