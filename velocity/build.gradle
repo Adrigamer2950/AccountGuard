@@ -44,6 +44,9 @@ dependencies {
 
     // bStats
     implementation 'org.bstats:bstats-velocity:3.0.3'
+
+    // TOTP
+    compileOnly 'dev.samstevens.totp:totp:1.7.1'
 }
 
 def targetJavaVersion = 17
@@ -83,6 +86,8 @@ tasks {
             relocate "dev.dejvokep.boostedyaml", "me.adrigamer2950.accountguard.libs.boosted-yaml"
 
             relocate "org.bstats", "me.adrigamer2950.accountguard.util.bstats"
+
+            relocate "dev.samstevens.totp", "me.adrigamer2950.accountguard.libs.totp"
         }
     }
 

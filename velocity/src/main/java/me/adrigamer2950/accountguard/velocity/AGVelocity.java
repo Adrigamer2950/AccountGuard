@@ -8,6 +8,7 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.plugin.annotation.DataDirectory;
 import com.velocitypowered.api.proxy.ProxyServer;
 import dev.dejvokep.boostedyaml.YamlDocument;
+import dev.samstevens.totp.code.HashingAlgorithm;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.api.AccountGuard;
@@ -79,6 +80,7 @@ public class AGVelocity implements AccountGuard {
         configYaml.reload();
 
         this.config = new Config(
+                configYaml.getString("prefix"),
                 new Config.Database(
                         Config.Database.Type.valueOf(configYaml.getString("database.driver")),
                         new Config.Database.MySQL(
@@ -88,6 +90,14 @@ public class AGVelocity implements AccountGuard {
                                 configYaml.getString("database.mysql.username"),
                                 configYaml.getString("database.mysql.password")
                         )
+                ),
+                new Config.TOTP(
+                        configYaml.getBoolean("totp.enable"),
+                        configYaml.getInt("totp.interval"),
+                        configYaml.getInt("totp.digits"),
+                        configYaml.getString("totp.server"),
+                        configYaml.getString("totp.label"),
+                        HashingAlgorithm.valueOf(configYaml.getString("totp.algorithm"))
                 )
         );
     }

@@ -1,6 +1,7 @@
 package me.adrigamer2950.accountguard.bukkit;
 
 import dev.dejvokep.boostedyaml.YamlDocument;
+import dev.samstevens.totp.code.HashingAlgorithm;
 import lombok.SneakyThrows;
 import me.adrigamer2950.accountguard.api.AccountGuard;
 import me.adrigamer2950.accountguard.api.AccountGuardProvider;
@@ -124,6 +125,14 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
                                 configYaml.getString("database.mysql.username"),
                                 configYaml.getString("database.mysql.password")
                         )
+                ),
+                new Config.TOTP(
+                        configYaml.getBoolean("totp.enable"),
+                        configYaml.getInt("totp.interval"),
+                        configYaml.getInt("totp.digits"),
+                        configYaml.getString("totp.server"),
+                        configYaml.getString("totp.label"),
+                        HashingAlgorithm.valueOf(configYaml.getString("totp.algorithm"))
                 )
         );
     }

@@ -15,3 +15,27 @@ database:
     database: "accountguard"
     username: "root"
     password: ""
+
+totp:
+  enable: false
+
+  # How many seconds will the code take to regenerate
+  interval: 30
+
+  # How many digits will the TOTP code have
+  digits: 6
+
+  # The server name that will appear as the TOTP's issuer
+  server: "Minecraft Server"
+
+  # Shown in the TOTP label
+  # Placeholders:
+  # - %player% - Player's name
+  label: "%player%"
+
+  # Algorithm to use in QR Generation
+  # Can be:
+  # - SHA1
+  # - SHA256
+  # - SHA512
+  algorithm: SHA1
