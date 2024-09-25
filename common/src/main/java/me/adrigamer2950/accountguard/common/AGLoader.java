@@ -29,39 +29,10 @@ public class AGLoader {
                 .url("https://github.com/xerial/sqlite-jdbc/releases/download/3.46.1.0/sqlite-jdbc-3.46.1.0.jar")
                 .build();
 
-        Library totp = Library.builder()
-                .groupId("dev{}samstevens{}totp")
-                .artifactId("totp")
-                .version("1.7.1")
-                .relocate(new Relocation("dev{}samstevens{}totp", "me{}adrigamer2950{}accountguard{}libs{}totp"))
-                .build();
-
-        Library l = Library.builder()
-                .groupId("com{}google{}zxing")
-                .artifactId("core")
-                .version("3.5.3")
-                .build();
-
-        Library commons = Library.builder()
-                .groupId("commons-net")
-                .artifactId("commons-net")
-                .version("3.6")
-                .build();
-
-        Library javase = Library.builder()
-                .groupId("com.google.zxing")
-                .artifactId("javase")
-                .version("3.5.3")
-                .build();
-
         libraryManager.addMavenCentral();
 
         libraryManager.loadLibrary(yaml);
         libraryManager.loadLibrary(h2);
         libraryManager.loadLibrary(sqlite);
-        libraryManager.loadLibrary(totp);
-        libraryManager.loadLibrary(l);
-        libraryManager.loadLibrary(commons);
-        libraryManager.loadLibrary(javase);
     }
 }

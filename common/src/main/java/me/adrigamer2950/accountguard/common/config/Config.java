@@ -1,8 +1,6 @@
 package me.adrigamer2950.accountguard.common.config;
 
-import dev.samstevens.totp.code.HashingAlgorithm;
-
-public record Config(String prefix, Database database, TOTP totp) {
+public record Config(String prefix, Database database) {
 
     public record Database(Type driver, MySQL mysql) {
 
@@ -15,6 +13,4 @@ public record Config(String prefix, Database database, TOTP totp) {
 
         public record MySQL(String hostname, int port, String database, String username, String password) { }
     }
-
-    public record TOTP(boolean enable, int interval, int digits, String server, String label, HashingAlgorithm algorithm) { }
 }
