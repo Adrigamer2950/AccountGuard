@@ -1,0 +1,53 @@
+name: Build
+
+on: [
+  workflow_dispatch,
+  push
+]
+
+jobs:
+  build:
+    name: Build & Publish
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    env:
+      BUILD_NUMBER: "${{ github.run_number }}"
+      COMMIT_MESSAGE: "${{ github.event.head_commit.message }}"
+
+    steps:
+      - uses: actions/checkout@v4
+        name: Checkout sources
+
+      - uses: actions/setup-java@v4
+        name: Set up JDK 17
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+
+      - uses: gradle/actions/setup-gradle@v4
+        name: Setup Gradle
+
+      - name: Build Artifact
+        run: "chmod +x ./gradlew && ./gradlew build $([[ \"$COMMIT_MESSAGE\" == \"release:\"* ]] && echo || echo -PBUILD_NUMBER=$BUILD_NUMBER)"
+
+      - uses: actions/upload-artifact@v4
+        name: Save Artifact
+        with:
+          name: "AdriAPI-b${{ github.run_number }}"
+          path: build/libs/*.jar
+
+      - name: Publish Artifact
+        if: github.repository == 'Adrigamer2950/AdriAPI'
+        env:
+          NEXUS_USERNAME: "${{ secrets.NEXUS_USERNAME }}"
+          NEXUS_PASSWORD: "${{ secrets.NEXUS_PASSWORD }}"
+        run: "./gradlew publish -PNEXUS_USERNAME=$NEXUS_USERNAME -PNEXUS_PASSWORD=$NEXUS_PASSWORD $([[ \"$COMMIT_MESSAGE\" == \"release:\"* ]] && echo \"\" || echo \"-PBUILD_NUMBER=$BUILD_NUMBER\")"
+
+      - name: Publish to Modrinth
+        if: "${{ github.repository == 'Adrigamer2950/AdriAPI' && startsWith(github.event.head_commit.message, 'release:') }}"
+        env:
+          MODRINTH_TOKEN: "${{ secrets.MODRINTH_TOKEN }}"
+        run: "./gradlew modrinth modrinthSyncBody"
