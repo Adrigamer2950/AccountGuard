@@ -39,7 +39,7 @@ dependencies {
     implementation project(':api')
 
     // Boosted Yaml
-    compileOnly 'dev.dejvokep:boosted-yaml:1.3.6'
+    compileOnly 'dev.dejvokep:boosted-yaml:1.3.7'
 
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.34'
