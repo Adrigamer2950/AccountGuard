@@ -23,9 +23,4 @@ public class AccountGuardProvider {
     public static void unRegister() {
         AccountGuardProvider.instance = null;
     }
-
-    @ApiStatus.Internal
-    private AccountGuardProvider() {
-        throw new UnsupportedOperationException("This class is unconstructable");
-    }
 }
