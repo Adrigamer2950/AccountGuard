@@ -40,14 +40,14 @@ jobs:
           path: build/libs/*.jar
 
       - name: Publish Artifact
-        if: github.repository == 'Adrigamer2950/AdriAPI'
+        if: github.repository == 'Adrigamer2950/AccountGuard'
         env:
           NEXUS_USERNAME: "${{ secrets.NEXUS_USERNAME }}"
           NEXUS_PASSWORD: "${{ secrets.NEXUS_PASSWORD }}"
         run: "./gradlew publish -PNEXUS_USERNAME=$NEXUS_USERNAME -PNEXUS_PASSWORD=$NEXUS_PASSWORD $([[ \"$COMMIT_MESSAGE\" == \"release:\"* ]] && echo \"\" || echo \"-PBUILD_NUMBER=$BUILD_NUMBER\")"
 
       - name: Publish to Modrinth
-        if: "${{ github.repository == 'Adrigamer2950/AdriAPI' && startsWith(github.event.head_commit.message, 'release:') }}"
+        if: "${{ github.repository == 'Adrigamer2950/AccountGuard' && startsWith(github.event.head_commit.message, 'release:') }}"
         env:
           MODRINTH_TOKEN: "${{ secrets.MODRINTH_TOKEN }}"
         run: "./gradlew modrinth modrinthSyncBody"
