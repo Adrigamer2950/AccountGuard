@@ -5,7 +5,7 @@
 
 Protect your users/staff accounts from being hacked and misused on your server as easily as ever
 
-![Build](https://github.com/Adrigamer2950/AdriAPI/actions/workflows/build.yml/badge.svg)
+![Build](https://github.com/Adrigamer2950/AccountGuard/actions/workflows/build.yml/badge.svg)
 
 # Resources
 - [Docs](https://docs.devadri.es)
