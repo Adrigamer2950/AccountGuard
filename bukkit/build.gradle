@@ -96,6 +96,7 @@ tasks {
 
     shadowJar {
         archiveBaseName.set('AccountGuard')
+        archiveVersion.set(version)
         archiveClassifier.set('Bukkit')
 
         dependencies {

@@ -1,4 +1,5 @@
 //file:noinspection VulnerableLibrariesLocal
+//file:noinspection GroovyAssignabilityCheck
 plugins {
     id 'java'
     id 'com.github.johnrengelman.shadow' version '8.1.1'
@@ -69,12 +70,12 @@ tasks {
     jar {
         archiveBaseName.set('AccountGuard')
         archiveClassifier.set('Velocity')
-        //noinspection GroovyAssignabilityCheck
         archiveVersion.set(version)
     }
 
     shadowJar {
         archiveBaseName.set('AccountGuard')
+        archiveVersion.set(version)
         archiveClassifier.set('Velocity')
 
         dependencies {
