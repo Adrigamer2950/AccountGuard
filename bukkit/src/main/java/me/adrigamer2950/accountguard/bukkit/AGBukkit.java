@@ -18,9 +18,9 @@ import me.adrigamer2950.accountguard.common.messages.Messages;
 import me.adrigamer2950.accountguard.common.util.IPUtil;
 import me.adrigamer2950.adriapi.api.APIPlugin;
 import net.byteflux.libby.BukkitLibraryManager;
+import org.bukkit.Bukkit;
 
 import java.io.File;
-import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Objects;
 import java.util.Set;
@@ -72,8 +72,9 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
             );
 
             this.reloadMessages();
-        } catch (IOException | SQLException | ClassNotFoundException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            getApiLogger().error("&cError loading plugin, disabling: " + e.getMessage());
+            Bukkit.getPluginManager().disablePlugin(this);
         }
     }
 
