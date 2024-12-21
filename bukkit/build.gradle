@@ -42,7 +42,7 @@ dependencies {
     implementation project(':api')
 
     // Boosted Yaml
-    compileOnly "dev.dejvokep:boosted-yaml:${boostedYamlVersion}"
+    compileOnly "dev.dejvokep:boosted-yaml:${boosted_yaml}"
 
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.36'

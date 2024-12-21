@@ -1,1 +1,1 @@
-${boostedYamlVersion}
+${boosted_yaml}

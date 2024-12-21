@@ -20,7 +20,7 @@ repositories {
 
 dependencies {
     // Boosted YAML
-    compileOnly "dev.dejvokep:boosted-yaml:${boostedYamlVersion}"
+    compileOnly "dev.dejvokep:boosted-yaml:${boosted_yaml}"
 
     // Lombok
     compileOnly 'org.projectlombok:lombok:1.18.36'
@@ -32,7 +32,7 @@ dependencies {
 
 processResources {
     def props = [
-            "boostedYamlVersion": boostedYamlVersion
+            "boosted_yaml": boosted_yaml
     ]
     inputs.properties props
     filteringCharset 'UTF-8'
