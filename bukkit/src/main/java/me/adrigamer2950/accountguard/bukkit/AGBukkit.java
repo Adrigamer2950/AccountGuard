@@ -37,7 +37,7 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
 
     @Override
     public void onPreLoad() {
-        getApiLogger().info("&6Loading...");
+        getLogger().info("&6Loading...");
 
         AGLoader.loadLibraries(new BukkitLibraryManager(this));
 
@@ -73,7 +73,7 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
 
             this.reloadMessages();
         } catch (Exception e) {
-            getApiLogger().error("&cError loading plugin, disabling: " + e.getMessage());
+            getLogger().error("&cError loading plugin, disabling: " + e.getMessage());
             Bukkit.getPluginManager().disablePlugin(this);
         }
     }
@@ -85,7 +85,7 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
 
         AccountGuardProvider.register(this);
 
-        getApiLogger().info("&aEnabled!");
+        getLogger().info("&aEnabled!");
     }
 
     @Override
@@ -107,7 +107,7 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
 
         AccountGuardProvider.unRegister();
 
-        getApiLogger().info("&cDisabled!");
+        getLogger().info("&cDisabled!");
     }
 
     @SneakyThrows
