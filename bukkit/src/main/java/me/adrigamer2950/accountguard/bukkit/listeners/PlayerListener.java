@@ -22,7 +22,11 @@ public class PlayerListener implements Listener {
                     AsyncPlayerPreLoginEvent.Result.KICK_OTHER
             );
             //noinspection deprecation
-            e.setKickMessage(Colors.translateColors("&cYour IP is not allowed to join this server as &a%s\n\n&6Powered by &cAccountGuard".formatted(e.getName())));
+            e.setKickMessage(
+                    Colors.translateColors(
+                            this.plugin.messages.KICK_MESSAGE().replaceAll("%player%", e.getName())
+                    )
+            );
         }
     }
 }

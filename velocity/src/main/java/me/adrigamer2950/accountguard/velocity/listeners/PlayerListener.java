@@ -18,7 +18,7 @@ public class PlayerListener {
         if (!plugin.getWhitelistDatabase().getIPs(e.getPlayer().getUniqueId()).isEmpty() && !plugin.getWhitelistDatabase().getIPs(e.getPlayer().getUniqueId()).contains(ip)) {
             e.getPlayer().disconnect(
                     LegacyComponentSerializer.legacyAmpersand().deserialize(
-                            "&cYour IP is not allowed to join this server as &a%s\n\n&6Powered by &cAccountGuard".formatted(e.getPlayer().getUsername())
+                            this.plugin.getMessages().KICK_MESSAGE().replaceAll("%player%", e.getPlayer().getUsername())
                     )
             );
         }

@@ -13,6 +13,7 @@ public record Messages(
         String IP_REMOVED_FROM_WHITELIST,
         String IP_NOT_IN_WHITELIST,
         String WHITELIST_IP_LIST,
-        String RELOAD_MESSAGE
+        String RELOAD_MESSAGE,
+        String KICK_MESSAGE
 ) {
 }

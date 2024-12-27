@@ -115,7 +115,8 @@ public class AGVelocity implements AccountGuard {
                 messagesYaml.getString("IP_REMOVED_FROM_WHITELIST"),
                 messagesYaml.getString("IP_NOT_IN_WHITELIST"),
                 messagesYaml.getString("WHITELIST_IP_LIST"),
-                messagesYaml.getString("RELOAD_MESSAGE")
+                messagesYaml.getString("RELOAD_MESSAGE"),
+                messagesYaml.getString("KICK_MESSAGE")
         );
     }
 

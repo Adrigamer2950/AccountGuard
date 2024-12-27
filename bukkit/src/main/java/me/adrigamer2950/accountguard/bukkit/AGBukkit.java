@@ -146,7 +146,8 @@ public final class AGBukkit extends APIPlugin implements AccountGuard {
                 this.messagesYaml.getString("IP_REMOVED_FROM_WHITELIST"),
                 this.messagesYaml.getString("IP_NOT_IN_WHITELIST"),
                 this.messagesYaml.getString("WHITELIST_IP_LIST"),
-                this.messagesYaml.getString("RELOAD_MESSAGE")
+                this.messagesYaml.getString("RELOAD_MESSAGE"),
+                this.messagesYaml.getString("KICK_MESSAGE")
         );
     }
 
